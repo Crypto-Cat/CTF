@@ -1,0 +1,28 @@
+Best CTF sites and learning resources:
+
+https://ctftime.org/
+https://app.hackthebox.eu/
+https://overthewire.org/wargames/
+https://ctf.hacker101.com/
+https://portswigger.net/web-security
+https://www.vulnhub.com/
+https://dca.immersivelabs.online/
+https://tryhackme.com/
+https://ropemporium.com/
+https://exploit.education/
+https://www.hacking-lab.com/index.html
+https://www.hackthissite.org/
+http://smashthestack.org/wargames.html
+https://w3challs.com/challenges/
+https://ringzer0ctf.com/challenges
+https://www.enigmagroup.org/
+https://www.root-me.org/
+https://challenges.re/
+https://pwnable.tw/challenge/
+
+Pwn videos:
+https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN
+
+For more:
+https://apsdehal.in/awesome-ctf/
+https://github.com/CompassSecurity/security_resources
