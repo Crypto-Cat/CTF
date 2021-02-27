@@ -1,17 +1,17 @@
 from pwn import *
 
 
-def find_eip(payload):
+def find_ip(payload):
     # Launch process and send payload
     p = process(exe)
     p.sendlineafter('>', payload)
     # Wait for the process to crash
     p.wait()
     # Print out the address of EIP/RIP at the time of crashing
-    eip_offset = cyclic_find(p.corefile.eip)
-    info('located EIP offset at {a}'.format(a=eip_offset))
-    # Return the EIP offset
-    return eip_offset
+    ip_offset = cyclic_find(p.corefile.pc)  # x86
+    # ip_offset = cyclic_find(p.corefile.read(p.corefile.sp, 4))  # x64
+    info('located EIP/RIP offset at {a}'.format(a=ip_offset))
+    return ip_offset
 
 
 # Set up pwntools for the correct architecture
@@ -25,8 +25,8 @@ context.log_level = 'info'
 #                    EXPLOIT GOES HERE
 # ===========================================================
 
-# Pass in pattern_size, get back EIP offset
-offset = find_eip(cyclic(100))
+# Pass in pattern_size, get back EIP/RIP offset
+offset = find_ip(cyclic(100))
 
 # Start program
 io = process()
