@@ -9,7 +9,7 @@ def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
         return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
     elif args.REMOTE:  # ('server', 'port')
-        p = remote(sys.argv[1], sys.argv[2])
+        return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
 
