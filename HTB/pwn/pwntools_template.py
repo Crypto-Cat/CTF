@@ -1,5 +1,18 @@
 from pwn import *
 
+# Many built-in settings can be controlled via CLI and show up in "args"
+# For example, to dump all data sent/received, and disable ASLR
+# ./exploit.py DEBUG NOASLR
+
+
+def start(argv=[], *a, **kw):
+    if args.GDB:  # Set GDBscript below
+        return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
+    elif args.REMOTE:  # ('server', 'port')
+        p = remote(sys.argv[1], sys.argv[2])
+    else:  # Run locally
+        return process([exe] + argv, *a, **kw)
+
 
 def find_ip(payload):
     # Launch process and send payload
@@ -12,6 +25,13 @@ def find_ip(payload):
     # ip_offset = cyclic_find(p.corefile.read(p.corefile.sp, 4))  # x64
     info('located EIP/RIP offset at {a}'.format(a=ip_offset))
     return ip_offset
+
+
+# Specify your GDB script here for debugging
+gdbscript = '''
+init-pwndbg
+continue
+'''.format(**locals())
 
 
 # Set up pwntools for the correct architecture
@@ -29,17 +49,12 @@ context.log_level = 'info'
 offset = find_ip(cyclic(100))
 
 # Start program
-io = process()
-# io = remote('server', 1337)
+io = start()
 
 # Build the payload
 payload = flat(
     {offset: ""}
 )
-
-# gdb.attach(io, gdbscript='''
-# init-pwndbg
-# ''')
 
 # Save the payload to file
 write('payload', payload)
