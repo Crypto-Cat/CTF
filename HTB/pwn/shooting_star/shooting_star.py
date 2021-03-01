@@ -31,7 +31,7 @@ def find_ip(payload):
 # Specify your GDB script here for debugging
 gdbscript = '''
 init-pwndbg
-break star
+break main
 '''.format(**locals())
 
 
