@@ -52,9 +52,11 @@ offset = find_ip(cyclic(100))
 io = start()
 
 # Build the payload
-payload = flat(
-    {offset: ""}
-)
+payload = flat({
+    offset: [
+
+    ]
+})
 
 # Save the payload to file
 write('payload', payload)
@@ -63,6 +65,9 @@ write('payload', payload)
 io.sendlineafter('>', payload)
 io.recvuntil('Thank you!\n')
 
+# Got Shell?
+io.interactive()
+# Or,
 # Get our flag!
 flag = io.recv()
 success(flag)
