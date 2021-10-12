@@ -1,11 +1,8 @@
 from pwn import *
 from pwnlib.fmtstr import FmtStr, fmtstr_split, fmtstr_payload
 
-# Many built-in settings can be controlled via CLI and show up in "args"
-# For example, to dump all data sent/received, and disable ASLR
-# ./exploit.py DEBUG NOASLR
 
-
+# Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
         return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)

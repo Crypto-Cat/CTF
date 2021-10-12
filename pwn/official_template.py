@@ -31,7 +31,6 @@ init-pwndbg
 continue
 '''.format(**locals())
 
-
 # Binary filename
 exe = './vuln'
 # This will automatically get context arch, bits, os etc

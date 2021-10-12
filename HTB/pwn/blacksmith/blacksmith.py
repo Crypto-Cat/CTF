@@ -1,6 +1,7 @@
 from pwn import *
 
 
+# Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
         return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
