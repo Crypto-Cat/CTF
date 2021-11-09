@@ -6,7 +6,7 @@ CTFTime: https://ctftime.org \
 HackTheBox: https://app.hackthebox.eu \
 TryHackMe: https://tryhackme.com \
 OffSec Proving Grounds: https://www.offensive-security.com/labs \
-PenteserLab: https://pentesterlab.com \
+PentesterLab: https://pentesterlab.com \
 OverTheWire: https://overthewire.org/wargames \
 HackerOne: https://ctf.hacker101.com \
 Web Security Academy: https://portswigger.net/web-security \
