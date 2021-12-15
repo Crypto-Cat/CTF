@@ -27,6 +27,7 @@ Ringzer0CTF: https://ringzer0ctf.com/challenges \
 Enigma Group: https://www.enigmagroup.org \
 Root Me: https://www.root-me.org \
 Reversing Challenges: https://challenges.re \
+CrackMes: https://crackmes.one \
 Pwnables: https://pwnable.tw/challenge \
 Pwn.College: https://pwn.college \
 How2Heap: https://github.com/shellphish/how2heap
