@@ -57,6 +57,11 @@ HackerSploit: https://www.youtube.com/c/HackerSploit \
 Condingo: https://www.youtube.com/c/codingo \
 InsiderPhd: https://www.youtube.com/c/InsiderPhD \
 HackSplained: https://www.youtube.com/c/Hacksplained \
+TheCyberMentor: https://www.youtube.com/c/TheCyberMentor \
+StackSmashing: https://www.youtube.com/c/stacksmashing \
+Cybersecurity Meg: https://www.youtube.com/c/CybersecurityMeg \
+Tib3rius: https://www.youtube.com/c/Tib3rius \
+SecAura: https://www.youtube.com/channel/UCx89Lz24SEPZpExl6OfQ0Gg \
 Others: https://securitycreators.video
 
 # More:
