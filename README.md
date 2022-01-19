@@ -62,13 +62,28 @@ StackSmashing: https://www.youtube.com/c/stacksmashing \
 Cybersecurity Meg: https://www.youtube.com/c/CybersecurityMeg \
 Tib3rius: https://www.youtube.com/c/Tib3rius \
 SecAura: https://www.youtube.com/channel/UCx89Lz24SEPZpExl6OfQ0Gg \
+DarkSec: https://www.youtube.com/c/DarkSec \
+Hexorcist: https://www.youtube.com/c/HEXORCIST \
+PwnCollege: https://www.youtube.com/c/pwncollege \
+NahamSec: https://www.youtube.com/c/Nahamsec \
+Optional: https://www.youtube.com/c/optionalctf \
 Others: https://securitycreators.video
 
 # More:
-https://apsdehal.in/awesome-ctf \
-https://github.com/CompassSecurity/security_resources \
-https://www.hacker101.com/resources \
-https://book.hacktricks.xyz \
-https://hshrzd.wordpress.com/how-to-start \
-https://guyinatuxedo.github.io \
-https://0xdf.gitlab.io/
+Ghidra: https://ghidra.re/CheatSheet.html \
+Volatility: https://github.com/volatilityfoundation/volatility/wiki/Linux \
+PwnTools: https://github.com/Gallopsled/pwntools-tutorial \
+CyberChef: https://gchq.github.io/CyberChef \
+DCode: https://www.dcode.fr/en \
+HackTricks: https://book.hacktricks.xyz/pentesting-methodology \
+Forensics: https://cugu.github.io/awesome-forensics \
+Decompile Code: https://www.decompiler.com \
+Run Code: https://tio.run \
+CTF Resources: https://github.com/apsdehal/awesome-ctf \
+Security Resources: https://github.com/CompassSecurity/security_resources \
+Bug Bounty Resources: https://www.hacker101.com/resources \
+Learn RE: https://hshrzd.wordpress.com/how-to-start \
+Learn BinExp: https://guyinatuxedo.github.io \
+HTB Writeups: https://0xdf.gitlab.io \
+ExploitDB: https://www.exploit-db.com \
+GTFOBins: https://gtfobins.github.io \
