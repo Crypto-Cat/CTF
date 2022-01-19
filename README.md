@@ -86,4 +86,4 @@ Learn RE: https://hshrzd.wordpress.com/how-to-start \
 Learn BinExp: https://guyinatuxedo.github.io \
 HTB Writeups: https://0xdf.gitlab.io \
 ExploitDB: https://www.exploit-db.com \
-GTFOBins: https://gtfobins.github.io \
+GTFOBins: https://gtfobins.github.io
