@@ -32,7 +32,7 @@ Pwnables: https://pwnable.tw/challenge \
 Pwn.College: https://pwn.college \
 How2Heap: https://github.com/shellphish/how2heap
 
-# Videos:
+# Videos
 LiveOverflow: https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN \
 John Hammond: https://www.youtube.com/c/JohnHammond010 \
 IppSec: https://www.youtube.com/c/UCa6eh7gCkpPo5XXUDfygQQA \
@@ -69,7 +69,7 @@ NahamSec: https://www.youtube.com/c/Nahamsec \
 Optional: https://www.youtube.com/c/optionalctf \
 Others: https://securitycreators.video
 
-# More:
+# More
 Ghidra: https://ghidra.re/CheatSheet.html \
 Volatility: https://github.com/volatilityfoundation/volatility/wiki/Linux \
 PwnTools: https://github.com/Gallopsled/pwntools-tutorial \
