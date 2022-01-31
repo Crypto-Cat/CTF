@@ -10,9 +10,11 @@ PentesterLab: https://pentesterlab.com \
 OverTheWire: https://overthewire.org/wargames \
 HackerOne: https://ctf.hacker101.com \
 Web Security Academy: https://portswigger.net/web-security \
+HackXOR: https://hackxor.net \
 VulnHub: https://www.vulnhub.com \
 Damn Vulnerable Web Application: https://dvwa.co.uk \
 OWASP Juice Shop: https://github.com/juice-shop/juice-shop-ctf \
+CTF Challenge: https://ctfchallenge.com \
 Immersive Labs: https://dca.immersivelabs.online \
 ROP Emporium: https://ropemporium.com \
 Exploit Education: https://exploit.education \
