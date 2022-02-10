@@ -37,20 +37,20 @@ How2Heap: https://github.com/shellphish/how2heap
 # Videos
 LiveOverflow: https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN \
 John Hammond: https://www.youtube.com/c/JohnHammond010 \
-IppSec: https://www.youtube.com/c/UCa6eh7gCkpPo5XXUDfygQQA \
-XCT: https://www.youtube.com/c/UClGm2C8Qi0_Wv68zfjCz2YA \
+IppSec: https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA \
+XCT: https://www.youtube.com/channel/UClGm2C8Qi0_Wv68zfjCz2YA \
 Gynvael: https://www.youtube.com/user/GynvaelEN \
 ZetaTwo: https://www.youtube.com/c/ZetaTwo \
-PwnFunction: https://www.youtube.com/c/UCW6MNdOsqv2E9AjQkv9we7A \
-0xdf: https://www.youtube.com/c/UChO9OAH57Flz35RRX__E25A \
-247CTF: https://www.youtube.com/c/UCtGLeKomT06x3xZ2SZp2l9Q \
-MalFind: https://www.youtube.com/c/UCJf4-reOhoiAlScWC1WzLgQ \
+PwnFunction: https://www.youtube.com/channel/UCW6MNdOsqv2E9AjQkv9we7A \
+0xdf: https://www.youtube.com/channel/UChO9OAH57Flz35RRX__E25A \
+247CTF: https://www.youtube.com/channel/UCtGLeKomT06x3xZ2SZp2l9Q \
+MalFind: https://www.youtube.com/channel/UCJf4-reOhoiAlScWC1WzLgQ \
 DayZeroSec: https://www.youtube.com/c/dayzerosec \
 Rana Khalil: https://www.youtube.com/c/RanaKhalil101 \
-PinkDraconian: https://www.youtube.com/c/UCmXwpkCXmIKjoRLMsq9I3RA \
-Superhero1: https://www.youtube.com/c/UCm2SwKmx3Ya1HG5RmHR7SCA \
+PinkDraconian: https://www.youtube.com/channel/UCmXwpkCXmIKjoRLMsq9I3RA \
+Superhero1: https://www.youtube.com/channel/UCm2SwKmx3Ya1HG5RmHR7SCA \
 S1lk: https://www.youtube.com/c/AlexChaveriat \
-Alh4zr3d: https://www.youtube.com/c/UCz-Z-d2VPQXHGkch0-_KovA \
+Alh4zr3d: https://www.youtube.com/channel/UCz-Z-d2VPQXHGkch0-_KovA \
 Paweł Łukasik: https://www.youtube.com/c/PawelLukasik \
 Ephemeral: https://www.youtube.com/c/BasteG0d69 \
 Hak5: https://www.youtube.com/c/hak5 \
