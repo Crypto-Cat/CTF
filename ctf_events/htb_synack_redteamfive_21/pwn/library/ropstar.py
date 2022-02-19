@@ -1,9 +1,5 @@
 from pwn import *
 
-# Many built-in settings can be controlled via CLI and show up in "args"
-# For example, to dump all data sent/received, and disable ASLR
-# ./exploit.py DEBUG NOASLR
-
 
 def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
