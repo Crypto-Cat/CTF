@@ -31,6 +31,7 @@ CTF chall write-ups, files, scripts etc to go with my video walkthroughs **[HERE
 **[Reversing Challenges](https://challenges.re)**<br>
 **[CrackMes](https://crackmes.one)**<br>
 **[Pwnables](https://pwnable.tw/challenge)**<br>
+**[Deusx64](https://deusx64.ai)**<br>
 **[Pwn.College](https://pwn.college)**<br>
 **[How2Heap](https://github.com/shellphish/how2heap)**
 
