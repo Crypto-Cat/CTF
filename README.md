@@ -29,11 +29,14 @@ CTF chall write-ups, files, scripts etc to go with my video walkthroughs **[HERE
 **[Enigma Group](https://www.enigmagroup.org)**<br>
 **[Root Me](https://www.root-me.org)**<br>
 **[Reversing Challenges](https://challenges.re)**<br>
+**[Begin RE](https://www.begin.re)**<br>
 **[CrackMes](https://crackmes.one)**<br>
 **[Pwnables](https://pwnable.tw/challenge)**<br>
 **[Deusx64](https://deusx64.ai)**<br>
 **[Pwn.College](https://pwn.college)**<br>
-**[How2Heap](https://github.com/shellphish/how2heap)**
+**[How2Heap](https://github.com/shellphish/how2heap)**<br>
+**[Pico Heap (Faith)](https://faraz.faith/2019-10-12-picoctf-2019-heap-challs/)**<br>
+**[Azeria Labs](https://azeria-labs.com/writing-arm-assembly-part-1)**
 
 # Videos
 **[LiveOverflow](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN)**<br>
@@ -85,6 +88,7 @@ CTF chall write-ups, files, scripts etc to go with my video walkthroughs **[HERE
 **[CTF Resources](https://github.com/apsdehal/awesome-ctf)**<br>
 **[Security Resources](https://github.com/CompassSecurity/security_resources)**<br>
 **[Bug Bounty Resources](https://www.hacker101.com/resources)**<br>
+**[Seal9055 Resources](https://github.com/seal9055/resources)**<br>
 **[Learn RE](https://hshrzd.wordpress.com/how-to-start)**<br>
 **[Learn BinExp](https://guyinatuxedo.github.io)**<br>
 **[HTB Writeups](https://0xdf.gitlab.io)**<br>
