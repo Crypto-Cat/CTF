@@ -75,6 +75,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[PwnCollege](https://www.youtube.com/c/pwncollege)**<br>
 **[NahamSec](https://www.youtube.com/c/Nahamsec)**<br>
 **[Optional](https://www.youtube.com/c/optionalctf)**<br>
+**[TheHackerish](https://www.youtube.com/c/thehackerish)**<br>
 **[Others](https://securitycreators.video)**
 
 # More
