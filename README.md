@@ -76,6 +76,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[NahamSec](https://www.youtube.com/c/Nahamsec)**<br>
 **[Optional](https://www.youtube.com/c/optionalctf)**<br>
 **[TheHackerish](https://www.youtube.com/c/thehackerish)**<br>
+**[Ryan Gordon](https://www.youtube.com/channel/UCQWQlNq07_Rumy2i69dpqBw)**<br>
 **[Others](https://securitycreators.video)**
 
 # More
