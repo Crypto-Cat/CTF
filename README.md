@@ -77,6 +77,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Optional](https://www.youtube.com/c/optionalctf)**<br>
 **[TheHackerish](https://www.youtube.com/c/thehackerish)**<br>
 **[Ryan Gordon](https://www.youtube.com/channel/UCQWQlNq07_Rumy2i69dpqBw)**<br>
+**[0day](https://twitter.com/0dayCTF)**<br>
 **[Others](https://securitycreators.video)**
 
 # More
@@ -97,4 +98,5 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Learn BinExp](https://guyinatuxedo.github.io)**<br>
 **[HTB Writeups](https://0xdf.gitlab.io)**<br>
 **[ExploitDB](https://www.exploit-db.com)**<br>
-**[GTFOBins](https://gtfobins.github.io)**
+**[GTFOBins](https://gtfobins.github.io)**<br>
+**[RevShells](https://revshells.com)**
