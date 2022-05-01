@@ -97,4 +97,5 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Learn BinExp](https://guyinatuxedo.github.io)**<br>
 **[HTB Writeups](https://0xdf.gitlab.io)**<br>
 **[ExploitDB](https://www.exploit-db.com)**<br>
-**[GTFOBins](https://gtfobins.github.io)**
+**[GTFOBins](https://gtfobins.github.io)**<br>
+**[RevShells](https://revshells.com)**
