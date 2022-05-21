@@ -38,7 +38,8 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Pwn.College](https://pwn.college)**<br>
 **[How2Heap](https://github.com/shellphish/how2heap)**<br>
 **[Pico Heap (Faith)](https://faraz.faith/2019-10-12-picoctf-2019-heap-challs/)**<br>
-**[Azeria Labs](https://azeria-labs.com/writing-arm-assembly-part-1)**
+**[Azeria Labs](https://azeria-labs.com/writing-arm-assembly-part-1)**<br>
+**[LetsDefend (Blue Team)](https://letsdefend.io)**
 
 # Videos
 **[LiveOverflow](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN)**<br>
