@@ -4,11 +4,11 @@ from pwn import *
 elf = context.binary = ELF('./chall', checksec=False)
 context.log_level = 'debug'
 
-# This prints out all of flag from .data section
-#print(elf.data[0x20f0:(0x20f0 + (52 * 4))].hex())
+# Encoded flag from .data section (offset found in GDB)
+raw_flag = str(elf.data[0x20f0:(0x20f0 + (52 * 4))].hex())
 
-# Encrypted flag, as extracted above - I just regexed out "00000"
-enc_flag = unhex('988b88c371b67ea372bb737d7aa9747368a4b66e62bc616162b367bc616bb8b5565489558c505b5153545d5e50868989484f49f1')
+# Each byte of flag stored in 4 byte, so remove 3 bytes of padding
+enc_flag = unhex(raw_flag.replace('000000', ''))
 dec_flag = ''
 
 for i, enc_char in enumerate(enc_flag):
