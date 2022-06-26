@@ -179,7 +179,7 @@ When we select a menu option, e.g. `S` the `user->whatToDo` function pointer is 
 
 
 **(S)** Leak `hahaexploitgobrrr` address\
-**(I)** free() the `user` object\
+**(I)** `free()` the `user` object\
 **(M)** Create account, sets `user->username`\
 **(P)** Print unimportant string\
 **(L)** Leave a message, reads 8 bytes into new chunk (`malloc(8)`)\
