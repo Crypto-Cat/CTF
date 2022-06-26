@@ -170,19 +170,23 @@ Goal is to call the `hahaexploitgobrrr` function, printing the flag.
 
 \*Program is 32-bit, so the two pointers are 4 bytes each, and you would assume `malloc(8)`. However, ghidra shows `malloc(4)` because the code uses `(cmd *)malloc(sizeof(user))` where `user` is a 4 byte pointer. However, when we debug the program, we see a 16-byte chunk is assigned, so `malloc(16)`.
 
+```
 `main()` then indefinitely loops:
     - `printMenu()` - print menu options
     - `processInput()` - read user input
     - `doProcess(user)` - execute the current function pointed to by `user->whatToDo`
+```
 
 When we select a menu option, e.g. `S` the `user->whatToDo` function pointer is updated, to point at the relevant function, e.g. `s`:
 
+```
 S. Leak `hahaexploitgobrrr` address
 I. `free()` the `user` object
 M. Create account, sets `user->username`
 P. Print unimportant string
 L. Leave a message, reads 8 bytes into new chunk (`malloc(8)`)
 E. Exit the program
+```
 
 Let's re-order these menu options into an exploit:
 
