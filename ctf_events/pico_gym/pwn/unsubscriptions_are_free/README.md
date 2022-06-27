@@ -234,7 +234,7 @@ The chunk size is 16.
 0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free.
 
 ```sh
-pwndbg> x/8gwx 0x95cd1a0 - 4
+pwndbg> x/8wx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x00000000	0x00000000	0x00000000
 0x95cd1ac:	0x00021e59	0x00000000	0x00000000	0x00000000
 ```
@@ -242,7 +242,7 @@ pwndbg> x/8gwx 0x95cd1a0 - 4
 We'll create a user "crypto" and check the chunk again.
 
 ```sh
-pwndbg> x/8gwx 0x95cd1a0 - 4
+pwndbg> x/8wx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x080489f6	0x095ce1c0	0x00000000
 0x95cd1ac:	0x00001011	0x70797263	0x000a6f74	0x00000000
 ```
@@ -300,7 +300,7 @@ otpyrc
 We can check the chunk data again.
 
 ```sh
-pwndbg> x/8gwx 0x95cd1a0 - 4
+pwndbg> x/8wx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x00000000	0x095cd010	0x00000000
 0x95cd1ac:	0x00001011	0x70790a59	0x000a6f74	0x00000000
 ```
