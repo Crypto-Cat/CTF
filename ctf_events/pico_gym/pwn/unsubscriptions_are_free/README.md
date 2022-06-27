@@ -229,7 +229,7 @@ The **first breakpoint** shows the address of the `user` chunk (`0x95cd1a0`), re
    0x8048d92 <main+93>    call   doProcess                     <doProcess>
 ```
 
-The chunk size is 1.
+The chunk size is 16.
 
 0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free.
 
