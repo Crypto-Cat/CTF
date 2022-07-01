@@ -61,7 +61,7 @@ ssize_t write(int __fd,void *__buf,size_t __n)
   void *next;
   void *tail;
   void *element;
-  
+
   puts("What element index would you like to write to?");
   printf("Valid values: 0 to %d, inclusive\n\n",(ulong)max_len);
   printf(">>> ");
@@ -530,7 +530,7 @@ ictf{who_knew_the_current_date_could_be_so_dangerous?}$
 *RIP  0x401241 (write_data+60) ◂— call   0x401080
 ──────────────────────────────────────────────────────[ DISASM ]───────────────────────────────────────────────────────
    0x401229 <write_data+36>    call   printf@plt                      <printf@plt>
- 
+
    0x40122e <write_data+41>    mov    rdx, qword ptr [rip + 0x2e4b] <stdin@GLIBC_2.2.5>
    0x401235 <write_data+48>    mov    rax, qword ptr [rbp - 0x18]
    0x401239 <write_data+52>    mov    esi, 0x64
@@ -542,6 +542,23 @@ ictf{who_knew_the_current_date_could_be_so_dangerous?}$
 ```
 
 Notice that the RSP (`0x7fff526190b0`) no longer ends with an `8`, like it did when we were getting a segfault.
+
+**double edit:** After reading the official write-up, I realised my mistake of using `system+1`. I had misinterpreted the advice, as in theirs they use the PLT address of system, rather than leaking from Lib-C. There's a good summary of PLT vs GOT (and plt.got vs got.plt) **[HERE](https://systemoverlord.com/2017/03/19/got-and-plt-for-pwning.html)**.
+
+> TL;DR: Those starting with .plt contain stubs to jump to the target, those starting with .got are tables of the target addresses.
+
+Here's a snippet of the `plt.system` section of the binary. We should of used `0x401060` in this instance.
+
+```c
+thunk int system(char * __command)
+      Thunked-Function: <EXTERNAL>::system
+int           EAX:4      <RETURN>
+char *        RDI:8      __command
+        <EXTERNAL>::system     XREF[1]:  view_time:0040141a(c)
+00401060 ff 25       JMP      qword ptr [-><EXTERNAL>::system]
+00401066 68 03       PUSH     0x3
+0040106b e9 b0       JMP      FUN_00401020
+```
 
 ## Solve Script
 
