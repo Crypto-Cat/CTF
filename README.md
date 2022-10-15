@@ -31,6 +31,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Ringzer0CTF](https://ringzer0ctf.com/challenges)**<br>
 **[Enigma Group](https://www.enigmagroup.org)**<br>
 **[Root Me](https://www.root-me.org)**<br>
+**[Hacktoria](https://hacktoria.com)**<br>
 **[Reversing Challenges](https://challenges.re)**<br>
 **[Begin RE](https://www.begin.re)**<br>
 **[CrackMes](https://crackmes.one)**<br>
