@@ -14,7 +14,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Web Security Academy](https://portswigger.net/web-security)**<br>
 **[HackXOR](https://hackxor.net)**<br>
 **[VulnHub](https://www.vulnhub.com)**<br>
-**[Damn Vulnerable Web Application](https://dvwa.co.uk)**<br>
+**[Damn Vulnerable Web Application](https://github.com/digininja/DVWA)**<br>
 **[OWASP Juice Shop](https://github.com/juice-shop/juice-shop-ctf)**<br>
 **[CTF Challenge](https://ctfchallenge.com)**<br>
 **[Immersive Labs](https://dca.immersivelabs.online)**<br>
@@ -24,6 +24,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[247CTF](https://247ctf.com)**<br>
 **[CryptoHack](https://cryptohack.org)**<br>
 **[HackingLab](https://www.hacking-lab.com/index.html)**<br>
+**[CyberSecLabs](https://www.cyberseclabs.co.uk)**<br>
 **[HackThisSite](https://www.hackthissite.org)**<br>
 **[SmashTheStack](http://smashthestack.org/wargames.html)**<br>
 **[W3Challs](https://w3challs.com/challenges)**<br>
