@@ -3,7 +3,7 @@ CTF chall write-ups, files, scripts etc to go with my video walkthroughs **[HERE
 
 A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 
-# Practical Resources: **CTF**
+# CTF
 **[CTFTime](https://ctftime.org)**<br>
 **[OverTheWire](https://overthewire.org/wargames)**<br>
 **[PicoCTF](https://play.picoctf.org)**<br>
@@ -19,7 +19,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Enigma Group](https://www.enigmagroup.org)**<br>
 **[Root Me](https://www.root-me.org)**
 
-# Practical Resources: **Pentesting**
+# Pentesting
 **[HackTheBox](https://app.hackthebox.eu)**<br>
 **[TryHackMe](https://tryhackme.com)**<br>
 **[OffSec Proving Grounds](https://www.offensive-security.com/labs)**<br>
@@ -35,7 +35,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[HackXOR](https://hackxor.net)**<br>
 **[Hacktoria](https://hacktoria.com)**
 
-# Practical Resources: **Binary Exploitation (Pwn) / Reverse Engineering (Rev)**
+# Binary Exploitation (Pwn) / Reverse Engineering (Rev)
 **[Pwn.College](https://pwn.college)**<br>
 **[ROP Emporium](https://ropemporium.com)**<br>
 **[Exploit Education](https://exploit.education)**<br>
@@ -48,7 +48,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Begin RE](https://www.begin.re)**<br>
 **[CrackMes](https://crackmes.one)**
 
-# Practical Resources: **Blue Team**
+# Blue Team (Defense)
 **[LetsDefend](https://letsdefend.io)**<br>
 **[Blue Team Labs Online](https://blueteamlabs.online)**<br>
 **[Cyber Defenders](https://cyberdefenders.org)**<br>
