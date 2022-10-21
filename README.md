@@ -42,6 +42,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Pico Heap (Faith)](https://faraz.faith/2019-10-12-picoctf-2019-heap-challs/)**<br>
 **[Azeria Labs](https://azeria-labs.com/writing-arm-assembly-part-1)**<br>
 **[LetsDefend (Blue Team)](https://letsdefend.io)**
+**[Roppers Academy](https://roppers.org/collections)**
 
 # Videos
 **[LiveOverflow](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN)**<br>
