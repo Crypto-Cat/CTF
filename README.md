@@ -1,4 +1,4 @@
-# CTF
+# Hacking Resources
 CTF chall write-ups, files, scripts etc to go with my video walkthroughs **[HERE](https://www.youtube.com/@_CryptoCat)**
 
 A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
