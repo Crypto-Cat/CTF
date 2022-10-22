@@ -94,7 +94,8 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Ryan Gordon](https://www.youtube.com/c/0xRy4n)**<br>
 **[AlmondForce](https://www.youtube.com/c/AlmondForce)**<br>
 **[VulnMachines](https://www.youtube.com/c/vulnmachines)**<br>
-**[Others](https://securitycreators.video)**
+**[More](https://securitycreators.video)**<br>
+**[Even More..](https://www.youtube.com/c/CryptoCat23/channels?view=56&shelf_id=0)**
 
 # Tools
 **[Ghidra](https://ghidra.re/CheatSheet.html)**<br>
