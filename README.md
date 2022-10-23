@@ -98,7 +98,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Even More..](https://www.youtube.com/c/CryptoCat23/channels?view=56&shelf_id=0)**
 
 # Tools
-**[Ghidra](https://ghidra.re/CheatSheet.html)**<br>
+**[Ghidra](https://ghidra-sre.org/CheatSheet.html)**<br>
 **[Volatility](https://github.com/volatilityfoundation/volatility/wiki/Linux)**<br>
 **[PwnTools](https://github.com/Gallopsled/pwntools-tutorial)**<br>
 **[CyberChef](https://gchq.github.io/CyberChef)**<br>
