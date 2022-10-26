@@ -109,4 +109,5 @@ qssh() {
 }
 rdp() {
     xfreerdp /u:$1 /p:$2 /v:$3 /size:1440x810 /clipboard /cert-ignore ${@: 4};
-}```
+}
+```
