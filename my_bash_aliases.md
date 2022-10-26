@@ -64,7 +64,6 @@ urlencode() {
 urldecode() {
     python3 -c "from pwn import *; print(urldecode('$1'));"
 }
-
 ffuf-vhost() {
     arg_count=3
     if [[ $2 && $2 != -* ]]; then
@@ -85,7 +84,6 @@ ffuf-dir() {
     fi
     ffuf -c -u $1FUZZ -w $wordlist ${@: $arg_count};
 }
-
 ffuf-req() {
     arg_count=2
     if [[ $1 && $1 != -* ]]; then
