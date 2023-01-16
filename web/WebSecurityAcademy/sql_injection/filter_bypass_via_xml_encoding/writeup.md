@@ -1,5 +1,8 @@
 ---
+Challenge Name: SQL injection with Filter Bypass via XML Encoding
+Category: SQL Injection
 Difficulty: Practitioner
+Link: https://portswigger.net/web-security/sql-injection/lab-sql-injection-with-filter-bypass-via-xml-encoding
 ---
 [![VIDEO WALKTHROUGH](https://img.youtube.com/vi/2iqMm0gMyHk/0.jpg)](https://youtu.be/2iqMm0gMyHk "SQL injection with Filter Bypass via XML Encoding")
 
