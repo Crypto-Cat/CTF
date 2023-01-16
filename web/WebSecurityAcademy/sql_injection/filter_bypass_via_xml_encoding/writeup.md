@@ -149,6 +149,8 @@ It's only in the actual HTTP request POST data where we see.
 
 I didn't find a working solution for SQLMap, if you know how to prevent the encoding of `&amp;` leave a message on the [YT video](https://www.youtube.com/watch?v=2iqMm0gMyHk) or DM me on [Twitter](https://twitter.com/_CryptoCat) 🙂
 
+**UPDATE:** 0x999 found a fix for this; you can remove the `.replace('&', "&amp;")` on line 1059 of the `sqlmap/lib/request/connect.py` file and it will successfully dump the database 😈 - https://twitter.com/_0x999/status/1615054152291258385
+
 ## Resources
 - [CyberChef: Convert ASCII chars to HTML entities](https://gchq.github.io/CyberChef/#recipe=To_HTML_Entity(true,'Hex%20entities')&input=VEVTVA)
 - [Intigriti SQLi thread](https://twitter.com/intigriti/status/1612444237106126850)
