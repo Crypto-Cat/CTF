@@ -4,7 +4,7 @@ Category: XSS
 Difficulty: Apprentice
 Link: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-jquery-selector-hash-change-event
 ---
-[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/TODO/0.jpg)](TODO:URL "DOM XSS in jQuery selector sink using a hashchange event")
+[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/TODO/0.jpg)](TODO:URL "TODO:TITLE")
 
 ## Background
 ### What is the DOM?
@@ -60,7 +60,7 @@ In this example, the `src` points to the vulnerable page with an empty hash valu
 ## Solution
 Exploring the functionality of the website, we find we are able to view posts and leave comments (`comment`, `name`, `email`, `website`).
 
-Opening DevTools (F12) and searching for `"hashchange"` in the inspector identifies the following script.
+Opening DevTools (F12) on the main page and searching for `"hashchange"` in the inspector identifies the following script.
 ```js
 $(window).on('hashchange', function(){
 	var post = $('section.blog-list h2:contains(' + decodeURIComponent(window.location.hash.slice(1)) + ')');
@@ -99,6 +99,7 @@ As discussed earlier, this is because jQuery patched the vulnerability but explo
 When we `store` the iFrame in the exploit server body and `deliver exploit to victim`, the `print()` function is triggered in the victim/admin's browser and the lab is marked complete 🙂
 
 ## Resources
+- [OWASP: XSS Types](https://owasp.org/www-community/Types_of_Cross-Site_Scripting)
 - [Portswigger DOM Vulnerabilities](https://portswigger.net/web-security/dom-based)
 - [PortSwigger DOM-based XSS](https://portswigger.net/web-security/cross-site-scripting/dom-based)
 - [PortSwigger XSS Cheatsheet](https://portswigger.net/web-security/cross-site-scripting/cheat-sheet)
