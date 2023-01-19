@@ -4,7 +4,7 @@ Category: XSS
 Difficulty: Apprentice
 Link: https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-jquery-selector-hash-change-event
 ---
-[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/TODO/0.jpg)](TODO:URL "TODO:TITLE")
+[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/JgiX3kyK8ME/0.jpg)](https://youtu.be/JgiX3kyK8ME "DOM XSS in jQuery Selector Sink using a Hashchange Event")
 
 ## Background
 ### What is the DOM?
