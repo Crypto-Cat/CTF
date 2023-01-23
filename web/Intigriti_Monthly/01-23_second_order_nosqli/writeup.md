@@ -1,6 +1,5 @@
 ---
-Challenge Name: [intigriti](https://twitter.com/intigriti) January challenge  
-By [Samokosik](https://twitter.com/samk0o0) and [mrkcdl](https://twitter.com/mrkcdl)
+Name: Intigriti January challenge by Samokosik and mrkcdl
 Category: (No)SQL Injection
 Link: https://challenge-0123.intigriti.io
 ---
