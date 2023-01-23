@@ -1,5 +1,6 @@
 ---
-Name: Intigriti January challenge by Samokosik and mrkcdl
+Name: Intigriti January challenge (2023)
+Authors: Samokosik and mrkcdl
 Category: (No)SQL Injection
 Link: https://challenge-0123.intigriti.io
 ---
