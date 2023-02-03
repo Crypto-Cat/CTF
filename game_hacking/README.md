@@ -4,6 +4,7 @@
 - [NapoleonGames](https://app.intigriti.com/programs/hucklu/napoleongames)
 - [WimiGames](https://app.intigriti.com/programs/wimigames/wimigames)
 - [Embark Studios](https://app.intigriti.com/researcher/programs/embarkstudios/embarkstudios)
+- [Ubisoft](https://app.intigriti.com/researcher/programs/ubisoft/ubisoftvdp)
 ### BugCrowd
 - [Rec Room Video Games](https://bugcrowd.com/recroom-og) - `not recommended, closes reports for Frida`
 ### HackerOne
