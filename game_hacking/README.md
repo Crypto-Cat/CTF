@@ -1,4 +1,6 @@
-## Programs
+[![Check out my new game hacking series over on the intigriti YT channel 💜](https://img.youtube.com/vi/ku6AtIY-Lu0/0.jpg)](https://www.youtube.com/watch?v=ku6AtIY-Lu0&list=PLmqenIp2RQcg0x2mDAyL2MC23DAGcCR9b "Game Hacking: Cheat Engine")
+
+## Bug Bounty Programs
 ### Intigriti
 - [InnoGames](https://app.intigriti.com/programs/innogames/innogames)
 - [NapoleonGames](https://app.intigriti.com/programs/hucklu/napoleongames)
