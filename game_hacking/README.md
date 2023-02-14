@@ -76,6 +76,7 @@
 - [Valve: How I got a game on the Steam Store without anyone from Valve ever looking at it](https://medium.com/swlh/watch-paint-dry-how-i-got-a-game-on-the-steam-store-without-anyone-from-valve-ever-looking-at-it-2e476858c753)
 
 ## Tutorials/Guides
+- [Guided Hacking](https://guidedhacking.com)
 - [Game Hacking Academy](https://gamehacking.academy)
 - [Introduction to Game Hacking](https://medium.com/ax1al/introduction-to-game-hacking-fb70e29de60f)
 - [CS420 Game Hacking Course](https://www.youtube.com/playlist?list=PLt9cUwGw6CYG1b4L76vZ49tvI2mfmRSCl)
