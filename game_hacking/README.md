@@ -5,8 +5,9 @@
 - [InnoGames](https://app.intigriti.com/programs/innogames/innogames)
 - [NapoleonGames](https://app.intigriti.com/programs/hucklu/napoleongames)
 - [WimiGames](https://app.intigriti.com/programs/wimigames/wimigames)
-- [Embark Studios](https://app.intigriti.com/researcher/programs/embarkstudios/embarkstudios)
-- [Ubisoft](https://app.intigriti.com/researcher/programs/ubisoft/ubisoftvdp)
+- [Embark Studios](https://app.intigriti.com/programs/embarkstudios/embarkstudios)
+- [Ubisoft](https://app.intigriti.com/programs/ubisoft/ubisoftvdp)
+- [Ninja Kiwi Games](https://app.intigriti.com/programs/ninjakiwigames/ninjakiwigames)
 ### BugCrowd
 - [Rec Room Video Games](https://bugcrowd.com/recroom-og) - `not recommended, closes reports for Frida`
 ### HackerOne
@@ -58,6 +59,10 @@
 - [Twitter List](https://twitter.com/i/lists/1612447308234252293) - `hard to determine relevance, many are general reversing/malware focused`
 
 ## Bug Reports
+### 2023
+- [Dota 2: How a V8 Bug Was Exploited in the Game](https://decoded.avast.io/janvojtesek/dota-2-under-attack-how-a-v8-bug-was-exploited-in-the-game)
+- [Instant Games: DOM-XSS due to improper verification of supplied URLs](https://ysamm.com/?p=779)
+- [Facebook: Disclosing page admins by playing a game](https://medium.com/@sudipshah_66336/disclosing-facebook-page-admins-by-playing-a-game-2b0f4ed082e4)
 ### 2022
 - [XSS on account.leagueoflegends.com via XDM](https://medium.com/bored-engineer/xss-on-account-leagueoflegends-com-via-easyxdm-2016-75bcf9d582b5) - `reported 2016`
 - [Ubisoft: Fuzzing game server and blind format string](https://blog.bricked.tech/posts/tmnf/part1)
