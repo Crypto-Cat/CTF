@@ -1,2 +1,2 @@
 # Video to go with the HackTheBox Cyber Apocalypse 2022: Intergalactic Chase
-**[Pwn: Hellbound](https://youtu.be/U2OgL66-6BE)**
+[![VIDEO](https://img.youtube.com/vi/U2OgL66-6BE/0.jpg)](https://youtu.be/U2OgL66-6BE "HackTheBox Cyber Apocalypse 2022: Pwn")
