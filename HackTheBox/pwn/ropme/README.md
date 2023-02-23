@@ -1,2 +1,2 @@
 # RopMe: ret2libc
-**[SEE VIDEO WALKTHROUGH HERE](https://youtu.be/AaKLMc_J9z8)**
+[![VIDEO](https://img.youtube.com/vi/AaKLMc_J9z8/0.jpg)](https://youtu.be/AaKLMc_J9z8 "Ropme [hard]: HackTheBox Pwn Challenge (ret2libc)")

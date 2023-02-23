@@ -1,2 +1,2 @@
 # Console: ret2system
-**[SEE VIDEO WALKTHROUGH HERE](https://youtu.be/WgKFsSjTWjI)**
+[![VIDEO](https://img.youtube.com/vi/WgKFsSjTWjI/0.jpg)](https://youtu.be/WgKFsSjTWjI "HTB Console [easy]: HackTheBox Pwn Challenge (ret2system)")

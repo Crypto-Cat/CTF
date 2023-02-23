@@ -1,2 +1,2 @@
 # Leet Test: format string write exploit (with pwntools)
-**[SEE VIDEO WALKTHROUGH HERE](https://youtu.be/NOY_dc2fRbU)**
+[![VIDEO](https://img.youtube.com/vi/NOY_dc2fRbU/0.jpg)](https://youtu.be/NOY_dc2fRbU "Leet Test [easy]: HackTheBox Pwn Challenge (format string write exploit with pwntools)")

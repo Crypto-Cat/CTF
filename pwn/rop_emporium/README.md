@@ -1,2 +1,2 @@
 # Video tutorial series to go with the ROP Emporium challenges
-**[Playlist HERE](https://www.youtube.com/watch?v=oBZy0bGNezo&list=PLHUKi1UlEgOKAVRdiMlpX6hgayiY6dTwu)**
+[![VIDEO](https://img.youtube.com/vi/oBZy0bGNezo/0.jpg)](https://www.youtube.com/watch?v=oBZy0bGNezo&list=PLHUKi1UlEgOKAVRdiMlpX6hgayiY6dTwu&index=1 "ROP Emporium Tutorial Series")

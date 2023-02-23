@@ -1,2 +1,2 @@
 # Pwn Shop: ret2libc with stack pivot
-**[SEE VIDEO WALKTHROUGH HERE](https://youtu.be/RNqJjO3uf98)**
+[![VIDEO](https://img.youtube.com/vi/RNqJjO3uf98/0.jpg)](https://youtu.be/RNqJjO3uf98 "PwnShop [easy]: HackTheBox Pwn Challenge (ret2libc with stack pivot)")

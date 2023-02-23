@@ -1,2 +1,2 @@
 # Emdee Five for Life: automate MD5 hash generation (solved with BeautifulSoup and Burp Intruder)
-**[SEE VIDEO WALKTHROUGH HERE](https://youtu.be/n0Dg-19DB9Y)**
+[![VIDEO](https://img.youtube.com/vi/n0Dg-19DB9Y/0.jpg)](https://youtu.be/n0Dg-19DB9Y "Emdee Five for Life [easy]: HackTheBox Misc Challenge (BeautifulSoup / Burp Intruder)")

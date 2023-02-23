@@ -1,2 +1,2 @@
 # Sekure Decrypt: encrypted core dump
-**[SEE VIDEO WALKTHROUGH HERE](https://youtu.be/F6jiZpcSDO4)**
+[![VIDEO](https://img.youtube.com/vi/F6jiZpcSDO4/0.jpg)](https://youtu.be/F6jiZpcSDO4 "Sekure Decrypt [easy]: HackTheBox Reversing Challenge (encrypted core dump)")

@@ -1,2 +1,2 @@
 # Jeeves: stack variable overwrite
-**[SEE VIDEO WALKTHROUGH HERE](https://youtu.be/SgoCGETbnZg)**
+[![VIDEO](https://img.youtube.com/vi/SgoCGETbnZg/0.jpg)](https://youtu.be/SgoCGETbnZg "Jeeves [easy]: HackTheBox Pwn Challenge (stack variable overwrite)")
