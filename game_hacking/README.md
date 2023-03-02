@@ -102,10 +102,12 @@
 - [Stephen Chapman](https://www.youtube.com/user/seowhistleblower)
 - [LiveOverflow](https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w)
 - [247CTF](https://www.youtube.com/@247CTF)
-- [Cheat The Game](https://youtube.com/@ChrisFayte)
+- [CyborgElf](https://www.youtube.com/@CyborgElf)
 - [DexTag](https://www.youtube.com/@DexTag)
-- [iwanMods](https://www.youtube.com/@iwanMods)
+- [Cheat The Game](https://youtube.com/@ChrisFayte)
 - [cazz](https://www.youtube.com/@cazz)
+- [iwanMods](https://www.youtube.com/@iwanMods)
+- [Apxaey](https://www.youtube.com/@apxaey1459)
 
 ## Research
 - [TomorrowIsNew Blog](https://tomorrowisnew.com)
@@ -114,7 +116,7 @@
 
 ## Vulnerable Games
 - [Pwnie Island](https://www.pwnadventure.com)
-- [Squally](https://squallygame.com)
+- [Squally - not free!](https://squallygame.com)
 - [HackTheBox GamePwn](https://app.hackthebox.com/challenges)
 - [CTF Game Challenges](https://github.com/mrT4ntr4/CTF-Game-Challenges)
 - [idek2022 Game Challenge](https://github.com/flocto/writeups/tree/main/2023/idekCTF22/bloodbath)
