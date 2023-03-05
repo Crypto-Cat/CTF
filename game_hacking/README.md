@@ -116,11 +116,28 @@
 
 ## Vulnerable Games
 - [Pwnie Island](https://www.pwnadventure.com)
-- [Squally - not free!](https://squallygame.com)
+- [Squally](https://squallygame.com)
 - [HackTheBox GamePwn](https://app.hackthebox.com/challenges)
-- [CTF Game Challenges](https://github.com/mrT4ntr4/CTF-Game-Challenges)
-- [idek2022 Game Challenge](https://github.com/flocto/writeups/tree/main/2023/idekCTF22/bloodbath)
 - [Open Source and Safe-to-Hack Games](https://github.com/dsasmblr/game-hacking#open-source-and-safe-to-hack-games)
+### CTF Game Hacking Challenge Files
+- [Byte Bandits 2023: The Unforgiving Jungle](https://github.com/ByteBandits/bbctf-2023/tree/main/misc/the-unforgiving-jungle)
+- [Sekai 2022: Perfect Match X-treme](https://github.com/project-sekai-ctf/sekaictf-2022/tree/main/reverse/perfect-match-xtreme)
+- [RACTF 2021: RSFPWS](https://github.com/ractf/challenges/tree/master/2021/RSFPWS)
+- [Faust 2021: thelostbottle](https://github.com/fausecteam/faustctf-2021-thelostbottle)
+- [Faust 2021: Loney Island](https://github.com/fausecteam/faustctf-2021-lonely-island)
+- [NITE 2021: Lost Dungeon](https://github.com/project-kaat/ctf-writeups/tree/main/niteCTF2021/Lost%20Dungeon)
+- [corCTF 2021: AliceInCeptionland](https://github.com/Crusaders-of-Rust/corCTF-2021-public-challenge-archive/tree/main/rev/AliceInCeptionland)
+- [ALLES! 2020: Craft](https://github.com/allesctf/2020/tree/master/challenges/allescraft)
+- [ALLES! 2020: Flag Service Revolution](https://github.com/allesctf/2020/tree/master/challenges/flag_service_revolution)
+- [ALLES! 2020: Pre-historic Mario](https://github.com/allesctf/2020/tree/master/challenges/prehistoric-mario)
+- [angstrom 2020: Woooosh](https://files.actf.co/188f275d11eb621ad7308044f1af1bcbddc353335773e9201b4af88d9306b745/index.js)
+- [nullcon HackIM 2020: Zelda Adventures](https://github.com/nullcon/hackim-2020/tree/master/zelda/ZeldaAdventures)
+- [nullcon HackIM 2020: Zelda in Space](https://github.com/nullcon/hackim-2020/tree/master/zelda/ZeldaInSpace)
+
+## CTF Writeups
+- [CTF Game Hacking Repo](https://github.com/mrT4ntr4/CTF-Game-Challenges)
+- [CTFTime](https://ctftime.org/writeups?tags=game&hidden-tags=game)
+- [idek2022: Bloodbath](https://github.com/flocto/writeups/tree/main/2023/idekCTF22/bloodbath)
 
 ## Tools
 - [Game Hacking Tools](https://github.com/dsasmblr/game-hacking#game-hacking-tools-disassemblers-debuggers-hex-editors-unpackers-and-more)

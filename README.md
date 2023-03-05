@@ -26,9 +26,10 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Web Security Academy](https://portswigger.net/web-security)**<br>
 **[OWASP Juice Shop](https://github.com/juice-shop/juice-shop-ctf)**<br>
 **[Damn Vulnerable Web Application (DVWA)](https://github.com/digininja/DVWA)**<br>
-**[AWSGoat: Damn Vulnerable AWS Infrastructure](https://github.com/ine-labs/AWSGoat)**<br>
-**[AzureGoat: Damn Vulnerable Azure Infrastructure](https://github.com/ine-labs/AzureGoat)**<br>
+**[AWSGoat: Damn Vulnerable AWS](https://github.com/ine-labs/AWSGoat)**<br>
+**[AzureGoat: Damn Vulnerable Azure](https://github.com/ine-labs/AzureGoat)**<br>
 **[Damn Vulnerable DeFi](https://www.damnvulnerabledefi.xyz)**<br>
+**[Ethernaut: Web3/Solidity Hacking](https://ethernaut.openzeppelin.com)**<br>
 **[Hacker 101](https://ctf.hacker101.com)**<br>
 **[PentesterLab](https://pentesterlab.com)**<br>
 **[VulnHub](https://www.vulnhub.com)**<br>
