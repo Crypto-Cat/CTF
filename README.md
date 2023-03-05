@@ -24,8 +24,11 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[TryHackMe](https://tryhackme.com)**<br>
 **[OffSec Proving Grounds](https://www.offensive-security.com/labs)**<br>
 **[Web Security Academy](https://portswigger.net/web-security)**<br>
-**[Damn Vulnerable Web Application](https://github.com/digininja/DVWA)**<br>
 **[OWASP Juice Shop](https://github.com/juice-shop/juice-shop-ctf)**<br>
+**[Damn Vulnerable Web Application (DVWA)](https://github.com/digininja/DVWA)**<br>
+**[AWSGoat: Damn Vulnerable AWS Infrastructure](https://github.com/ine-labs/AWSGoat)**<br>
+**[AzureGoat: Damn Vulnerable Azure Infrastructure](https://github.com/ine-labs/AzureGoat)**<br>
+**[Damn Vulnerable DeFi](https://www.damnvulnerabledefi.xyz)**<br>
 **[Hacker 101](https://ctf.hacker101.com)**<br>
 **[PentesterLab](https://pentesterlab.com)**<br>
 **[VulnHub](https://www.vulnhub.com)**<br>
@@ -40,6 +43,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[ROP Emporium](https://ropemporium.com)**<br>
 **[Exploit Education](https://exploit.education)**<br>
 **[How2Heap](https://github.com/shellphish/how2heap)**<br>
+**[GuidedHacking](https://guidedhacking.com)**<br>
 **[Pwnables](https://pwnable.tw/challenge)**<br>
 **[Deusx64](https://deusx64.ai)**<br>
 **[Roppers Academy](https://roppers.org/collections)**<br>
@@ -75,6 +79,8 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Paweł Łukasik](https://www.youtube.com/c/PawelLukasik)**<br>
 **[Ephemeral](https://www.youtube.com/c/BasteG0d69)**<br>
 **[Hak5](https://www.youtube.com/c/hak5)**<br>
+**[GuidedHacking](https://www.youtube.com/channel/UCCMi6F5Ac3kQDfffWXQGZDw)**<br>
+**[Stephen Chapman](https://www.youtube.com/channel/UCqfqH-wq12WOm4QG4KiRisw)**<br>
 **[Conda](https://www.youtube.com/c/c0nd4)**<br>
 **[HackerSploit](https://www.youtube.com/c/HackerSploit)**<br>
 **[Condingo](https://www.youtube.com/c/codingo)**<br>
