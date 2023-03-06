@@ -97,7 +97,7 @@
 - [Stephen Chapman: Hacking Online Games](https://github.com/dsasmblr/hacking-online-games)
 - [Videos](https://github.com/dsasmblr/game-hacking#videos)
 
-## Creators
+## Video Creators
 - [Guided Hacking](https://www.youtube.com/@GuidedHacking)
 - [Stephen Chapman](https://www.youtube.com/user/seowhistleblower)
 - [LiveOverflow](https://www.youtube.com/channel/UClcE-kVhqyiHCcjYwcpfj9w)
@@ -108,6 +108,8 @@
 - [cazz](https://www.youtube.com/@cazz)
 - [iwanMods](https://www.youtube.com/@iwanMods)
 - [Apxaey](https://www.youtube.com/@apxaey1459)
+- [Baseult](https://www.youtube.com/@baseultprivate9137)
+- [Null](https://www.youtube.com/channel/UCZF93Qrt6yMAabRnlND4YsQ)
 
 ## Research
 - [TomorrowIsNew Blog](https://tomorrowisnew.com)
