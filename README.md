@@ -114,6 +114,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Run Code](https://tio.run)**<br>
 **[GTFOBins](https://gtfobins.github.io)**<br>
 **[ExploitDB](https://www.exploit-db.com)**<br>
+**[OffsecTools](https://offsec.tools)**<br>
 **[RevShells](https://revshells.com)**
 
 # More Resources
