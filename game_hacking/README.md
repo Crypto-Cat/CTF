@@ -135,6 +135,7 @@
 - [angstrom 2020: Woooosh](https://files.actf.co/188f275d11eb621ad7308044f1af1bcbddc353335773e9201b4af88d9306b745/index.js)
 - [nullcon HackIM 2020: Zelda Adventures](https://github.com/nullcon/hackim-2020/tree/master/zelda/ZeldaAdventures)
 - [nullcon HackIM 2020: Zelda in Space](https://github.com/nullcon/hackim-2020/tree/master/zelda/ZeldaInSpace)
+- [Midnight Sun 2020: StarCraft - Brood War](https://zeta-two.com/assets/other/starcraft-challenge.tgz)
 
 ## CTF Writeups
 - [CTF Game Hacking Repo](https://github.com/mrT4ntr4/CTF-Game-Challenges)
