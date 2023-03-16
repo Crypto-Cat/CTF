@@ -129,6 +129,8 @@
 - [Faust 2021: Loney Island](https://github.com/fausecteam/faustctf-2021-lonely-island)
 - [NITE 2021: Lost Dungeon](https://github.com/project-kaat/ctf-writeups/tree/main/niteCTF2021/Lost%20Dungeon)
 - [corCTF 2021: AliceInCeptionland](https://github.com/Crusaders-of-Rust/corCTF-2021-public-challenge-archive/tree/main/rev/AliceInCeptionland)
+- [CSCG 2020: Follow the White Rabbit (2 parts)](https://cscg20-quals-archive.ente.ninja/tasks/follow-the-white-rabbit---cave.html)
+- [CSCG 2020: Maze (6 parts)](https://cscg20-quals-archive.ente.ninja/tasks/maze---emoji.html)
 - [ALLES! 2020: Craft](https://github.com/allesctf/2020/tree/master/challenges/allescraft)
 - [ALLES! 2020: Flag Service Revolution](https://github.com/allesctf/2020/tree/master/challenges/flag_service_revolution)
 - [ALLES! 2020: Pre-historic Mario](https://github.com/allesctf/2020/tree/master/challenges/prehistoric-mario)
