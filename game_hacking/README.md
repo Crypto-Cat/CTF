@@ -91,6 +91,7 @@
 - [LiveOverflow: Minecraft Hacking](https://www.youtube.com/watch?v=Ekcseve-mOg&list=PLhixgUqwRTjwvBI-hmbZ2rpkAl4lutnJG)
 - [LiveOverflow: Pwnie Island](https://www.youtube.com/watch?v=RDZnlcnmPUA&list=PLhixgUqwRTjzzBeFSHXrw9DnQtssdAwgG)
 - [LiveOverflow: Developing a Hackable Game](https://www.youtube.com/watch?v=LTlBElDPDDM&list=PLhixgUqwRTjwrqAY_YDWllMw4e5E89E3x)
+- [HackTheBox: Intro to GamePwn](https://www.hackthebox.com/blog/intro-to-gamepwn-aka-game-hacking)
 - [GuidedHacking: Hack Electron games with Chrome DevTools](https://www.youtube.com/watch?v=6u0V1svtj3A)
 - [OWASP: Hacking Mobile Games with Alex Rosenzweig](https://www.youtube.com/watch?v=Fr86OIFiLAk)
 - [CheatTheGame: LUA Learning](https://www.youtube.com/watch?v=zFtAlN1joIA&list=PLszEh0IDMrCl5yyOeyflivxabxx7w9MFt)
@@ -115,6 +116,7 @@
 - [TomorrowIsNew Blog](https://tomorrowisnew.com)
 - [Parsiya](https://parsiya.net)
 - [Blog Posts, Articles, Presentations](https://github.com/dsasmblr/game-hacking#blog-posts-articles-and-presentations)
+- [Comparative Study of Anti-cheat Methods in Video Games](https://helda.helsinki.fi/bitstream/handle/10138/313587/Anti_cheat_for_video_games_final_07_03_2020.pdf)
 
 ## Vulnerable Games
 - [Pwnie Island](https://www.pwnadventure.com)
