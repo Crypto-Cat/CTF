@@ -60,6 +60,7 @@
 
 ## Bug Reports
 ### 2023
+- [Chess.com: Checkmate](https://research.checkpoint.com/2023/checkmate)
 - [Dota 2: How a V8 Bug Was Exploited in the Game](https://decoded.avast.io/janvojtesek/dota-2-under-attack-how-a-v8-bug-was-exploited-in-the-game)
 - [Instant Games: DOM-XSS due to improper verification of supplied URLs](https://ysamm.com/?p=779)
 - [Facebook: Disclosing page admins by playing a game](https://medium.com/@sudipshah_66336/disclosing-facebook-page-admins-by-playing-a-game-2b0f4ed082e4)
@@ -95,6 +96,7 @@
 - [GuidedHacking: Hack Electron games with Chrome DevTools](https://www.youtube.com/watch?v=6u0V1svtj3A)
 - [OWASP: Hacking Mobile Games with Alex Rosenzweig](https://www.youtube.com/watch?v=Fr86OIFiLAk)
 - [CheatTheGame: LUA Learning](https://www.youtube.com/watch?v=zFtAlN1joIA&list=PLszEh0IDMrCl5yyOeyflivxabxx7w9MFt)
+- [GuardSquare: Practical Security for Mobile Game Developers (3-part blog series)](https://www.guardsquare.com/blog/new-blog-series-practical-security-mobile-game-developers)
 - [Stephen Chapman: Hacking Online Games](https://github.com/dsasmblr/hacking-online-games)
 - [Videos](https://github.com/dsasmblr/game-hacking#videos)
 
