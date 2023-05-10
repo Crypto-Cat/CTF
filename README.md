@@ -8,6 +8,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[OverTheWire](https://overthewire.org/wargames)**<br>
 **[PicoCTF](https://play.picoctf.org)**<br>
 **[ImaginaryCTF](https://imaginaryctf.org)**<br>
+**[Intigriti Monthly XSS](https://challenge.intigriti.io)**<br>
 **[247CTF](https://247ctf.com)**<br>
 **[CTF Challenge](https://ctfchallenge.com)**<br>
 **[CTF Learn](https://ctflearn.com)**<br>
@@ -17,7 +18,9 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[W3Challs](https://w3challs.com/challenges)**<br>
 **[Ringzer0CTF](https://ringzer0ctf.com/challenges)**<br>
 **[Enigma Group](https://www.enigmagroup.org)**<br>
-**[Root Me](https://www.root-me.org)**
+**[Root Me](https://www.root-me.org)**<br>
+**[Game Hacking](https://github.com/mrT4ntr4/CTF-Game-Challenges)**<br>
+**[Mobile](https://github.com/xtiankisutsa/awesome-mobile-CTF)**
 
 # Pentesting
 **[HackTheBox](https://app.hackthebox.eu)**<br>
@@ -98,7 +101,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[NahamSec](https://www.youtube.com/c/Nahamsec)**<br>
 **[Optional](https://www.youtube.com/c/optionalctf)**<br>
 **[TheHackerish](https://www.youtube.com/c/thehackerish)**<br>
-**[Ryan Gordon](https://www.youtube.com/c/0xRy4n)**<br>
+**[SloppyJoePirates](https://www.youtube.com/@SloppyJoePirates)**<br>
 **[AlmondForce](https://www.youtube.com/c/AlmondForce)**<br>
 **[VulnMachines](https://www.youtube.com/c/vulnmachines)**<br>
 **[More](https://securitycreators.video)**<br>
