@@ -9,7 +9,7 @@
 - [Ubisoft](https://app.intigriti.com/programs/ubisoft/ubisoftvdp)
 - [Ninja Kiwi Games](https://app.intigriti.com/programs/ninjakiwigames/ninjakiwigames)
 ### BugCrowd
-- [Rec Room Video Games](https://bugcrowd.com/recroom-og) - `not recommended, closes reports for Frida`
+- [Rec Room Video Games](https://bugcrowd.com/recroom-og) - `be warned, closes reports for Frida`
 ### HackerOne
 - [Riot Games](https://hackerone.com/riot)
 - [Rockstar Games](https://hackerone.com/rockstargames)
@@ -60,6 +60,8 @@
 
 ## Bug Reports
 ### 2023
+- [Unity: Impersonating Other Players with UDP Spoofing in Mirror](https://blog.includesecurity.com/2023/04/impersonating-local-unity-players-with-udp-spoofing-in-mirror)
+- [CS:GO: From Zero to 0-day](https://neodyme.io/blog/csgo_from_zero_to_0day)
 - [Chess.com: Checkmate](https://research.checkpoint.com/2023/checkmate)
 - [Dota 2: How a V8 Bug Was Exploited in the Game](https://decoded.avast.io/janvojtesek/dota-2-under-attack-how-a-v8-bug-was-exploited-in-the-game)
 - [Instant Games: DOM-XSS due to improper verification of supplied URLs](https://ysamm.com/?p=779)
