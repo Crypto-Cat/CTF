@@ -100,6 +100,7 @@
 - [CheatTheGame: LUA Learning](https://www.youtube.com/watch?v=zFtAlN1joIA&list=PLszEh0IDMrCl5yyOeyflivxabxx7w9MFt)
 - [GuardSquare: Practical Security for Mobile Game Developers (3-part blog series)](https://www.guardsquare.com/blog/new-blog-series-practical-security-mobile-game-developers)
 - [Stephen Chapman: Hacking Online Games](https://github.com/dsasmblr/hacking-online-games)
+- [Rohan Aggarwal: Bypassing Anti-Cheats And Hacking Competitive Games](https://youtu.be/vwnjqmAruEw)
 - [Videos](https://github.com/dsasmblr/game-hacking#videos)
 
 ## Video Creators
