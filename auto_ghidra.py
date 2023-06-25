@@ -7,41 +7,33 @@ import itertools as IT
 import select
 from time import sleep
 
-# This script was written by liba2k <3 (https://gist.github.com/liba2k/d522b4f20632c4581af728b286028f8f)
-# The only thing I've changed is the path + delay, just added here to reduce the regular requests I get for it xD
-# Personally, I set a shortcut alias for this in .bash_aliases, like:
-# alias ghidra_auto='python3 /home/crystal/apps/auto_ghidra.py'
+PROJECT_DIRECTORY = '/tmp'
+GHIDRA_PATH = '/home/crystal/apps/ghidra/'
 
-PROJECT_DIRECTORY = '/tmp'  # For the -t flag
-GHIDRA_PATH = '/usr/share/ghidra/'  # Set to your ghidra_path
-
-
-def uniquify(path, sep=''):
+def uniquify(path, sep = ''):
     def name_sequence():
         count = IT.count()
         yield ''
         while True:
-            yield '{s}_{n:d}'.format(s=sep, n=next(count))
+            yield '{s}_{n:d}'.format(s = sep, n = next(count))
     orig = tempfile._name_sequence
     with tempfile._once_lock:
         tempfile._name_sequence = name_sequence()
         path = os.path.normpath(path)
         dirname, basename = os.path.split(path)
         filename, ext = os.path.splitext(basename)
-        fd, filename = tempfile.mkstemp(dir=dirname, prefix=filename, suffix=ext)
+        fd, filename = tempfile.mkstemp(dir = dirname, prefix = filename, suffix = ext)
         tempfile._name_sequence = orig
     return filename
 
-
 def shouldRun():
     click.secho('Will run analysis in 1 second, press any key to cancel', fg='green')
-    i, o, e = select.select([sys.stdin], [], [], 1)
+    i, o, e = select.select( [sys.stdin], [], [], 1 )
 
     if (i):
         return False
     else:
         return True
-
 
 @click.command()
 @click.argument('filename', type=click.Path(exists=True))
