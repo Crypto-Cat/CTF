@@ -31,8 +31,8 @@ payload = flat(
 write("payload", payload)
 
 # PWN
-p.sendlineafter('>', payload)
-p.recvuntil('Thank you!\n')
+p.sendlineafter(b'>', payload) # added "b"
+p.recvuntil(b'Thank you!\n')   # added "b"
 
 # Get our flag!
 flag = p.recv()
