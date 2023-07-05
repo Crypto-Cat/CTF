@@ -116,6 +116,7 @@
 - [Apxaey](https://www.youtube.com/@apxaey1459)
 - [Baseult](https://www.youtube.com/@baseultprivate9137)
 - [Null](https://www.youtube.com/channel/UCZF93Qrt6yMAabRnlND4YsQ)
+- [aXXo](https://www.youtube.com/@axxo1337)
 
 ## Research
 - [TomorrowIsNew Blog](https://tomorrowisnew.com)
