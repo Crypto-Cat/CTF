@@ -269,7 +269,7 @@ Unfortunately, I got stuck again at the next step and switching to Chrome solved
 
 ### Part 1: DOM Clobbering
 We review some of the earlier documentation, or use this awesome [DOMC Payload Generator](https://domclob.xyz/domc_payload_generator)
-```json
+```txt
 target: debug.extension
 value: //ATTACKER_SERVER
 ```
