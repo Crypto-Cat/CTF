@@ -374,6 +374,11 @@ I check with ChatGPT 🤓
 
 OK, I guess I can't change it? 🤔 But.. if `debug.sanitize` is always true, why did the challenge dev add an if statement here at all? Guess I'll have to check smarter peoples writeups 😁
 
+edit: After speaking with the challenge creator and playing around with the challenge again, it turns out any form of prototype pollution is enough, e.g. sending an empty object will work just fine. Presumably this overwrites the existing object, making `sanitize` undefined so that the if condition doesn't trigger 🤷‍♂️
+```js
+res.end('{"__proto__": {}}');
+```
+
 ### Part 3: XSS
 You can probably find many payloads to extract the flag, but I went with this one.
 ```js
