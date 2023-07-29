@@ -7,7 +7,7 @@ Author: Voxal
 Points: 481
 Solves: 33
 ---
-[![VIDEO](https://img.youtube.com/vi/AO7CDquZ690/0.jpg)](https://youtu.be/AO7CDquZ690 "DOM Clobbering, Prototype Pollution and XSS - "sanity" Walkthrough - Amateurs CTF 2023")
+[![VIDEO](https://img.youtube.com/vi/AO7CDquZ690/0.jpg)](https://youtu.be/AO7CDquZ690 "DOM Clobbering, Prototype Pollution and XSS")
 
 ### Description
 >check out this pastebin! its a great way to store pieces of your sanity between ctfs.
