@@ -13,6 +13,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[CTF Challenge](https://ctfchallenge.com)**<br>
 **[CTF Learn](https://ctflearn.com)**<br>
 **[CryptoHack](https://cryptohack.org)**<br>
+**[Google CTF](https://capturetheflag.withgoogle.com)**<br>
 **[HackThisSite](https://www.hackthissite.org)**<br>
 **[SmashTheStack](http://smashthestack.org/wargames.html)**<br>
 **[W3Challs](https://w3challs.com/challenges)**<br>

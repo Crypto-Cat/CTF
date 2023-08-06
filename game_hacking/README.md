@@ -72,7 +72,7 @@
 - [Epic: Rediscovering Epic Games 0-Days (LPE)](https://www.signal-labs.com/blog/rediscovering-epic-games-0-days)
 - [Nintendo Mario Kart: Improper verification of Competition creation allows to create "Official" competitions](https://hackerone.com/reports/1653676)
 ### 2021
-- [Untiy: Hacking Unity Games with Malicious GameObjects](https://blog.includesecurity.com/2021/06/hacking-unity-games-malicious-unity-game-objects)
+- [Unity: Hacking Unity Games with Malicious GameObjects](https://blog.includesecurity.com/2021/06/hacking-unity-games-malicious-unity-game-objects)
 - [Valve: Source engine remote code execution via game invites](https://secret.club/2021/04/20/source-engine-rce-invite.html)
 - [Facebook: Applying Offensive Reverse Engineering to Facebook Gameroom](https://spaceraccoon.dev/applying-offensive-reverse-engineering-to-facebook-gameroom)
 - [InnoGames: Destroying Armies and Villages through Cross-Site Scripting](https://0xfabiof.github.io/stored-xss-tw)
@@ -132,6 +132,7 @@
 ### CTF Game Hacking Challenge Files
 - [Byte Bandits 2023: The Unforgiving Jungle](https://github.com/ByteBandits/bbctf-2023/tree/main/misc/the-unforgiving-jungle)
 - [Sekai 2022: Perfect Match X-treme](https://github.com/project-sekai-ctf/sekaictf-2022/tree/main/reverse/perfect-match-xtreme)
+- [Google 2021: Hackceler8](https://github.com/google/google-ctf/tree/master/2020/hackceler8)
 - [RACTF 2021: RSFPWS](https://github.com/ractf/challenges/tree/master/2021/RSFPWS)
 - [Faust 2021: thelostbottle](https://github.com/fausecteam/faustctf-2021-thelostbottle)
 - [Faust 2021: Loney Island](https://github.com/fausecteam/faustctf-2021-lonely-island)
