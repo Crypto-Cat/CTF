@@ -19,6 +19,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Ringzer0CTF](https://ringzer0ctf.com/challenges)**<br>
 **[Enigma Group](https://www.enigmagroup.org)**<br>
 **[Root Me](https://www.root-me.org)**<br>
+**[SecurityValley CTF](https://ctf.securityvalley.org)**<br>
 **[Game Hacking](https://github.com/mrT4ntr4/CTF-Game-Challenges)**<br>
 **[Mobile](https://github.com/xtiankisutsa/awesome-mobile-CTF)**
 
