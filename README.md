@@ -72,6 +72,9 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[ZetaTwo](https://www.youtube.com/c/ZetaTwo)**<br>
 **[PwnFunction](https://www.youtube.com/channel/UCW6MNdOsqv2E9AjQkv9we7A)**<br>
 **[0xdf](https://www.youtube.com/channel/UChO9OAH57Flz35RRX__E25A)**<br>
+**[BBRE](https://www.youtube.com/@BugBountyReportsExplained)**<br>
+**[CTBB podcast](https://www.youtube.com/@criticalthinkingpodcast)**<br>
+**[0xdf](https://www.youtube.com/channel/UChO9OAH57Flz35RRX__E25A)**<br>
 **[247CTF](https://www.youtube.com/channel/UCtGLeKomT06x3xZ2SZp2l9Q)**<br>
 **[MalFind](https://www.youtube.com/channel/UCJf4-reOhoiAlScWC1WzLgQ)**<br>
 **[DayZeroSec](https://www.youtube.com/c/dayzerosec)**<br>
@@ -99,6 +102,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Hexorcist](https://www.youtube.com/c/HEXORCIST)**<br>
 **[PwnCollege](https://www.youtube.com/c/pwncollege)**<br>
 **[NahamSec](https://www.youtube.com/c/Nahamsec)**<br>
+**[LaurieWired](https://www.youtube.com/@lauriewired)**<br>
 **[Optional](https://www.youtube.com/c/optionalctf)**<br>
 **[TheHackerish](https://www.youtube.com/c/thehackerish)**<br>
 **[SloppyJoePirates](https://www.youtube.com/@SloppyJoePirates)**<br>
