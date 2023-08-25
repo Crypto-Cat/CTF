@@ -48,16 +48,6 @@
 - [Fun Plus](https://funplus.com/report-security-vulnerabilities)
 - [IOI](https://www.ioi.dk/security)
 
-## Researchers
-- [Intigriti: hg_real](https://app.intigriti.com/profile/hg_real)
-- [Intigriti: xor](https://app.intigriti.com/researcher/profile/xor)
-- [Intigriti: ferib](https://app.intigriti.com/profile/ferib)
-- [Intigriti: tomorrowisnew](https://app.intigriti.com/profile/tomorrowisnew)
-- [Intigriti: hacktus](https://app.intigriti.com/profile/hacktus)
-- [Intigriti: mattibijnens](https://app.intigriti.com/profile/mattibijnens)
-- [Intigriti: batee5a](https://app.intigriti.com/profile/batee5a)
-- [Twitter List](https://twitter.com/i/lists/1612447308234252293) - `hard to determine relevance, many are general reversing/malware focused`
-
 ## Bug Reports
 ### 2023
 - [Unity: Impersonating Other Players with UDP Spoofing in Mirror](https://blog.includesecurity.com/2023/04/impersonating-local-unity-players-with-udp-spoofing-in-mirror)
@@ -72,12 +62,18 @@
 - [Epic: Rediscovering Epic Games 0-Days (LPE)](https://www.signal-labs.com/blog/rediscovering-epic-games-0-days)
 - [Nintendo Mario Kart: Improper verification of Competition creation allows to create "Official" competitions](https://hackerone.com/reports/1653676)
 ### 2021
-- [Untiy: Hacking Unity Games with Malicious GameObjects](https://blog.includesecurity.com/2021/06/hacking-unity-games-malicious-unity-game-objects)
+- [Unity: Hacking Unity Games with Malicious GameObjects](https://blog.includesecurity.com/2021/06/hacking-unity-games-malicious-unity-game-objects)
 - [Valve: Source engine remote code execution via game invites](https://secret.club/2021/04/20/source-engine-rce-invite.html)
 - [Facebook: Applying Offensive Reverse Engineering to Facebook Gameroom](https://spaceraccoon.dev/applying-offensive-reverse-engineering-to-facebook-gameroom)
 - [InnoGames: Destroying Armies and Villages through Cross-Site Scripting](https://0xfabiof.github.io/stored-xss-tw)
+- [Valve: Unchecked weapon id in WeaponList message parser on client leads to RCE](https://hackerone.com/reports/513154)
+- [Valve: Material path truncation leads to Remote Code Execution](https://hackerone.com/reports/544096)
+- [Valve: CS:GO - Unchecked texture file name with TEXTUREFLAGS_DEPTHRENDERTARGET can lead to Remote Code Execution](https://hackerone.com/reports/550625)
+- [Valve: Remote Code Execution using malicious WAD list in BSP file](https://hackerone.com/reports/675710)
 ### 2020
 - [Valve: Finding vulnerabilities in Valve's Steam Sockets](https://research.checkpoint.com/2020/game-on-finding-vulnerabilities-in-valves-steam-sockets) - `links some good game hacking videos (DefCon)`
+### 2019
+- [Valve: Malformed playlist.txt in GoldSrc games leads to Access Violation & arbitrary code execution](https://hackerone.com/reports/504951)
 ### 2017
 - [Rockstar: Stored XSS on Rockstar Game](https://arbazhussain.medium.com/stored-xss-on-rockstar-game-c008ec18d071)
 ### 2016
@@ -118,12 +114,6 @@
 - [Null](https://www.youtube.com/channel/UCZF93Qrt6yMAabRnlND4YsQ)
 - [aXXo](https://www.youtube.com/@axxo1337)
 
-## Research
-- [TomorrowIsNew Blog](https://tomorrowisnew.com)
-- [Parsiya](https://parsiya.net)
-- [Blog Posts, Articles, Presentations](https://github.com/dsasmblr/game-hacking#blog-posts-articles-and-presentations)
-- [Comparative Study of Anti-cheat Methods in Video Games](https://helda.helsinki.fi/bitstream/handle/10138/313587/Anti_cheat_for_video_games_final_07_03_2020.pdf)
-
 ## Vulnerable Games
 - [Pwnie Island](https://www.pwnadventure.com)
 - [Squally](https://squallygame.com)
@@ -154,3 +144,20 @@
 
 ## Tools
 - [Game Hacking Tools](https://github.com/dsasmblr/game-hacking#game-hacking-tools-disassemblers-debuggers-hex-editors-unpackers-and-more)
+
+## Research
+- [TomorrowIsNew Blog](https://tomorrowisnew.com)
+- [Parsiya](https://parsiya.net)
+- [Blog Posts, Articles, Presentations](https://github.com/dsasmblr/game-hacking#blog-posts-articles-and-presentations)
+- [Comparative Study of Anti-cheat Methods in Video Games](https://helda.helsinki.fi/bitstream/handle/10138/313587/Anti_cheat_for_video_games_final_07_03_2020.pdf)
+
+## Researchers
+- [Intigriti: hg_real](https://app.intigriti.com/profile/hg_real)
+- [Intigriti: xor](https://app.intigriti.com/researcher/profile/xor)
+- [Intigriti: ferib](https://app.intigriti.com/profile/ferib)
+- [Intigriti: tomorrowisnew](https://app.intigriti.com/profile/tomorrowisnew)
+- [Intigriti: hacktus](https://app.intigriti.com/profile/hacktus)
+- [Intigriti: mattibijnens](https://app.intigriti.com/profile/mattibijnens)
+- [Intigriti: batee5a](https://app.intigriti.com/profile/batee5a)
+- [HackerOne: nyancat0131](https://hackerone.com/nyancat0131)
+- [Twitter List](https://twitter.com/i/lists/1612447308234252293) - `hard to determine relevance, many are general reversing/malware focused`
