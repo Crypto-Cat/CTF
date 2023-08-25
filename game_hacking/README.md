@@ -122,6 +122,7 @@
 ### CTF Game Hacking Challenge Files
 - [Byte Bandits 2023: The Unforgiving Jungle](https://github.com/ByteBandits/bbctf-2023/tree/main/misc/the-unforgiving-jungle)
 - [Sekai 2022: Perfect Match X-treme](https://github.com/project-sekai-ctf/sekaictf-2022/tree/main/reverse/perfect-match-xtreme)
+- [Google 2021: Hackceler8](https://github.com/google/google-ctf/tree/master/2020/hackceler8)
 - [RACTF 2021: RSFPWS](https://github.com/ractf/challenges/tree/master/2021/RSFPWS)
 - [Faust 2021: thelostbottle](https://github.com/fausecteam/faustctf-2021-thelostbottle)
 - [Faust 2021: Loney Island](https://github.com/fausecteam/faustctf-2021-lonely-island)
