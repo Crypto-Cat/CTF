@@ -8,7 +8,7 @@ Points: 100
 Solves: 232
 ---
 
-[![VIDEO](https://img.youtube.com/vi/R8EnhRDDWFg/0.jpg)](https://youtu.be/R8EnhRDDWFg "Reverse Engineering / Game Hacking - "Azusawa’s Gacha World" Walkthrough - Project SEKAI CTF 2023")
+[![VIDEO](https://img.youtube.com/vi/R8EnhRDDWFg/0.jpg)](https://youtu.be/R8EnhRDDWFg "Reverse Engineering / Game Hacking - 'Azusawa's Gacha World' Walkthrough - Project SEKAI CTF 2023")
 
 ### Description
 >The website only contains the challenge description, and is not needed to solve the challenge: https://azusawa.world/#/2023/03/02
