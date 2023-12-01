@@ -15,7 +15,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[CryptoHack](https://cryptohack.org)**<br>
 **[Google CTF](https://capturetheflag.withgoogle.com)**<br>
 **[HackThisSite](https://www.hackthissite.org)**<br>
-**[SmashTheStack](http://smashthestack.org/wargames.html)**<br>
+**[SmashTheStack](https://www.smashthestack.org/main.html#wargames)**<br>
 **[W3Challs](https://w3challs.com/challenges)**<br>
 **[Ringzer0CTF](https://ringzer0ctf.com/challenges)**<br>
 **[Enigma Group](https://www.enigmagroup.org)**<br>
