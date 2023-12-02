@@ -1,9 +1,11 @@
 # Hacking Resources
+
 CTF chall write-ups, files, scripts etc to go with my video walkthroughs **[HERE](https://www.youtube.com/@_CryptoCat)**
 
 A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 
 # CTF
+
 **[CTFTime](https://ctftime.org)**<br>
 **[OverTheWire](https://overthewire.org/wargames)**<br>
 **[PicoCTF](https://play.picoctf.org)**<br>
@@ -15,7 +17,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[CryptoHack](https://cryptohack.org)**<br>
 **[Google CTF](https://capturetheflag.withgoogle.com)**<br>
 **[HackThisSite](https://www.hackthissite.org)**<br>
-**[SmashTheStack](http://smashthestack.org/wargames.html)**<br>
+**[SmashTheStack](http://www.smashthestack.org/main.html#wargames)**<br>
 **[W3Challs](https://w3challs.com/challenges)**<br>
 **[Ringzer0CTF](https://ringzer0ctf.com/challenges)**<br>
 **[Enigma Group](https://www.enigmagroup.org)**<br>
@@ -25,6 +27,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Mobile](https://github.com/xtiankisutsa/awesome-mobile-CTF)**
 
 # Pentesting
+
 **[HackTheBox](https://affiliate.hackthebox.com/cryptocat-htb)**<br>
 **[TryHackMe](https://tryhackme.com)**<br>
 **[OffSec Proving Grounds](https://www.offensive-security.com/labs)**<br>
@@ -46,6 +49,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Hacktoria](https://hacktoria.com)**
 
 # Pwn / RE
+
 **[Pwn.College](https://pwn.college)**<br>
 **[ROP Emporium](https://ropemporium.com)**<br>
 **[Exploit Education](https://exploit.education)**<br>
@@ -60,6 +64,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[CrackMes](https://crackmes.one)**
 
 # Blue Team
+
 **[LetsDefend](https://letsdefend.io)**<br>
 **[Blue Team Labs Online](https://blueteamlabs.online)**<br>
 **[Cyber Defenders](https://cyberdefenders.org)**<br>
@@ -67,6 +72,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Immersive Labs](https://dca.immersivelabs.online)**
 
 # Videos
+
 **[LiveOverflow](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN)**<br>
 **[John Hammond](https://www.youtube.com/c/JohnHammond010)**<br>
 **[IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA)**<br>
@@ -115,6 +121,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[Even More..](https://www.youtube.com/c/CryptoCat23/channels?view=56&shelf_id=0)**
 
 # Tools
+
 **[Ghidra](https://ghidra-sre.org/CheatSheet.html)**<br>
 **[Volatility](https://github.com/volatilityfoundation/volatility/wiki/Linux)**<br>
 **[PwnTools](https://github.com/Gallopsled/pwntools-tutorial)**<br>
@@ -128,6 +135,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[RevShells](https://revshells.com)**
 
 # More Resources
+
 **[Bug Bounty Platforms](https://github.com/disclose/bug-bounty-platforms)**<br>
 **[HackTricks](https://book.hacktricks.xyz/pentesting-methodology)**<br>
 **[CTF Resources](https://github.com/apsdehal/awesome-ctf)**<br>
