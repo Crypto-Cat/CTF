@@ -83,7 +83,6 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[0xdf](https://www.youtube.com/channel/UChO9OAH57Flz35RRX__E25A)**<br>
 **[BBRE](https://www.youtube.com/@BugBountyReportsExplained)**<br>
 **[CTBB podcast](https://www.youtube.com/@criticalthinkingpodcast)**<br>
-**[0xdf](https://www.youtube.com/channel/UChO9OAH57Flz35RRX__E25A)**<br>
 **[247CTF](https://www.youtube.com/channel/UCtGLeKomT06x3xZ2SZp2l9Q)**<br>
 **[MalFind](https://www.youtube.com/channel/UCJf4-reOhoiAlScWC1WzLgQ)**<br>
 **[DayZeroSec](https://www.youtube.com/c/dayzerosec)**<br>
