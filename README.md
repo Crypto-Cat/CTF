@@ -78,7 +78,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
 **[0xdf](https://www.youtube.com/channel/UChO9OAH57Flz35RRX__E25A)**<br>
 **[BBRE](https://www.youtube.com/@BugBountyReportsExplained)**<br>
 **[CTBB podcast](https://www.youtube.com/@criticalthinkingpodcast)**<br>
-**[rs0n]([https://www.youtube.com/@SloppyJoePirates](https://www.youtube.com/@rs0n_live)**<br>
+**[rs0n](https://www.youtube.com/@rs0n_live)**<br>
 **[GuidedHacking](https://www.youtube.com/channel/UCCMi6F5Ac3kQDfffWXQGZDw)**<br>
 **[Stephen Chapman](https://www.youtube.com/channel/UCqfqH-wq12WOm4QG4KiRisw)**<br>
 **[StackSmashing](https://www.youtube.com/c/stacksmashing)**<br>
