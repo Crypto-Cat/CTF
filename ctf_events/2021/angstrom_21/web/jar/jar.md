@@ -20,7 +20,7 @@ layout:
 
 ## Video Walkthrough
 
-[![VIDEO](https://img.youtube.com/vi/c147fBCppb8/0.jpg)](ttps://youtu.be/c147fBCppb8?t=28s "Angstrom 2021: Jar")
+[![VIDEO](https://img.youtube.com/vi/c147fBCppb8/0.jpg)](https://youtu.be/c147fBCppb8?t=28s "Angstrom 2021: Jar")
 
 ## Challenge Description
 

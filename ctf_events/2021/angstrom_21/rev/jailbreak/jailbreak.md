@@ -20,7 +20,7 @@ layout:
 
 ## Video Walkthrough
 
-[![VIDEO](https://img.youtube.com/vi/MhkVkOpj5OI/0.jpg)](ttps://youtu.be/MhkVkOpj5OI?t=433s "Angstrom 2021: Jail Break")
+[![VIDEO](https://img.youtube.com/vi/MhkVkOpj5OI/0.jpg)](https://youtu.be/MhkVkOpj5OI?t=433s "Angstrom 2021: Jail Break")
 
 ## Challenge Description
 

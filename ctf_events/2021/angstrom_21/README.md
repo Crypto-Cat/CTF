@@ -1,4 +1,4 @@
-# Video tutorials to go with the Angstrom 2021 CTF writeups 💜
+# Video walkthrough: Angstrom 2021 CTF writeups 💜
 
 [![VIDEO](https://img.youtube.com/vi/2pqG6opzrug/0.jpg)](https://youtu.be/2pqG6opzrug "Angstrom 2021: Pwn")
 

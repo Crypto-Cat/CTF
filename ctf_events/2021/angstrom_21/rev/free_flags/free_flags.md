@@ -20,7 +20,7 @@ layout:
 
 ## Video Walkthrough
 
-[![VIDEO](https://img.youtube.com/vi/MhkVkOpj5OI/0.jpg)](ttps://youtu.be/MhkVkOpj5OI?t=28s "Angstrom 2021: Free Flags")
+[![VIDEO](https://img.youtube.com/vi/MhkVkOpj5OI/0.jpg)](https://youtu.be/MhkVkOpj5OI?t=28s "Angstrom 2021: Free Flags")
 
 ## Challenge Description
 
