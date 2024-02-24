@@ -23,6 +23,7 @@ def uniquify(path, sep = ''):
         dirname, basename = os.path.split(path)
         filename, ext = os.path.splitext(basename)
         fd, filename = tempfile.mkstemp(dir = dirname, prefix = filename, suffix = ext)
+        os.remove(filename)
         tempfile._name_sequence = orig
     return filename
 
