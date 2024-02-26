@@ -1,6 +1,18 @@
 # Summary
 
 -   [2021](2021/README.md)
+    -   [HackyHolidays 2021](2021/hackyholidays_21/README.md)
+        -   [Crypto](2021/hackyholidays_21/crypto/README.md)
+            -   [Cute Invoice](2021/hackyholidays_21/crypto/cute_invoice/cute_invoice.md)
+            -   [Mineslazer](2021/hackyholidays_21/crypto/mineslazer/mineslazer.md)
+        -   [Forensics](2021/hackyholidays_21/forensics/README.md)
+            -   [Injection Traffic](2021/hackyholidays_21/forensics/injection_traffic/injection_traffic.md)
+            -   [Power Snacks](2021/hackyholidays_21/forensics/power_snacks/power_snacks.md)
+        -   [Pwn](2021/hackyholidays_21/pwn/README.md)
+            -   [Deleted Flag](2021/hackyholidays_21/pwn/deleted_flag/deleted_flag.md)
+            -   [Engine Control](2021/hackyholidays_21/pwn/engine_control/engine_control.md)
+        -   [Web](2021/hackyholidays_21/web/README.md)
+            -   [Skylark](2021/hackyholidays_21/web/skylark/skylark.md)
     -   [Cyber Apocalypse 2021](2021/cyber_apocalypse_21/README.md)
         -   [Crypto](2021/cyber_apocalypse_21/crypto/README.md)
             -   [Phasestream](2021/cyber_apocalypse_21/crypto/phasestream/phasestream.md)
