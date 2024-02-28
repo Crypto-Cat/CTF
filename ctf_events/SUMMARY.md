@@ -1,6 +1,12 @@
 # Summary
 
 -   [2021](2021/README.md)
+    -   [CSAW 2021](ctf_events/2021/csaw_21/README.md)
+        -   [Pwn](ctf_events/2021/csaw_21/pwn/README.md)
+            -   [Alien Math](ctf_events/2021/csaw_21/pwn/alien_math/alien_math.md)
+            -   [Password Checker](ctf_events/2021/csaw_21/pwn/password_checker/password_checker.md)
+        -   [Rev](ctf_events/2021/csaw_21/rev/README.md)
+            -   [Checker](ctf_events/2021/csaw_21/rev/checker/checker.md)
     -   [HackyHolidays 2021](2021/hackyholidays_21/README.md)
         -   [Crypto](2021/hackyholidays_21/crypto/README.md)
             -   [Cute Invoice](2021/hackyholidays_21/crypto/cute_invoice/cute_invoice.md)

