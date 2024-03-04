@@ -1,6 +1,13 @@
 # Summary
 
 -   [2021](2021/README.md)
+    -   [HacktivityCon 2021](2021/hacktivitycon_21/README.md)
+        -   [Pwn](2021/hacktivitycon_21/pwn/README.md)
+            -   [Retcheck](2021/hacktivitycon_21/pwn/retcheck/retcheck.md)
+            -   [The Library](2021/hacktivitycon_21/pwn/the_library/the_library.md)
+            -   [Yabo](2021/hacktivitycon_21/pwn/yabo/yabo.md)
+        -   [Web](2021/hacktivitycon_21/web/README.md)
+            -   [Availability](2021/hacktivitycon_21/web/availability/availability.md)
     -   [CSAW 2021](2021/csaw_21/README.md)
         -   [Pwn](2021/csaw_21/pwn/README.md)
             -   [Alien Math](2021/csaw_21/pwn/alien_math/alien_math.md)
