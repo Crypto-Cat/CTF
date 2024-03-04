@@ -1,6 +1,11 @@
 # Summary
 
 -   [2021](2021/README.md)
+    -   [KillerQueen 2021](2021/killerqueen_21/README.md)
+        -   [Pwn](2021/killerqueen_21/pwn/README.md)
+            -   [A Kind of Magic](2021/killerqueen_21/pwn/a_kind_of_magic/a_kind_of_magic.md)
+            -   [Tweety Birb](2021/killerqueen_21/pwn/tweety_birb/tweety_birb.md)
+            -   [Zoom2Win](2021/killerqueen_21/pwn/zoom2win/zoom2win.md)
     -   [CSAW 2021](2021/csaw_21/README.md)
         -   [Pwn](2021/csaw_21/pwn/README.md)
             -   [Alien Math](2021/csaw_21/pwn/alien_math/alien_math.md)

