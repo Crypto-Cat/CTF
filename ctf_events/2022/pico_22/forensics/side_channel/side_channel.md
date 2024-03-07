@@ -1,3 +1,34 @@
+---
+name: Side Channel (2022)
+event: Pico CTF 2022
+category: Forensics
+description: Writeup for Side Channel (Forensics) - Pico CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
+# Side Channel
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/V_Hm6P00IwU/0.jpg)](https://youtu.be/V_Hm6P00IwU?t=1344 "Pico CTF 2022: Side Channel")
+
+## Description
+
+> There’s something fishy about this PIN-code checker, can you figure out the PIN and get the flag?
+
+## Solution
+
+```py
 import time
 from pwn import *
 
@@ -37,3 +68,4 @@ for pos in range(pin_len):  # loop 8 digit pin
     print()
 
 log.info(f"Correct pin: {current_pin}")
+```

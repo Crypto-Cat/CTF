@@ -1,5 +1,5 @@
 ---
-description: Space HeroesE 2022 CTF writeups 💜
+description: Space Heroes 2022 CTF writeups 💜
 ---
 
 # Video walkthrough: Space Heroes 2022 CTF writeups 💜

