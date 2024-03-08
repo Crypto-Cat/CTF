@@ -1,5 +1,5 @@
 ---
-description: Pico NahamCon CTF writeups 💜
+description: NahamCon CTF writeups 💜
 ---
 
 # Video walkthrough: NahamCon 2022 CTF writeups 💜
