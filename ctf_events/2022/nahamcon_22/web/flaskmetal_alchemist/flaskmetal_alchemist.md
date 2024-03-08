@@ -1,3 +1,34 @@
+---
+name: Flaskmetal Alchemist (2022)
+event: NahamCon CTF 2022
+category: Web
+description: Writeup for Flaskmetal Alchemist (Web) - NahamCon CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
+# Flaskmetal Alchemist
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/ttsFRYkL8wQ/0.jpg)](https://youtu.be/ttsFRYkL8wQ?t=705 "NahamCon CTF 2022: Flaskmetal Alchemist")
+
+## Description
+
+> Edward has decided to get into web development, and he built this awesome application that lets you search for any metal you want. Alphonse has some reservations though, so he wants you to check it out and make sure it's legit.
+
+## Solution
+
+```py
 import requests
 import string
 from bs4 import BeautifulSoup
@@ -23,3 +54,4 @@ while flag[-1] != '}':
             print(flag)
             index += 1
             break
+```
