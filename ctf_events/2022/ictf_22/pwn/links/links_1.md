@@ -1,6 +1,26 @@
+---
+name: Links 1 (2022)
+event: Imaginary CTF 2022
+category: Pwn
+description: Writeup for Links 1 (Pwn) - Imaginary CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
 # Links 1
 
-[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/COlJwjGq6nA/0.jpg)](https://www.youtube.com/watch?v=COlJwjGq6nA "Links 1")
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/COlJwjGq6nA/0.jpg)](https://www.youtube.com/watch?v=COlJwjGq6nA "Links 1")
 
 ## Description
 
@@ -190,7 +210,6 @@ We can easily find and submit the address of `bss.flag` (`0x4040c0`) after our 6
 ```py
 from pwn import *
 
-
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
@@ -199,7 +218,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''

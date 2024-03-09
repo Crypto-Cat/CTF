@@ -1,3 +1,26 @@
+---
+name: ASE (2022)
+event: Imaginary CTF 2022
+category: Crypto
+description: Writeup for ASE (Crypto) - Imaginary CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
+# ASE
+
+## Solution
+
+```py
 from pwn import *
 
 host = 'chal.imaginaryctf.org'
@@ -17,3 +40,4 @@ for i in range(200):
     info((chars))
     io.sendlineafter(b'? ', chars.encode())
 io.interactive()
+```

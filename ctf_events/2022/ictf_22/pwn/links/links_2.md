@@ -1,6 +1,26 @@
+---
+name: Links 2 (2022)
+event: Imaginary CTF 2022
+category: Pwn
+description: Writeup for Links 2 (Pwn) - Imaginary CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
 # Links 2
 
-[![VIDEO WALKTHROUGH](https://img.youtube.com/vi/GCkHwYBlsN8/0.jpg)](https://www.youtube.com/watch?v=GCkHwYBlsN8 "links2")
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/GCkHwYBlsN8/0.jpg)](https://www.youtube.com/watch?v=GCkHwYBlsN8 "Links 2")
 
 ## Description
 
@@ -323,8 +343,8 @@ So our plan of action is as follows:
 
 A couple of things to mention:
 
-- To populate the address of `got.system`, the function must be called. Therefore we call the `view_time` function before doing our arbitrary write.
-- Calling `view_time` breaks my usual `gdb.debug` command; hence the `gdb.attach` command in the script. We can use that to debug but unfortunately lose access to the `heap` and `vis_heap_chunks` commands. If you want to debug using the standard method, comment out the "View time" line of code.
+-   To populate the address of `got.system`, the function must be called. Therefore we call the `view_time` function before doing our arbitrary write.
+-   Calling `view_time` breaks my usual `gdb.debug` command; hence the `gdb.attach` command in the script. We can use that to debug but unfortunately lose access to the `heap` and `vis_heap_chunks` commands. If you want to debug using the standard method, comment out the "View time" line of code.
 
 We'll create a PwnTools script, setting a breakpoint at `write_data`.
 
@@ -565,7 +585,6 @@ char *        RDI:8      __command
 ```py
 from pwn import *
 
-
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
@@ -574,7 +593,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''

