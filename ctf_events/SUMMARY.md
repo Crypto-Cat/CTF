@@ -72,7 +72,7 @@
     -   [Pico](2021/pico_21/README.md)
         -   [Pwn](2021/pico_21/pwn/README.md)
             -   [Unsubscriptions Are Free](2021/pico_21/pwn/unsubscriptions_are_free/unsubscriptions_are_free.md)
-    -   [COR](2021/cor_21/README.md)
+    -   [Crusaders of Rust (COR)](2021/cor_21/README.md)
         -   [Crypto](2021/cor_21/crypto/README.md)
             -   [Fibinary](2021/cor_21/crypto/fibinary/fibinary.md)
         -   [Pwn](2021/cor_21/pwn/README.md)
