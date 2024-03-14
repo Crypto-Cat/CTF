@@ -1,5 +1,15 @@
 # Summary
 
+-   [2024](2024/README.md)
+    -   [HTB Cyber Apocalypse](2024/cyber_apocalypse_24/README.md)
+        -   [Web](2024/cyber_apocalypse_24/web/README.md)
+            -   [Flag Command](2024/cyber_apocalypse_24/web/flag_command/flag_command.md)
+            -   [TimeKORP](2024/cyber_apocalypse_24/web/time_korp/time_korp.md)
+            -   [KORP Terminal](2024/cyber_apocalypse_24/web/korp_terminal/korp_terminal.md)
+            -   [Labyrinth Linguist](2024/cyber_apocalypse_24/web/labyrinth_linguist/labyrinth_linguist.md)
+            -   [Locktalk](2024/cyber_apocalypse_24/web/locktalk/locktalk.md)
+            -   [SerialFlow](2024/cyber_apocalypse_24/web/serial_flow/serial_flow.md)
+            -   [Testimonial](2024/cyber_apocalypse_24/web/testimonial/testimonial.md)
 -   [2022](2022/README.md)
     -   [Imaginary (iCTF)](2022/ictf_22/README.md)
         -   [Crypto](2022/ictf_22/crypto/README.md)
