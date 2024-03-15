@@ -2,7 +2,7 @@
 description: CryptoCat's CTF challenge writeups, solve scripts and video walkthroughs 💜
 ---
 
-# README
+# CryptoCat's CTF writeups
 
 A repository to keep track of my CTF writeups, e.g. challenge links, description, summary, videos, writeups, stats etc.
 
