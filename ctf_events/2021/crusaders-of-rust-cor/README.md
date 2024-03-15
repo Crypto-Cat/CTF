@@ -1,0 +1,2 @@
+# Crusaders of Rust (COR)
+
