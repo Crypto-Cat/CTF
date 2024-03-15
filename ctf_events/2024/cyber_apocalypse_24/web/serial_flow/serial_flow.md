@@ -4,23 +4,23 @@ event: HackTheBox Cyber Apocalypse CTF 2024
 category: Web
 description: Writeup for SerialFlow (Web) - HackTheBox Cyber Apocalypse CTF (2024) 💜
 layout:
-    title:
-        visible: true
-    description:
-        visible: true
-    tableOfContents:
-        visible: false
-    outline:
-        visible: true
-    pagination:
-        visible: true
+  title:
+    visible: true
+  description:
+    visible: true
+  tableOfContents:
+    visible: false
+  outline:
+    visible: true
+  pagination:
+    visible: true
 ---
 
 # SerialFlow
 
 ## Video Walkthrough
 
-[![VIDEO](https://img.youtube.com/vi/-vhl8ixthO4/0.jpg)](https://www.youtube.com/watch?v=-vhl8ixthO4?t=1530 "HackTheBox Cyber Apocalypse '24: Serial Flow (web)")
+[![VIDEO](https://img.youtube.com/vi/-vhl8ixthO4/0.jpg)](https://www.youtube.com/watch?v=-vhl8ixthO4?t=1530)
 
 ## Description
 
@@ -90,7 +90,7 @@ Well, if we adjust our search options to "in the past year" one of the top resul
 
 That's right! [Exploiting Flask-Session with Memcached command injection utilizing crc32 collision and python pickle deserialization for RCE](https://btlfry.gitlab.io/notes/posts/memcached-command-injections-at-pylibmc) by D4D.
 
-The article explains the exploit better than I can but essentially, we can leverage the `/set` route to set the Flask session cookie value for the key `uicolor`. Memcached terminates commands and data sequences using CRLF so we want to inject `\r\n` using quoted strings (`\015\012`).
+The article explains the exploit better than I can but essentially, we can leverage the `/set` route to set the Flask session cookie value for the key `uicolor`. Memcached terminates commands and data sequences using CRLF so we want to inject `\r` using quoted strings (`\015\012`).
 
 Next, we want to encode a payload. Since [python pickle](https://docs.python.org/3/library/pickle.html) is used to deserialise data before saving to Memcached, we can [construct a malicious pickle](https://davidhamann.de/2020/04/05/exploiting-python-pickle/) that when deserialised, will trigger RCE.
 
