@@ -1,6 +1,6 @@
 # Table of contents
 
-* [README](README.md)
+* [CryptoCat's CTF writeups](README.md)
 * [2024](2024/README.md)
   * [HTB Cyber Apocalypse](2024/cyber\_apocalypse\_24/README.md)
     * [Web](2024/cyber\_apocalypse\_24/web/README.md)
