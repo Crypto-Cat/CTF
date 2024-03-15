@@ -1,19 +1,35 @@
 ---
-CTF: INTIGRITI 1337UP LIVE 2023
-Challenge Name: Floor Mat Store
-Category: Pwn
-Date: 17/11/23
-Author: CryptoCat
-Points: 100
-Solves: 112
+name: Floor Mat Store (2023)
+event: Intigriti 1337UP Live CTF 2023
+category: Pwn
+description: Writeup for Floor Mat Store (Pwn) - Intigriti 1337UP Live CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
+
+# Floor Mat Store
+
+## Video Walkthrough
+
 [![VIDEO](https://img.youtube.com/vi/Zu32BHwH-sA/0.jpg)](https://youtu.be/Zu32BHwH-sA "Floor mats: Format string exploit")
 
-### Description
->Welcome to the Floor Mat store! It's kind of like heaven.. for mats
+## Description
 
-# Solution
+> Welcome to the Floor Mat store! It's kind of like heaven.. for mats
+
+## Solution
+
 Watch video for full solution (format string exploit), but here's a solve script (note the index will vary from local/remote, but you can just send `%p * 100` or something instead).
+
 ```python
 from pwn import *
 
@@ -51,11 +67,11 @@ io.close()
 ```
 
 Running the script leaks the flag!
-```
-INTIGRITI{50_7h475_why_7h3y_w4rn_4b0u7_pr1n7f}
-```
+
+Flag:`INTIGRITI{50_7h475_why_7h3y_w4rn_4b0u7_pr1n7f}`
 
 ## Bonus: source code
+
 ```c
 #include <stdio.h>
 #include <stdlib.h>

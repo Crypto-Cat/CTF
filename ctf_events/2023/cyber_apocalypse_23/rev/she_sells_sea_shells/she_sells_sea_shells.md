@@ -1,16 +1,33 @@
 ---
-Name: She Sells C Shells
-Category: Reversing
-Difficulty: Very Easy
+name: She Sells C Shells (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Rev
+description: Writeup for She Sells C Shells (Rev) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# She Sells C Shells
+
 ## Description
->You've arrived in the Galactic Archive, sure that a critical clue is hidden here. You wait anxiously for a terminal to boot up, hiding in the shadows from the guards hunting for you. Unfortunately, it looks like you'll need a password to get what you need without setting off the alarms...
+
+> You've arrived in the Galactic Archive, sure that a critical clue is hidden here. You wait anxiously for a terminal to boot up, hiding in the shadows from the guards hunting for you. Unfortunately, it looks like you'll need a password to get what you need without setting off the alarms...
 
 ## Solution
+
 We run a shell and have a `get_flag` option that takes a password.
+
 ```bash
-ltrace ./shell 
+ltrace ./shell
 printf("ctfsh-$ ")                                                      = 8
 fgets(ctfsh-$ test
 "test\n", 1024, 0x7fe582e2e980)                                   = 0x7ffd880fa6b0
@@ -27,10 +44,11 @@ fprintf(0x7fe582e2f5c0, "No such command `%s`\n", "test"No such command `test`
 )               = 23
 free(0x555a30952ac0)                                                    = <void>
 printf("ctfsh-$ ")                                                      = 8
-fgets(ctfsh-$ 
+fgets(ctfsh-$
 ```
 
 `get_flag` looks like.
+
 ```c
 fgets((char *)&input,256,stdin);
   for (i = 0; i < 77; i = i + 1) {
@@ -51,6 +69,7 @@ fgets((char *)&input,256,stdin);
 ```
 
 Setup a breakpoint at the memcmp and find out what `t` equals.
+
 ```bash
 breakrva 0x194d
 
@@ -69,21 +88,24 @@ x/64wx 0x555555556200
 ```
 
 So it's like this:
-- our 77 byte input is XORd with `m1`
-- the output is compared with `t`
-- if it matches, our input is XORd with `m2`
-- the result is our flag
+
+-   our 77 byte input is XORd with `m1`
+-   the output is compared with `t`
+-   if it matches, our input is XORd with `m2`
+-   the result is our flag
 
 Plan of action:
-- XOR `t` with `m2` to recover out `input` (plaintext)
+
+-   XOR `t` with `m2` to recover out `input` (plaintext)
 
 Copied and pasted the ghidra assembly and asked ChatGPT to extract the `XXh` values.
+
 ```txt
 t: 2c4ab799a3e57078936e97d9476d38bdffbb85996fe14aab74c37ba8b29fd7ecebcd63b23923e184929609c699f258facb6f6f5e1fbe2b138ea5a99993ab8f701cc0c43ea6fe933590c3c910e9
 
 m2:641ef5e2c097441bf85ff9be185d488e91e4f6f15c8d269e2ba102f7c6f7e4b398fe57ed4a4bd1f6a1eb09c699f258facb6f6f5e1fbe2b138ea5a99993ab8f701cc0c43ea6fe933590c3c910e9
 ```
 
-So we [XOR](https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')XOR(%7B'option':'Hex','string':'641ef5e2c097441bf85ff9be185d488e91e4f6f15c8d269e2ba102f7c6f7e4b398fe57ed4a4bd1f6a1eb09c699f258facb6f6f5e1fbe2b138ea5a99993ab8f701cc0c43ea6fe933590c3c910e9'%7D,'Standard',false)&input=MmM0YWI3OTlhM2U1NzA3ODkzNmU5N2Q5NDc2ZDM4YmRmZmJiODU5OTZmZTE0YWFiNzRjMzdiYThiMjlmZDdlY2ViY2Q2M2IyMzkyM2UxODQ5Mjk2MDljNjk5ZjI1OGZhY2I2ZjZmNWUxZmJlMmIxMzhlYTVhOTk5OTNhYjhmNzAxY2MwYzQzZWE2ZmU5MzM1OTBjM2M5MTBlOQ) them and get the flag!
+So we [XOR](<https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')XOR(%7B'option':'Hex','string':'641ef5e2c097441bf85ff9be185d488e91e4f6f15c8d269e2ba102f7c6f7e4b398fe57ed4a4bd1f6a1eb09c699f258facb6f6f5e1fbe2b138ea5a99993ab8f701cc0c43ea6fe933590c3c910e9'%7D,'Standard',false)&input=MmM0YWI3OTlhM2U1NzA3ODkzNmU5N2Q5NDc2ZDM4YmRmZmJiODU5OTZmZTE0YWFiNzRjMzdiYThiMjlmZDdlY2ViY2Q2M2IyMzkyM2UxODQ5Mjk2MDljNjk5ZjI1OGZhY2I2ZjZmNWUxZmJlMmIxMzhlYTVhOTk5OTNhYjhmNzAxY2MwYzQzZWE2ZmU5MzM1OTBjM2M5MTBlOQ>) them and get the flag!
 
-`HTB{cr4ck1ng_0p3n_sh3ll5_by_th3_s34_sh0r3}`
+Flag: `HTB{cr4ck1ng_0p3n_sh3ll5_by_th3_s34_sh0r3}`

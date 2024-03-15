@@ -1,21 +1,38 @@
 ---
-Name: Labyrinth
-Category: Pwn
-Difficulty: Easy
+name: Labyrinth (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Pwn
+description: Writeup for Labyrinth (Pwn) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# Labyrinth
+
 ## Description
->You find yourself trapped in a mysterious labyrinth, with only one chance to escape. Choose the correct door wisely, for the wrong choice could have deadly consequences.
+
+> You find yourself trapped in a mysterious labyrinth, with only one chance to escape. Choose the correct door wisely, for the wrong choice could have deadly consequences.
 
 ## Solution
+
 Check file info and binary protections.
+
 ```bash
-file labyrinth 
+file labyrinth
 labyrinth: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter ./glibc/ld-linux-x86-64.so.2, BuildID[sha1]=86c87230616a87809e53b766b99987df9bf89ad8, for GNU/Linux 3.2.0, not stripped
 ```
 
 ```bash
-checksec --file labyrinth 
+checksec --file labyrinth
 [*] '/home/crystal/Desktop/htb/challenge/labyrinth'
     Arch:     amd64-64-little
     RELRO:    Full RELRO
@@ -28,6 +45,7 @@ checksec --file labyrinth
 Decompile in ghidra and find we must select door `69` followed by door `069`. However, providing `069` is enough to satisfy both conditions.
 
 In ghidra, we can find our offset of `64` and a "win" function called `escape_plan` which prints the flag.
+
 ```python
 from pwn import *
 
@@ -86,4 +104,4 @@ io.recvuntil(b'journey:')
 warn(io.recvlines(2)[1].decode())
 ```
 
-`HTB{3sc4p3_fr0m_4b0v3}`
+Flag: `HTB{3sc4p3_fr0m_4b0v3}`

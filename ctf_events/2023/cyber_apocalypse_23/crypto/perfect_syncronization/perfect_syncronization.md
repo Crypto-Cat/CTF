@@ -1,14 +1,31 @@
 ---
-Name: Perfect Syncronization
-Category: Crypto
-Difficulty: Very Easy
+name: Perfect Syncronization (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Crypto
+description: Writeup for Perfect Syncronization (Crypto) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# Perfect Syncronization
+
 ## Description
->The final stage of your initialization sequence is mastering cutting-edge technology tools that can be life-changing. One of these tools is quipqiup, an automated tool for frequency analysis and breaking substitution ciphers. This is the ultimate challenge, simulating the use of AES encryption to protect a message. Can you break it?
+
+> The final stage of your initialization sequence is mastering cutting-edge technology tools that can be life-changing. One of these tools is quipqiup, an automated tool for frequency analysis and breaking substitution ciphers. This is the ultimate challenge, simulating the use of AES encryption to protect a message. Can you break it?
 
 ## Solution
+
 My teammate used a script to map the the output to characters.
+
 ```python
 map = {
     "c53ba24fbbe9e3dbdd6062b3aab7ed1a": "}",
@@ -51,13 +68,14 @@ print(out)
 ```
 
 ```bash
-python solve.py 
+python solve.py
 fwhzphigc jijmclbl bl rjlhu ai koh fjgk kojk bi jic tbvhi lkwhkgo af nwbkkhi mjitpjth ghwkjbi mhkkhwl jiu gasrbijkbail af mhkkhwl aggpw nbko vjwcbit fwhzphigbhl sawhavhw kohwh bl j gojwjgkhwblkbg ublkwbrpkbai af mhkkhwl kojk bl waptomc koh ljsh faw jmsalk jmm ljsdmhl af kojk mjitpjth bi gwcdkjijmclbl fwhzphigc jijmclbl jmla yiani jl gapikbit mhkkhwl bl koh lkpuc af koh fwhzphigc af mhkkhwl aw twapdl af mhkkhwl bi j gbdohwkhxk koh shkoau bl plhu jl ji jbu ka rwhjybit gmjllbgjm gbdohwl fwhzphigc jijmclbl whzpbwhl aimc j rjlbg piuhwlkjiubit af koh lkjkblkbgl af koh dmjbikhxk mjitpjth jiu lash dwarmhs lamvbit lybmml jiu bf dhwfawshu rc ojiu kamhwjigh faw hxkhilbvh mhkkhw raayyhhdbit upwbit nawmu njw bb rako koh rwbkblo jiu koh jshwbgjil whgwpbkhu gauhrwhjyhwl rc dmjgbit gwallnawu dpqqmhl bi sjeaw ihnldjdhwl jiu wpiibit gaikhlkl faw noa gapmu lamvh kohs koh fjlkhlk lhvhwjm af koh gbdohwl plhu rc koh jxbl danhwl nhwh rwhjyjrmh plbit fwhzphigc jijmclbl faw hxjsdmh lash af koh gailpmjw gbdohwl plhu rc koh ejdjihlh shgojibgjm shkoaul af mhkkhw gapikbit jiu lkjkblkbgjm jijmclbl thihwjmmc okr{j_lbsdmh_lprlkbkpkbai_bl_nhjy} gjwu kcdh sjgobihwc nhwh fbwlk plhu bi nawmu njw bb dallbrmc rc koh pl jwscl lbl kaujc koh ojwu nawy af mhkkhw gapikbit jiu jijmclbl ojl rhhi whdmjghu rc gasdpkhw lafknjwh nobgo gji gjwwc apk lpgo jijmclbl bi lhgaiul nbko sauhwi gasdpkbit danhw gmjllbgjm gbdohwl jwh pimbyhmc ka dwavbuh jic whjm dwakhgkbai faw gaifbuhikbjm ujkj dpqqmh dpqqmh dpqqmh
 ```
 
-I picked up on the challenge and provided to [quipqiup](https://www.quipqiup.com)  `statistics mode`.
+I picked up on the challenge and provided to [quipqiup](https://www.quipqiup.com) `statistics mode`.
+
 ```txt
 frequency analysis is based on the fact that in any given stretch of written language certain letters and combinations of letters occur with varying frequencies moreover there is a characteristic distribution of letters that is roughly the same for almost all samples of that language in cryptanalysis frequency analysis also known as counting letters is the study of the frequency of letters or groups of letters in a ciphertext the method is used as an aid to breaking classical ciphers frequency analysis requires only a basic understanding of the statistics of the plaintext language and some problem solving skills and if performed by hand tolerance for extensive letter bookkeeping during world war ii both the british and the americans recruited codebreakers by placing crossword puzzles in major newspapers and running contests for who could solve them the fastest several of the ciphers used by the axis powers were breakable using frequency analysis for example some of the consular ciphers used by the japanese mechanical methods of letter counting and statistical analysis generally htb{a_simple_substitution_is_weak} card type machinery were first used in world war ii possibly by the us armys sis today the hard work of letter counting and analysis has been replaced by computer software which can carry out such analysis in seconds with modern computing power classical ciphers are unlikely to provide any real protection for confidential data puzzle puzzle puzzle
 ```
 
-`HTB{A_SIMPLE_SUBSTITUTION_IS_WEAK}`
+Flag: `HTB{A_SIMPLE_SUBSTITUTION_IS_WEAK}`

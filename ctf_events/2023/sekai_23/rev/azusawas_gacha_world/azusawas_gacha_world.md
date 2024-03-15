@@ -1,19 +1,33 @@
 ---
-CTF: Sekai CTF 2023
-Challenge Name: Azusawa’s Gacha World
-Category: Pwn (game)
-Date: 25/08/23
-Author: enscribe
-Points: 100
-Solves: 232
+name: Azusawa’s Gacha World (2023)
+event: Sekai CTF 2023
+category: Rev
+description: Writeup for Azusawa’s Gacha World (Rev) - Sekai CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
+
+# Azusawa’s Gacha World
+
+## Video Walkthrough
 
 [![VIDEO](https://img.youtube.com/vi/R8EnhRDDWFg/0.jpg)](https://youtu.be/R8EnhRDDWFg "Reverse Engineering / Game Hacking - 'Azusawa's Gacha World' Walkthrough - Project SEKAI CTF 2023")
 
-### Description
->The website only contains the challenge description, and is not needed to solve the challenge: https://azusawa.world/#/2023/03/02
+## Description
+
+> The website only contains the challenge description, and is not needed to solve the challenge: https://azusawa.world/#/2023/03/02
 
 ## Solution
+
 Downloading the [game files](https://storage.googleapis.com/sekaictf-2023/azusawa/dist.zip) we find that the game is Unity (Mono Bleeding Edge), so let's run the game on a Windows VM.
 
 We have 100 credits, which we can use to pull a card - after that we will have zero credits.
@@ -25,6 +39,7 @@ Now we can do the 10 card pull, which costs 1000 credits. Each time, we get a di
 Since the game is Unity, we can try to decompile the `Assembly-CSharp.dll` with a tool like DNSpy, recovering the C# code.
 
 Immediately, I noticed some interesting values, e.g. the `Character` class has a `flag` property.
+
 ```csharp
 namespace RequestClasses
 {
@@ -59,6 +74,7 @@ namespace RequestClasses
 We can check where the character is referenced, and find some interesting functions like `SendGachaRequest` which makes a JSON web request.
 
 I opened Wireshark and pulled some more cards, finding the request.
+
 ```bash
 POST /gacha HTTP/1.1
 Host: 172.86.64.89:3000
@@ -73,6 +89,7 @@ Content-Length: 39
 ```
 
 The response includes the card name, rarity etc.
+
 ```bash
 HTTP/1.1 200 OK
 Content-Type: application/json
@@ -87,6 +104,7 @@ Content-Length: 198
 Interesting.. I'll save this for later - back to the code.
 
 There's another function called `DisplaySplashArt`, which has a different method to display each card, depending on the rarity.
+
 ```csharp
 public IEnumerator DisplaySplashArt(Character[] characters)
 {
@@ -131,6 +149,7 @@ public IEnumerator DisplaySplashArt(Character[] characters)
 ```
 
 Comparing the methods, we see that the `DisplayFourStarCharacter` has an interesting section of code.
+
 ```csharp
 string flag = character.flag;
 if (flag != null)
@@ -146,6 +165,7 @@ if (flag != null)
 ```
 
 Looks like all we need to do is get a 4-star card and we've solved the challenge! First, I patched the code so that all cards would be processed as 4-star (I thought maybe the 2-3 star characters could still have a flag property, that wasn't being extracted/displayed). The patched code looked like:
+
 ```csharp
 public IEnumerator DisplaySplashArt(Character[] characters)
 {
@@ -184,6 +204,7 @@ public IEnumerator DisplaySplashArt(Character[] characters)
 ```
 
 It didn't work though - we saw from the web request that the cards are returned from the server though, this isn't going to be a client-side trick. Maybe we just need to brute-force until we get it? Well, we can check the game rules and find that the odds are as follows.
+
 ```bash
 4 star = 0%
 3 star = 8.5%
@@ -191,6 +212,7 @@ It didn't work though - we saw from the web request that the cards are returned 
 ```
 
 Sounds like we have literally zero chance of getting a 4 star card. I decided to copy the HTTP request we found earlier to burp suite and play around with the values. After a few attempts I came across this one.
+
 ```bash
 POST /gacha HTTP/1.1
 Host: 172.86.64.89:3000
@@ -205,6 +227,7 @@ Content-Length: 59
 ```
 
 The response contained a happy-birthday character containing a big base64 blob.
+
 ```bash
 {
   "characters": [
@@ -222,6 +245,5 @@ The response contained a happy-birthday character containing a big base64 blob.
 We can save the base64 blob to a text file and run `base64 -d file_name > flag` and then check the file type with `file flag`.
 
 It's a PNG image, so we rename to `flag.png` and open it up to find our flag!
-```txt
-SEKAI{D0N7_73LL_53G4_1_C0P13D_7H31R_G4M3}
-```
+
+Flag: `SEKAI{D0N7_73LL_53G4_1_C0P13D_7H31R_G4M3}`

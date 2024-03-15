@@ -1,14 +1,31 @@
 ---
-Name: Cave System
-Category: Reversing
-Difficulty: Easy
+name: Cave System (2023)
+event: HackTheBox Cyber Apocalypse - Intergalactic Chase CTF 2023
+category: Rev
+description: Writeup for Cave System (Rev) - HackTheBox Cyber Apocalypse - Intergalactic Chase CTF (2023) 💜
+layout:
+    title:
+        visible: true
+    description:
+        visible: true
+    tableOfContents:
+        visible: false
+    outline:
+        visible: true
+    pagination:
+        visible: true
 ---
 
+# Cave System
+
 ## Description
->Deep inside a cave system, 500 feet below the surface, you find yourself stranded with supplies running low. Ahead of you sprawls a network of tunnels, branching off and looping back on themselves. You don't have time to explore them all - you'll need to program your cave-crawling robot to find the way out...
+
+> Deep inside a cave system, 500 feet below the surface, you find yourself stranded with supplies running low. Ahead of you sprawls a network of tunnels, branching off and looping back on themselves. You don't have time to explore them all - you'll need to program your cave-crawling robot to find the way out...
 
 ## Solution
+
 Ghidra shows quite complex conditions in flag checker.
+
 ```c
 printf("What route will you take out of the cave? ");
 fgets((char *)&local_88,0x80,stdin);
@@ -136,6 +153,7 @@ puts("Lost in the darkness, you\'ll wander for eternity...");
 ```
 
 Used a combination of [this angr solution](https://binaryresearch.github.io/2020/01/22/more-angr-defeating-5-ELF-crackmes.html), ChatGPT and manual adjustments to make a solve script.
+
 ```python
 import angr
 import claripy
@@ -177,16 +195,17 @@ if __name__ == "__main__":
 ```
 
 ```bash
-python solve.py 
+python solve.py
 WARNING  | 2023-03-19 12:13:01,252 | angr.simos.simos | stdin is constrained to 132 bytes (has_end=True). If you are only providing the first 132 bytes instead of the entire stdin, please use stdin=SimFileStream(name='stdin', content=your_first_n_bytes, has_end=False).
 [ 12:13:01.257932 ] exploration started...
 [ 12:13:10.287439 ] solution found...
 [ 12:13:10.295723 ] b"HTB{H0p3_u_d1dn't_g3t_th15_by_h4nd,1t5_4_pr3tty_l0ng_fl4g!!!}\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\x00\x00\x00\x00\x00\x00"
 ```
 
-`HTB{H0p3_u_d1dn't_g3t_th15_by_h4nd,1t5_4_pr3tty_l0ng_fl4g!!!}`
+Flag: `HTB{H0p3_u_d1dn't_g3t_th15_by_h4nd,1t5_4_pr3tty_l0ng_fl4g!!!}`
 
 My solve script was apparently overkill, my teammate 0xM4hm0ud had a shorter one.
+
 ```python
 import angr
 import claripy
