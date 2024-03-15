@@ -1,15 +1,17 @@
 # Hacking Resources
 
-CTF chall write-ups, files, scripts etc to go with my video walkthroughs **[HERE](https://www.youtube.com/@_CryptoCat)**
+CTF chall write-ups, files, scripts etc to go with my **[video walkthroughs](https://www.youtube.com/@_CryptoCat)**
 
-A challenge that takes 10 hours to solve, takes 10 minutes to explain :)
+Check out my new [gitbook](https://crypto-cat.gitbook.io) 🥰
+
+A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 
 # CTF
 **[CTFTime](https://ctftime.org)**<br>
 **[OverTheWire](https://overthewire.org/wargames)**<br>
 **[PicoCTF](https://play.picoctf.org)**<br>
+**[Intigriti Monthly Challenge](https://challenge.intigriti.io)**<br>
 **[ImaginaryCTF](https://imaginaryctf.org)**<br>
-**[Intigriti Monthly XSS](https://challenge.intigriti.io)**<br>
 **[247CTF](https://247ctf.com)**<br>
 **[CTF Challenge](https://ctfchallenge.com)**<br>
 **[CTF Learn](https://ctflearn.com)**<br>
