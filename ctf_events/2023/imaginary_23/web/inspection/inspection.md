@@ -22,6 +22,8 @@ layout:
 
 > Here's a freebie: the flag is ictf.
 
+## Solution
+
 As the title suggests, we can use the `inspector` (F12) and have a look around.
 
 We'll quickly see the description HTML looks like this.
