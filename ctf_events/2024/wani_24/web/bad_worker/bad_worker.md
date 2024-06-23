@@ -43,15 +43,15 @@ Checking the debugger (devtools), there is a folder `_framework` containing file
 
 I visited the `Application` tab and see the `service-worker.js` script is running.
 
-![image](./images/1.png)
+![](./images/1.png)
 
 It also says I should open `about:debugging` for some reason, so I do that 😃
 
-![image](./images/2.png)
+![](./images/2.png)
 
 When I click inspect, it allows me to view the service-worker.js source code.
 
-![image](./images/3.png)
+![](./images/3.png)
 
 Here's the interesting part.
 
@@ -84,14 +84,14 @@ return fetch(request);
 
 Notice that `request = "DUMMY.txt`, since it was changed on line 58.
 
-![image](./images/4.png)
+![](./images/4.png)
 
 I switch to the console and set `request` to "`FLAG.txt`"
 
-![image](./images/5.png)
+![](./images/5.png)
 
 Now, if we go back to the debugger and resume execution, we'll find that the correct flag was delivered to the webpage.
 
-![image](./images/6.png)
+![](./images/6.png)
 
 Flag: `FLAG{pr0gr3ssiv3_w3b_4pp_1s_us3fu1}`

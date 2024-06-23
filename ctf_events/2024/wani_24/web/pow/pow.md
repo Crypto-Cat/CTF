@@ -26,7 +26,7 @@ layout:
 
 Basic web page with an incrementing proof-of-work counter.
 
-![image](./images/1.png)
+![](./images/1.png)
 
 Our session is tracked via a cookie: `pow_session`. The local storage contains `pow_progress`, which continuously updates the `client status` value from the picture above.
 
@@ -80,13 +80,13 @@ main();
 -   The final line (AND) is a [masking](<https://en.wikipedia.org/wiki/Mask_(computing)>) operation - `4294967040` in hex is `0xFFFFFF00`
 -   Basically, if the last 8 bits of the first word equals `0`, then we get 1 progress point
 
-![image](./images/2.png)
+![](./images/2.png)
 
 ## Solution
 
 I began by enabling interception of server responses in burp.
 
-![image](./images/3.png)
+![](./images/3.png)
 
 Now, if we reload the page, we can modify the JavaScript.
 
@@ -105,13 +105,13 @@ for (let j = 0; j < 1000; j++) {
 
 The progress increments at 1 per second; however, we quickly hit a rate limit.
 
-![image](./images/4.png)
+![](./images/4.png)
 
 We need to get a million points anyway, so this wasn't realistic (1,000,000 seconds is nearly 12 days 😆)
 
 I quickly realised that the valid PoW's are sent as an array.
 
-![image](./images/5.png)
+![](./images/5.png)
 
 I decided to send two valid values at once, e.g.
 
@@ -143,7 +143,7 @@ console.log(box.toString());
 
 It's works! We repeat 10 times and get the flag 😌
 
-![image](./images/6.png)
+![](./images/6.png)
 
 Was this the intended solution? I'm not so sure..
 

@@ -145,7 +145,7 @@ httpd.serve_forever()
 
 When we visit the webpage, we get a single letter from the flag.
 
-![image](./images/1.png)
+![](./images/1.png)
 
 Checking HTTP history in burp, there is a POST request.
 
