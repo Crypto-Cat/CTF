@@ -2,6 +2,11 @@
 
 -   [CryptoCat's CTF writeups](README.md)
 -   [2024](2024/README.md)
+    -   [Wani](2024/wani_24/README.md)
+        -   [Web](2024/wani_24/web/README.md)
+            -   [Bad Worker](2024/wani_24/web/bad_worker/bad_worker.md)
+            -   [PoW](2024/wani_24/web/pow/pow.md)
+            -   [One Day One Letter](2024/wani_24/web/one_day_one_letter/one_day_one_letter.md)
     -   [Akasec](2024/akasec_24/README.md)
         -   [Web](2024/akasec_24/web/README.md)
             -   [Upload](2024/akasec_24/web/upload/upload.md)
