@@ -28,7 +28,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[Mobile](https://github.com/xtiankisutsa/awesome-mobile-CTF)**
 
 # Pentesting
-**[HackTheBox](https://affiliate.hackthebox.com/cryptocat-htb)**<br>
+**[HackTheBox](https://hacktheboxltd.sjv.io/xk75Yk)**<br>
 **[TryHackMe](https://tryhackme.com)**<br>
 **[OffSec Proving Grounds](https://www.offensive-security.com/labs)**<br>
 **[Web Security Academy](https://portswigger.net/web-security)**<br>

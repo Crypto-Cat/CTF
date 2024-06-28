@@ -14,4 +14,4 @@ description: HackTheBox Cyber Santa 2021 CTF writeups 💜
 
 [![VIDEO](https://img.youtube.com/vi/tV7C6HSrtm4/0.jpg)](https://youtu.be/tV7C6HSrtm4 "HTB Cyber Santa 2021: Day 5")
 
-[Sign up for HackTheBox!](https://affiliate.hackthebox.com/cryptocat-htb)
+[Sign up for HackTheBox!](https://hacktheboxltd.sjv.io/xk75Yk)

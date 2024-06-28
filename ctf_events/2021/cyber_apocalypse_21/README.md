@@ -16,4 +16,4 @@ description: HTB Cyber Apocalypse 2021 CTF writeups 💜
 
 [![VIDEO](https://img.youtube.com/vi/6DRuT1JBmBE/0.jpg)](https://youtu.be/6DRuT1JBmBE "HackTheBox Cyber Apocalypse 2021: Pwn")
 
-[Sign up for HackTheBox!](https://affiliate.hackthebox.com/cryptocat-htb)
+[Sign up for HackTheBox!](https://hacktheboxltd.sjv.io/xk75Yk)
