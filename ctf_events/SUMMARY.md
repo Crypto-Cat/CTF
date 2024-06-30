@@ -2,6 +2,10 @@
 
 -   [CryptoCat's CTF writeups](README.md)
 -   [2024](2024/README.md)
+    -   [UIU](2024/uiu_24/)
+        -   [Web](2024/uiu_24/web/README.md)
+            -   [Fare Evasion](2024/uiu_24/web/fare_evasion/fare_evasion.md)
+            -   [Log Action](2024/uiu_24/web/log_action/log_action.md)
     -   [Wani](2024/wani_24/README.md)
         -   [Web](2024/wani_24/web/README.md)
             -   [Bad Worker](2024/wani_24/web/bad_worker/bad_worker.md)
