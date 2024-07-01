@@ -32,6 +32,7 @@ layout:
 
 #### Open flag
 
+{% code overflow="wrap" %}
 ```c
 void main(void)
 {
@@ -45,9 +46,11 @@ void main(void)
   } while( true );
 }
 ```
+{% endcode %}
 
 #### View elements in the linked list
 
+{% code overflow="wrap" %}
 ```c
 void view_list(void)
 {
@@ -68,9 +71,11 @@ void view_list(void)
   return;
 }
 ```
+{% endcode %}
 
 #### Write elements to the list
 
+{% code overflow="wrap" %}
 ```c
 ssize_t write(int __fd,void *__buf,size_t __n)
 {
@@ -140,9 +145,11 @@ ssize_t write(int __fd,void *__buf,size_t __n)
   return sVar2;
 }
 ```
+{% endcode %}
 
 #### Write data to an element in the list
 
+{% code overflow="wrap" %}
 ```c
 void write_data(char *param_1)
 {
@@ -157,9 +164,11 @@ void write_data(char *param_1)
   return;
 }
 ```
+{% endcode %}
 
 #### View time
 
+{% code overflow="wrap" %}
 ```c
 void view_time(void)
 {
@@ -167,6 +176,7 @@ void view_time(void)
   return;
 }
 ```
+{% endcode %}
 
 ## Solution
 
@@ -178,35 +188,44 @@ The `write` function uses a custom linked list implementation and can be broadly
 
 When we add an element to the list, a 72-byte chunk is allocated from the heap with `malloc`.
 
+{% code overflow="wrap" %}
 ```c
 element = malloc(0x48);
 ```
+{% endcode %}
 
 The 72 byte element is structured like `[64:data, 8:pointer_to_next_element]`
 
 The vulnerability arises when we write data to the node.
 
+{% code overflow="wrap" %}
 ```c
 fgets(param_1,100,stdin);
 ```
+{% endcode %}
 
 If we write more than the 64 intended bytes, we'll overflow the element and overwrite the pointer to the element in the list.
 
 Since the flag is loaded into the `.bss` section by `main`
 
+{% code overflow="wrap" %}
 ```c
 pFVar1 = fopen("./flag.txt","r");
 __isoc99_fscanf(pFVar1,&DAT_004021b5,flag);
 ```
+{% endcode %}
 
 We can easily find and submit the address of `bss.flag` (`0x4040c0`) after our 64 bytes of padding to overwrite the next element with the address of the flag. When we view the list, it will print the flag.
 
+{% code overflow="wrap" %}
 ```sh
 [!] 2: ictf{arbitrary_read_ftw_d52a23c3}
 ```
+{% endcode %}
 
 ## Solve Script
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -261,3 +280,4 @@ io.recvlines(2)
 # We want the third entry, now pointing to the flag
 warn(io.recvline().decode())
 ```
+{% endcode %}

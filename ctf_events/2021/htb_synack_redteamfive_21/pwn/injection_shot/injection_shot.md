@@ -24,6 +24,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -101,3 +102,4 @@ success(flag)
 # Or, spawn a shell
 # io.interactive()
 ```
+{% endcode %}

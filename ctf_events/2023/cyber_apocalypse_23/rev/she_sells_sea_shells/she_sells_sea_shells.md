@@ -26,6 +26,7 @@ layout:
 
 We run a shell and have a `get_flag` option that takes a password.
 
+{% code overflow="wrap" %}
 ```bash
 ltrace ./shell
 printf("ctfsh-$ ")                                                      = 8
@@ -46,9 +47,11 @@ free(0x555a30952ac0)                                                    = <void>
 printf("ctfsh-$ ")                                                      = 8
 fgets(ctfsh-$
 ```
+{% endcode %}
 
 `get_flag` looks like.
 
+{% code overflow="wrap" %}
 ```c
 fgets((char *)&input,256,stdin);
   for (i = 0; i < 77; i = i + 1) {
@@ -67,9 +70,11 @@ fgets((char *)&input,256,stdin);
   }
   return uVar1;
 ```
+{% endcode %}
 
 Setup a breakpoint at the memcmp and find out what `t` equals.
 
+{% code overflow="wrap" %}
 ```bash
 breakrva 0x194d
 
@@ -86,6 +91,7 @@ x/64wx 0x555555556200
 0x555555556290 <m2+48>:	0x5e6f6fcb	0x132bbe1f	0x99a9a58e	0x708fab93
 0x5555555562a0 <m2+64>:	0x3ec4c01c	0x3593fea6	0x10c9c390	0x736150e9
 ```
+{% endcode %}
 
 So it's like this:
 
@@ -100,11 +106,13 @@ Plan of action:
 
 Copied and pasted the ghidra assembly and asked ChatGPT to extract the `XXh` values.
 
+{% code overflow="wrap" %}
 ```txt
 t: 2c4ab799a3e57078936e97d9476d38bdffbb85996fe14aab74c37ba8b29fd7ecebcd63b23923e184929609c699f258facb6f6f5e1fbe2b138ea5a99993ab8f701cc0c43ea6fe933590c3c910e9
 
 m2:641ef5e2c097441bf85ff9be185d488e91e4f6f15c8d269e2ba102f7c6f7e4b398fe57ed4a4bd1f6a1eb09c699f258facb6f6f5e1fbe2b138ea5a99993ab8f701cc0c43ea6fe933590c3c910e9
 ```
+{% endcode %}
 
 So we [XOR](<https://gchq.github.io/CyberChef/#recipe=From_Hex('Auto')XOR(%7B'option':'Hex','string':'641ef5e2c097441bf85ff9be185d488e91e4f6f15c8d269e2ba102f7c6f7e4b398fe57ed4a4bd1f6a1eb09c699f258facb6f6f5e1fbe2b138ea5a99993ab8f701cc0c43ea6fe933590c3c910e9'%7D,'Standard',false)&input=MmM0YWI3OTlhM2U1NzA3ODkzNmU5N2Q5NDc2ZDM4YmRmZmJiODU5OTZmZTE0YWFiNzRjMzdiYThiMjlmZDdlY2ViY2Q2M2IyMzkyM2UxODQ5Mjk2MDljNjk5ZjI1OGZhY2I2ZjZmNWUxZmJlMmIxMzhlYTVhOTk5OTNhYjhmNzAxY2MwYzQzZWE2ZmU5MzM1OTBjM2M5MTBlOQ>) them and get the flag!
 

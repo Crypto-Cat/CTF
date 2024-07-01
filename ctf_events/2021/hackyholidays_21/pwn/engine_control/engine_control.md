@@ -30,6 +30,7 @@ layout:
 
 #### part_1.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -90,9 +91,11 @@ print(flag)
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 #### part_2.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -172,3 +175,4 @@ io.sendline('sh')
 # Profit?
 io.interactive()
 ```
+{% endcode %}

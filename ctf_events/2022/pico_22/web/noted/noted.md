@@ -30,6 +30,7 @@ layout:
 
 #### exploit.html
 
+{% code overflow="wrap" %}
 ```html
 <body>
     <p>flag plz</p>
@@ -48,3 +49,4 @@ layout:
     </script>
 </body>
 ```
+{% endcode %}

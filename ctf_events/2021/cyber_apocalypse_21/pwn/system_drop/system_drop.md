@@ -30,6 +30,7 @@ layout:
 
 #### exploit.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -125,9 +126,11 @@ io.sendline(payload)
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 #### auto_rop.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -209,5 +212,6 @@ io.sendline(flat({offset: rop.chain()}))
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `CHTB{n0_0utput_n0_pr0bl3m_w1th_sr0p}`

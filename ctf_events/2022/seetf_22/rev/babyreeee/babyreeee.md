@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -50,5 +51,6 @@ for i, enc_char in enumerate(enc_flag):
 
 info(dec_flag)  # Print flag
 ```
+{% endcode %}
 
 Flag: `SEE{0n3_5m411_573p_81d215e8b81ae10f1c08168207fba396}`

@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -52,3 +53,4 @@ pwn elfpatch game 1dba 00 > temp
 pwn elfpatch temp 1657 01 > patched
 '''
 ```
+{% endcode %}

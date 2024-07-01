@@ -30,6 +30,7 @@ layout:
 
 #### find_sequence.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -79,9 +80,11 @@ for i in range(client_count):
 # paste this into xoroshiftall.py
 print('python xoroshiftall.py ' + ' '.join(u64_vals))
 ```
+{% endcode %}
 
 #### solve_game.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 import sys
@@ -122,3 +125,4 @@ for x, byte in enumerate(binary_board):
 # Flag?
 client.interactive()
 ```
+{% endcode %}

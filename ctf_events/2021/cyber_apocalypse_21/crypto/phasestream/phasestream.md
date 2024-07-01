@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -38,5 +39,6 @@ info("Phastream1 Key: %s", key)
 plaintext = xor(ciphertext, key)
 success('Phasestream1 Decrypted: %s', plaintext)
 ```
+{% endcode %}
 
 Flag: `CHTB{u51ng_kn0wn_pl41nt3xt}`

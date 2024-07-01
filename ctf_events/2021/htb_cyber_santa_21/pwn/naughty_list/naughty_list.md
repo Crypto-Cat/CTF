@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -120,5 +121,6 @@ io.sendline(flat({offset: [ret, rop.chain()]}))
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `HTB{S4nt4_g0t_ninety9_pr0bl3ms_but_chr1stm4s_4in7_0n3}`

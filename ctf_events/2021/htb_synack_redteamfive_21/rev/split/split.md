@@ -26,6 +26,7 @@ layout:
 
 #### backdoor.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -39,3 +40,4 @@ elf.asm(elf.symbols.ptrace, 'ret')
 # Save the patched binary
 elf.save('patched')
 ```
+{% endcode %}

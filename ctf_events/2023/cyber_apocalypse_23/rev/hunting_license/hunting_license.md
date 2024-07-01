@@ -26,24 +26,31 @@ layout:
 
 Used `ltrace` and find the first password.
 
+{% code overflow="wrap" %}
 ```bash
 strcmp("420", "PasswordNumeroUno")
 ```
+{% endcode %}
 
 Try again..
 
+{% code overflow="wrap" %}
 ```bash
 strcmp("420", "P4ssw0rdTw0")
 ```
+{% endcode %}
 
 Finally..
 
+{% code overflow="wrap" %}
 ```bash
 strcmp("420", "ThirdAndFinal!!!")
 ```
+{% endcode %}
 
 Remote server has additional questions, we can find answers easily with tools like `file`, `ldd`, `GDB` and `ghidra`.
 
+{% code overflow="wrap" %}
 ```bash
 nc 209.97.189.63 30590
 
@@ -89,5 +96,6 @@ What is the third password?
 
 [+] Here is the flag: `HTB{l1c3ns3_4cquir3d-hunt1ng_t1m3!}`
 ```
+{% endcode %}
 
 Flag: `HTB{l1c3ns3_4cquir3d-hunt1ng_t1m3!}`

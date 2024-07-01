@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,9 +78,11 @@ int main(){
     return 0;
 }
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -128,5 +131,6 @@ for i in range(33, 43):
 
 success(flag)
 ```
+{% endcode %}
 
 Flag: `actf{well_i'm_back_in_black_yes_i'm_back_in_the_stack_bec9b51294ead77684a1f593}`

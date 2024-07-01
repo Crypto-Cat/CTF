@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```c
 #include <stdio.h>
 
@@ -65,9 +66,11 @@ void main() {
 	}
 }
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -109,5 +112,6 @@ for i in range(1000):
         print(response)
     io.close()
 ```
+{% endcode %}
 
 Flag: `actf{if_youre_reading_this_ive_been_hacked}`

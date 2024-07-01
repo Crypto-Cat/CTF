@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -79,5 +80,6 @@ io.sendlineafter(b'I will give you one more chance.', flat(elf.functions.win))
 # Got Flag?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `SEE{R1P_15_K1NG_RBP_15_QU33N_31cfc2f963517cd7e1b33b84a0e6bea2}`

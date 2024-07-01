@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -41,5 +42,6 @@ for i in range(100):
         '>>>', '[print(x) for x in [[' + to_enumerate + str(i) + ']]]')
     print(io.recvline())
 ```
+{% endcode %}
 
 Flag: `CHTB{n0_j4il_c4n_h4ndl3_m3!}`

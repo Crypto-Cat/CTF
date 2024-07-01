@@ -26,23 +26,29 @@ layout:
 
 Uses `time(0)` and `rand` and a big array of words. Used some chatGPT to convert code to python but then realised we can just break in GDB where the words are loaded and check the results, e.g.
 
+{% code overflow="wrap" %}
 ```bash
 breakrva 0x224b
 ```
+{% endcode %}
 
 Then either print words and manually search:
 
+{% code overflow="wrap" %}
 ```bash
 x/203s 0x555555557008
 ```
+{% endcode %}
 
 Alternatively, search with GDB:
 
+{% code overflow="wrap" %}
 ```bash
 search "HTB"
 Searching for value: 'HTB'
 haystack        0x555555557418 'HTB{d1v1ng_1nt0_th3_d4tab4nk5}'
 haystack        0x555555558418 'HTB{d1v1ng_1nt0_th3_d4tab4nk5}'
 ```
+{% endcode %}
 
 Flag: `HTB{d1v1ng_1nt0_th3_d4tab4nk5}`

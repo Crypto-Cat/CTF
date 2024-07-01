@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```c
 #include <stdio.h>
 #include <string.h>
@@ -78,9 +79,11 @@ int main(){
     return 0;
 }
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -122,3 +125,4 @@ for i in range(1000):
         exit(0)
     io.close()
 ```
+{% endcode %}

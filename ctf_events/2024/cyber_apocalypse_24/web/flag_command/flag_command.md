@@ -30,12 +30,15 @@ layout:
 
 We load the webpage and find a terminal, enter a random string.
 
+{% code overflow="wrap" %}
 ```bash
 'hi' command not found. For a list of commands, type 'help'
 ```
+{% endcode %}
 
 OK, let's do it.
 
+{% code overflow="wrap" %}
 ```bash
 >> help
 
@@ -45,9 +48,11 @@ audio Toggle audio on/off
 restart Restart the game
 info Show info about the game
 ```
+{% endcode %}
 
 If we start the game, we can select one of 4 options. I choose to `HEAD NORTH`.
 
+{% code overflow="wrap" %}
 ```bash
 >> start
 
@@ -69,9 +74,11 @@ FOLLOW A MYSTERIOUS PATH
 CLIMB A TREE
 TURN BACK
 ```
+{% endcode %}
 
 We get another 4 options. At this point, let's check the web traffic in burp. There's a call to `/api/options` and in it are some possible commands. Notice we have a `secret` option.
 
+{% code overflow="wrap" %}
 ```json
 {
     "allPossibleCommands": {
@@ -98,17 +105,21 @@ We get another 4 options. At this point, let's check the web traffic in burp. Th
     }
 }
 ```
+{% endcode %}
 
 Let's send the secret message and receive the flag!
 
+{% code overflow="wrap" %}
 ```bash
 >> Blip-blop, in a pickle with a hiccup! Shmiggity-shmack
 
 HTB{D3v3l0p3r_t00l5_4r3_b35t_wh4t_y0u_Th1nk??!}
 ```
+{% endcode %}
 
 Note: I didn't actually solve it like this. Instead I checked the JS before playing the game and saw this function.
 
+{% code overflow="wrap" %}
 ```js
 const fetchOptions = () => {
     fetch("/api/options")
@@ -121,6 +132,7 @@ const fetchOptions = () => {
         });
 };
 ```
+{% endcode %}
 
 Subsequently, I made a GET request to this endpoint and discovered the secret option 😁
 

@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -64,5 +65,6 @@ for i in range(12, 16):
 # Print and close
 info(flag)
 ```
+{% endcode %}
 
 Flag: `1337UP{Th3s3_f0rm4ts_ar3_wh4ck!}`

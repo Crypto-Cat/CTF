@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 from time import time
@@ -86,5 +87,6 @@ io.sendlineafter('no hint this time... you can do it?!', str(correct_answer).enc
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `flag{i_0_w1th_pwn70ols_i5_3a5y}`

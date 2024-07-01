@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 import requests
 import string
@@ -56,5 +57,6 @@ while restart:
                 exit(0)
             break
 ```
+{% endcode %}
 
 Flag: `CHTB{1_th1nk_the_4l1ens_h4ve_n0t_used_m0ng0_b3f0r3}`

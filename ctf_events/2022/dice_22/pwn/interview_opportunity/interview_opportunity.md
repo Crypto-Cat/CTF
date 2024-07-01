@@ -26,6 +26,7 @@ layout:
 
 #### manual.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -123,9 +124,11 @@ io.sendline(payload)
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 #### ropstar.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -209,5 +212,6 @@ io.sendline(flat({offset: rop.chain()}))
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `dice{0ur_f16h7_70_b347_p3rf3c7_blu3_5h4ll_c0n71nu3}`

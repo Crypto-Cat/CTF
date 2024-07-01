@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
@@ -72,5 +73,6 @@ c = AES.new(key=key1, mode=AES.MODE_ECB)
 flag = c.decrypt(middle)
 print('[+] FLAG {}'.format(flag))
 ```
+{% endcode %}
 
 Flag: `HTB{m337_m3_1n_7h3_m1ddl3_0f_3ncryp710n}`

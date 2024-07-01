@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -95,5 +96,6 @@ io.sendlineafter('How long does it take for a toblob of energy to be transferred
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `flag{w3fL15n1Rx!y0u_r34lLy_4R3@_fL1rBg@rpL3_m4573R!}`

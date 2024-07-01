@@ -34,12 +34,14 @@ The second endpoint has a button saying `Fetch FLAG.txt`. However, if we click t
 
 Checking the debugger (devtools), there is a folder `_framework` containing files like `blazor.webassembly.js` and `dotnet.wasm`.
 
+{% code overflow="wrap" %}
 ```html
 <script src="_framework/blazor.webassembly.js"></script>
 <script>
     navigator.serviceWorker.register("service-worker.js");
 </script>
 ```
+{% endcode %}
 
 I visited the `Application` tab and see the `service-worker.js` script is running.
 
@@ -55,6 +57,7 @@ When I click inspect, it allows me to view the service-worker.js source code.
 
 Here's the interesting part.
 
+{% code overflow="wrap" %}
 ```js
 async function onFetch(event) {
     let cachedResponse = null;
@@ -73,14 +76,17 @@ async function onFetch(event) {
     return cachedResponse || fetch(event.request);
 }
 ```
+{% endcode %}
 
 Thankfully, you don't need to be an expert in JavaScript to conclude that our request for "FLAG.txt" is being replaced with "DUMMY.txt".
 
 I set a breakpoint at the following line.
 
+{% code overflow="wrap" %}
 ```js
 return fetch(request);
 ```
+{% endcode %}
 
 Notice that `request = "DUMMY.txt`, since it was changed on line 58.
 

@@ -30,32 +30,41 @@ There's 75 LOC in `app.py` so let's breakdown the important parts.
 
 The storage location of uploaded images and allowed extensions are configured.
 
+{% code overflow="wrap" %}
 ```python
 app.config['UPLOAD_FOLDER'] = '/dev/shm/uploads/'
 app.config['ALLOWED_EXTENSIONS'] = {'png'}
 ```
+{% endcode %}
 
 When we upload a file, it splits on a `.` and looks at the rightmost split (extension). If the lowercase string matches the allowed extension (`png`) then the filename is allowed.
 
+{% code overflow="wrap" %}
 ```python
 return '.' in filename and filename.rsplit('.', 1)[1].lower() in app.config['ALLOWED_EXTENSIONS']
 ```
+{% endcode %}
 
 Next, a random image name is generated.
 
+{% code overflow="wrap" %}
 ```python
 img_name = f'{str(random.randint(10000, 99999))}.png'
 ```
+{% endcode %}
 
 A `check` function is called which will first read the flag into a variable.
 
+{% code overflow="wrap" %}
 ```python
 with open('flag.txt', 'r') as f:
 	flag = f.read()
 ```
+{% endcode %}
 
 The dimensions of the image must be `690 x 420 (w x h)` and specific pixels need match the expected colours.
 
+{% code overflow="wrap" %}
 ```python
 with Image.open(app.config['UPLOAD_FOLDER'] + uploaded_image) as image:
 	w, h = image.size
@@ -68,9 +77,11 @@ with Image.open(app.config['UPLOAD_FOLDER'] + uploaded_image) as image:
 	if image.getpixel((264, 143)) != (122, 136, 25, 213):
 		return 0
 ```
+{% endcode %}
 
 Next, `exiftool` confirms that the metadata is as expected.
 
+{% code overflow="wrap" %}
 ```python
 if metadata["PNG:Description"] != "jctf{not_the_flag}":
 	return 0
@@ -79,6 +90,7 @@ if metadata["PNG:Title"] != "kool_pic":
 if metadata["PNG:Author"] != "anon":
 	return 0
 ```
+{% endcode %}
 
 If all the checks pass, the flag will be returned!
 
@@ -96,6 +108,7 @@ OK, so based on our analysis we need to create an image with the following prope
 
 I'm lazy, so asked ChatGPT to make a python script (note: exif packages failed for me, as they were strict on keys so used subprocess with exiftool instead).
 
+{% code overflow="wrap" %}
 ```python
 from PIL import Image, ImageDraw
 import subprocess
@@ -137,6 +150,7 @@ subprocess.run([
     "generated_image.png"
 ])
 ```
+{% endcode %}
 
 We upload the generated image and receive the flag in return.
 

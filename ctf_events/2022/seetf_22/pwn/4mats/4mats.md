@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 from time import time
@@ -55,5 +56,6 @@ io.sendlineafter(b'Guess my favourite number!', str(guess).encode())  # Submit g
 io.recvlines(2)
 info(io.recv().decode())  # Print flag
 ```
+{% endcode %}
 
 Flag: `SEE{4_f0r_4_f0rm4t5_0ebdc2b23c751d965866afe115f309ef}`

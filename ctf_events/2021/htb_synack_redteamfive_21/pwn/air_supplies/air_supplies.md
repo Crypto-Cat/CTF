@@ -24,6 +24,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -62,3 +63,4 @@ io.sendlineafter('Insert location to drop:', str(elf.symbols._))  # With the win
 
 io.interactive()
 ```
+{% endcode %}

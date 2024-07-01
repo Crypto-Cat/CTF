@@ -24,6 +24,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 import requests
@@ -51,5 +52,6 @@ while '}' not in url:
 # Flag plz
 warn(url)
 ```
+{% endcode %}
 
 Flag: `shctf{2_explor3_fronti3r}`

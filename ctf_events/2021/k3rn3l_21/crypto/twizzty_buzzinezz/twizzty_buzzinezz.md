@@ -30,6 +30,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 import os
 from pwn import *
@@ -55,5 +56,6 @@ for i in range(255):
     hc = HoneyComb(bytes([5, 70, 109, 10, 19, i]))
     print(hc.encrypt(FLAG))
 ```
+{% endcode %}
 
 Flag: `flag{s1mpl3_X0R_but_w1th_4_tw1zzt}`

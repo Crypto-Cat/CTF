@@ -24,6 +24,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -50,3 +51,4 @@ for i in range(100):
     except EOFError:
         pass
 ```
+{% endcode %}

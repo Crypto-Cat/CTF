@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```js
 var xhr = new XMLHttpRequest();
 xhr.open("GET", "http://localhost:5000/admin");
@@ -39,3 +40,4 @@ xhr.onload = function () {
 };
 xhr.send();
 ```
+{% endcode %}

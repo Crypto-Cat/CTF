@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,9 +78,11 @@ int main(){
     return 0;
 }
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -142,5 +145,6 @@ io.recvuntil('Login failed!\n')
 flag = io.recv()
 success(flag)
 ```
+{% endcode %}
 
 Flag: `actf{time_has_gone_so_fast_watching_the_leaves_fall_from_our_instruction_pointer_864f647975d259d7a5bee6e1}`

@@ -24,6 +24,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 # first 11 numbers in fibonacci sequence (excl zero) - will be used by c2f()
 fib = [1, 1]
@@ -70,5 +71,6 @@ for b in str(enc.strip()).split(" "):
 
 print('decrypted: ' + dec)
 ```
+{% endcode %}
 
 Flag: `corctf{b4s3d_4nd_f1bp!113d}`

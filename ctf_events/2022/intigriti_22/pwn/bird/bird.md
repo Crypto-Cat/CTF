@@ -26,6 +26,7 @@ layout:
 
 #### fuzz.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -50,9 +51,11 @@ for i in range(100):
     except EOFError:
         pass
 ```
+{% endcode %}
 
 #### manual.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 from time import sleep
@@ -148,9 +151,11 @@ io.sendline(payload)
 # Get our flag/shell
 io.interactive()
 ```
+{% endcode %}
 
 #### ropstar.py
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 from time import sleep
@@ -256,5 +261,6 @@ io.sendline(payload)
 # Get our flag/shell
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `1337UP{W3_1ov3_C4n4r13s_7h47_r37urn_7o_l1bc}`

@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -101,5 +102,6 @@ io.sendlineafter(b'>', payload)  # Chase joker
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `HTB{d4sh1nG_thr0ugH_th3_sn0w_1n_4_0n3_h0r53_0p3n_sl31gh!!!}`

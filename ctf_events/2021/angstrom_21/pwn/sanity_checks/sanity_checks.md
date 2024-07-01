@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -79,9 +80,11 @@ void main(){
     }
 }
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -154,5 +157,6 @@ io.recvline()
 flag = io.recv()
 success(flag)
 ```
+{% endcode %}
 
 Flag: `actf{if_you_aint_bout_flags_then_i_dont_mess_with_yall}`

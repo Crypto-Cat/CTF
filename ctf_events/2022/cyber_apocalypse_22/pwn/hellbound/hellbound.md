@@ -24,6 +24,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -90,5 +91,6 @@ io.sendlineafter(b'>>', b'69')
 io.recvline()
 warn(io.recv().decode())
 ```
+{% endcode %}
 
 Flag: `HTB{1t5_5p1r1t_15_5tr0ng3r_th4n_m0d1f1c4t10n5}`

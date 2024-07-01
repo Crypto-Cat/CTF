@@ -24,6 +24,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -72,5 +73,6 @@ io.send(b'1')
 
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `HTB{n0t_qu1t3_s0_0p4qu3}`

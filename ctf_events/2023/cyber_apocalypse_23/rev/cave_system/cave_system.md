@@ -26,6 +26,7 @@ layout:
 
 Ghidra shows quite complex conditions in flag checker.
 
+{% code overflow="wrap" %}
 ```c
 printf("What route will you take out of the cave? ");
 fgets((char *)&local_88,0x80,stdin);
@@ -151,9 +152,11 @@ puts("Freedom at last!");
 else {
 puts("Lost in the darkness, you\'ll wander for eternity...");
 ```
+{% endcode %}
 
 Used a combination of [this angr solution](https://binaryresearch.github.io/2020/01/22/more-angr-defeating-5-ELF-crackmes.html), ChatGPT and manual adjustments to make a solve script.
 
+{% code overflow="wrap" %}
 ```python
 import angr
 import claripy
@@ -193,7 +196,9 @@ def solve():
 if __name__ == "__main__":
     solve()
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
 python solve.py
 WARNING  | 2023-03-19 12:13:01,252 | angr.simos.simos | stdin is constrained to 132 bytes (has_end=True). If you are only providing the first 132 bytes instead of the entire stdin, please use stdin=SimFileStream(name='stdin', content=your_first_n_bytes, has_end=False).
@@ -201,11 +206,13 @@ WARNING  | 2023-03-19 12:13:01,252 | angr.simos.simos | stdin is constrained to 
 [ 12:13:10.287439 ] solution found...
 [ 12:13:10.295723 ] b"HTB{H0p3_u_d1dn't_g3t_th15_by_h4nd,1t5_4_pr3tty_l0ng_fl4g!!!}\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\xf5\x00\x00\x00\x00\x00\x00"
 ```
+{% endcode %}
 
 Flag: `HTB{H0p3_u_d1dn't_g3t_th15_by_h4nd,1t5_4_pr3tty_l0ng_fl4g!!!}`
 
 My solve script was apparently overkill, my teammate 0xM4hm0ud had a shorter one.
 
+{% code overflow="wrap" %}
 ```python
 import angr
 import claripy
@@ -219,3 +226,4 @@ sm.explore(find=0x400000 + 0x1aba,avoid=0x400000 + 0x1ac8)
 s = sm.found[0]
 print(s.posix.dumps(0))
 ```
+{% endcode %}

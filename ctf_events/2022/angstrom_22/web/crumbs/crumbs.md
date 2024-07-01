@@ -28,6 +28,7 @@ layout:
 
 ## Source
 
+{% code overflow="wrap" %}
 ```js
 const express = require("express");
 const crypto = require("crypto");
@@ -70,9 +71,11 @@ app.listen(port, () => {
     console.log(`Server listening on port ${port}.`);
 });
 ```
+{% endcode %}
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 import requests
@@ -95,3 +98,4 @@ while 'actf' not in response.text:
 extracted = BeautifulSoup(response.text, features="lxml").p.contents[0]
 warn(extracted)
 ```
+{% endcode %}

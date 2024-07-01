@@ -28,12 +28,15 @@ Source code is provided, so let's review it before we check [the site](http://ro
 
 The `Dockerfile` shows us where to look for the flag.
 
+{% code overflow="wrap" %}
 ```dockerfile
 COPY flag.png /
 ```
+{% endcode %}
 
 `index.php` has a function to GET a random image.
 
+{% code overflow="wrap" %}
 ```js
 function requestRandomImage() {
     var imageList = [
@@ -66,9 +69,11 @@ function requestRandomImage() {
     xhr.send();
 }
 ```
+{% endcode %}
 
 You'll notice that it makes a request to `file.php` with a user-controllable GET parameter, possible LFI. Checking the source, we'll see that parameters including `/` or `.` will be blocked, preventing us from using directory traversal, e.g. `../../`.
 
+{% code overflow="wrap" %}
 ```php
 $filename = urldecode($_GET["file"]);
 if (str_contains($filename, "/") or str_contains($filename, ".")) {
@@ -82,6 +87,7 @@ if (str_contains($filename, "/") or str_contains($filename, ".")) {
     readfile($filePath);
 }
 ```
+{% endcode %}
 
 ## Solution
 
@@ -101,6 +107,7 @@ Still no luck, so I tried URL encode with unicode: `%u002e%u002e%u002f%u002e%u00
 
 This time, we get some errors.
 
+{% code overflow="wrap" %}
 ```txt
 Warning: mime_content_type(images/%u002e%u002e%u002f%u002e%u002e%u002f%u002e%u002e%u002fflag%u002epng): Failed to open stream: No such file or directory in /var/www/html/file.php on line 9
 
@@ -108,18 +115,23 @@ Warning: Cannot modify header information - headers already sent by (output star
 
 Warning: readfile(images/%u002e%u002e%u002f%u002e%u002e%u002f%u002e%u002e%u002fflag%u002epng): Failed to open stream: No such file or directory in /var/www/html/file.php on line 11
 ```
+{% endcode %}
 
 Hmmm OK so reviewing the code again, notice that it first URL decodes the filename.
 
+{% code overflow="wrap" %}
 ```php
 $filename = urldecode($_GET["file"]);
 ```
+{% endcode %}
 
 Next, it checks if the filename contains `/` or `.` and if it doesn't, it will URL decode the filename a second time.
 
+{% code overflow="wrap" %}
 ```php
 $filePath = "images/" . urldecode($filename);
 ```
+{% endcode %}
 
 This made me think my approach of double URL encoding was correct, I'd just failed to directory traverse far enough since `/var/www/html/images/` requires `../../../../` to get back to the root directory: `%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66%25%32%65%25%32%65%25%32%66flag%25%32%65png`
 
@@ -127,14 +139,18 @@ Still doesn't work 😬 Maybe I need to triple URL encode: `%2525%2532%2565%2525
 
 Yep, that did the trick! We get a PNG image containing the flag. I'm too lazy to type it out, so I extract the text from the image.
 
+{% code overflow="wrap" %}
 ```bash
 sudo apt-get install tesseract-ocr
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
 tesseract file.png stdout
 ictf{tr4nsv3rsing Ov3r_rOk5_6a3367}
 ```
+{% endcode %}
 
 Tesseract got 4 characters wrong 🙄 Manually corrected the flag!
 

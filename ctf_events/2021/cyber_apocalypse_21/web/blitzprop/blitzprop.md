@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 import requests
@@ -46,5 +47,6 @@ result = requests.post(TARGET_URL + '/api/submit', json={
 flag = requests.get(TARGET_URL + '/static/flag').text
 success(flag)
 ```
+{% endcode %}
 
 Flag: `CHTB{p0llute_with_styl3}`

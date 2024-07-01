@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -89,3 +90,4 @@ io.sendlineafter(b':', payload)
 # Receive the flag
 io.interactive()
 ```
+{% endcode %}

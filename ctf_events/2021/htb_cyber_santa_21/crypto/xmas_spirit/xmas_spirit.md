@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 import random
 from math import gcd
@@ -74,5 +75,6 @@ res = decrypt(dt, a, b)
 # Write back to PDF
 write('decrypted.pdf', res)
 ```
+{% endcode %}
 
 Flag: `HTB{4ff1n3_c1ph3r_15_51mpl3_m47h5}`

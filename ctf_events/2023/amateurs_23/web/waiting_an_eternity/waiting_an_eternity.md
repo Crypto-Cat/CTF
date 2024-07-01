@@ -30,9 +30,11 @@ There's nothing in the page source, cookies etc.
 
 If we check the request in burp, there's a response header.
 
+{% code overflow="wrap" %}
 ```bash
 Refresh: 1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000; url=/secret-site?secretcode=5770011ff65738feaf0c1d009caffb035651bb8a7e16799a433a301c0756003a
 ```
+{% endcode %}
 
 OK, so let's visit https://waiting-an-eternity.amt.rs/secret-site?secretcode=5770011ff65738feaf0c1d009caffb035651bb8a7e16799a433a301c0756003a
 
@@ -40,9 +42,11 @@ We see another message `welcome. please wait another eternity`.
 
 This time we do have a cookie, which is set in the HTTP response.
 
+{% code overflow="wrap" %}
 ```bash
 Set-Cookie: time=1689413881.7688985; Path=/
 ```
+{% endcode %}
 
 When we change the value to `999999999999999999999999999999999999999999999999999999999999999999999999999999999999` it says `you have not waited an eternity. you have only waited -1e+84 seconds`.
 

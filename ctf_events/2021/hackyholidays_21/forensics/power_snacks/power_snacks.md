@@ -28,6 +28,7 @@ layout:
 
 ## Solution
 
+{% code overflow="wrap" %}
 ```powershell
 # 1
 $answer = For ($i=1; $i -le 1337; $i++) {
@@ -68,3 +69,4 @@ $answer | check
 $answer  = Import-Csv -Delimiter "`t" ./passwords.tsv | Sort-Object {$_.Password.Length}, {$_.Password} | Where-Object category -EQ "names" | Select-Object Password
 $answer | check
 ```
+{% endcode %}
