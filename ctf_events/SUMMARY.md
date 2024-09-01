@@ -2,6 +2,9 @@
 
 -   [CryptoCat's CTF writeups](README.md)
 -   [2024](2024/README.md)
+    -   [CyberSpace](2024/cyberspace_24/)
+        -   [Web](2024/cyberspace_24/web/README.md)
+            -   [Feature Unlocked](2024/cyberspace_24/web/feature_unlocked/feature_unlocked.md)
     -   [UIU](2024/uiu_24/)
         -   [Web](2024/uiu_24/web/README.md)
             -   [Fare Evasion](2024/uiu_24/web/fare_evasion/fare_evasion.md)
