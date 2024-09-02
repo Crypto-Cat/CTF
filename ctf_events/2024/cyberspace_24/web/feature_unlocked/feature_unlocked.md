@@ -18,6 +18,8 @@ layout:
 
 # Feature Unlocked
 
+## Video walkthrough
+
 [![](https://img.youtube.com/vi/6jvmbvsRLgQ/0.jpg)](https://www.youtube.com/watch?v=6jvmbvsRLgQ "Signature Verification Bypass and Command Injection - Feature Unlocked (CyberSpace CTF)")
 
 ## Description

@@ -1,6 +1,5 @@
 ---
-description:
-    CryptoCat's capture the flag challenge writeups, solve scripts and video
+description: CryptoCat's capture the flag challenge writeups, solve scripts and video
     walkthroughs 💜
 ---
 
