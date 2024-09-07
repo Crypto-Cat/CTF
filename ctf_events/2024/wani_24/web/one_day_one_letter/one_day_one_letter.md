@@ -24,8 +24,6 @@ layout:
 
 ## Solution
 
-{% hint style="info" %}
-
 ### Source code
 
 #### content-server.py
@@ -150,7 +148,6 @@ httpd.serve_forever()
 ```
 
 {% endcode %}
-{% endhint %}
 
 ### Exploit
 
