@@ -5,6 +5,12 @@ description: CryptoCat's CTF 2024 challenge writeups, solve scripts, and video w
 
 # 2024
 
+-   [CSAW](csaw_24/)
+    -   [Web](csaw_24/web/)
+        -   [BucketWars](csaw_24/web/bucketwars/bucketwars.md)
+        -   [Log Me In](csaw_24/web/log_me_in/log_me_in.md)
+        -   [Playing on the Backcourts](csaw_24/web/playing_on_the_backcourts/playing_on_the_backcourts.md)
+        -   [Lost Pyramid](csaw_24/web/lost_pyramid/lost_pyramid.md)
 -   [CyberSpace](cyberspace_24/)
     -   [Web](cyberspace_24/web/)
         -   [Feature Unlocked](cyberspace_24/web/feature_unlocked/feature_unlocked.md)
