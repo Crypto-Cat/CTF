@@ -7,6 +7,7 @@
             -   [BucketWars](2024/csaw_24/web/bucketwars/bucketwars.md)
             -   [Log Me In](2024/csaw_24/web/log_me_in/log_me_in.md)
             -   [Playing on the Backcourts](2024/csaw_24/web/playing_on_the_backcourts/playing_on_the_backcourts.md)
+            -   [Lost Pyramid](2024/csaw_24/web/lost_pyramid/lost_pyramid.md)
     -   [CyberSpace](2024/cyberspace_24/)
         -   [Web](2024/cyberspace_24/web/)
             -   [Feature Unlocked](2024/cyberspace_24/web/feature_unlocked/feature_unlocked.md)
