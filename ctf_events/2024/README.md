@@ -1,10 +1,36 @@
 ---
-description: CryptoCat's CTF 2024 challenge writeups, solve scripts, and video walkthroughs
-    💜
+description: CryptoCat's CTF 2024 challenge writeups, solve scripts, and video walkthroughs 💜
 ---
 
 # 2024
 
+-   [Intigriti 2024](intigriti_24/)
+    -   [BabyFlow](intigriti_24/warmup/babyflow/babyflow.md)
+    -   [In Plain Sight](intigriti_24/warmup/in_plain_sight/in_plain_sight.md)
+    -   [Irrorversible](intigriti_24/warmup/irrorversible/irrorversible.md)
+    -   [Layers](intigriti_24/warmup/layers/layers.md)
+    -   [Rigged Slot Machine 1](intigriti_24/warmup/rigged_slot_machine1/rigged_slot_machine1.md)
+    -   [Schrodinger's Pad](intigriti_24/crypto/schrodingers_pad/schrodingers_pad.md)
+    -   [CTF Mind Tricks](intigriti_24/forensics/ctf_mind_tricks/ctf_mind_tricks.md)
+    -   [Hoarded Flag](intigriti_24/forensics/hoarded_flag/hoarded_flag.md)
+    -   [Password Management](intigriti_24/forensics/password_management/password_management.md)
+    -   [Bug Squash 1](intigriti_24/game/bug_squash1/bug_squash1.md)
+    -   [Bug Squash 2](intigriti_24/game/bug_squash2/bug_squash2.md)
+    -   [Quick Recovery](intigriti_24/misc/quick_recovery/quick_recovery.md)
+    -   [Triage Bot 2](intigriti_24/misc/triage_bot2/triage_bot.md)
+    -   [Cold Storage](intigriti_24/mobile/cold_storage/cold_storage.md)
+    -   [No Comment](intigriti_24/osint/no_comment/no_comment.md)
+    -   [Trackdown](intigriti_24/osint/trackdown/trackdown.md)
+    -   [Trackdown 2](intigriti_24/osint/trackdown2/trackdown2.md)
+    -   [Floormat Sale](intigriti_24/pwn/floormat_sale/floormat_sale.md)
+    -   [Retro2Win](intigriti_24/pwn/retro2win/retro2win.md)
+    -   [Rigged Slot Machine 2](intigriti_24/pwn/rigged_slot_machine2/rigged_slot_machine2.md)
+    -   [UAP](intigriti_24/pwn/uap/uap.md)
+    -   [Secure Bank](intigriti_24/rev/secure_bank/secure_bank.md)
+    -   [Biocorp](intigriti_24/web/biocorp/biocorp.md)
+    -   [Cat Club](intigriti_24/web/cat_club/cat_club.md)
+    -   [Pizza Paradise](intigriti_24/web/pizza_paradise/pizza_paradise.md)
+    -   [SafeNotes 2.0](intigriti_24/web/safenotes_2/safenotes_2.md)
 -   [CSAW](csaw_24/)
     -   [Playing on the Backcourts](csaw_24/web/playing_on_the_backcourts/playing_on_the_backcourts.md)
     -   [Log Me In](csaw_24/web/log_me_in/log_me_in.md)
