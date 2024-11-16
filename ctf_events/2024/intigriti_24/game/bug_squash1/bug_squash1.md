@@ -18,6 +18,10 @@ layout:
 
 # Bug Squash (part 1)
 
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/VoT74JOGWgA/0.jpg)](https://youtu.be/VoT74JOGWgA "Hacking Unity Games with Cheat Engine and dnSpy")
+
 ## Challenge Description
 
 > Squash those bugs!

@@ -18,11 +18,15 @@ layout:
 
 # Bug Squash (part 2)
 
-I'll improve the writeup! check the video walkthrough too 😊
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/dEA68Aa0V-s/0.jpg)](https://youtu.be/dEA68Aa0V-s "Bypassing Server-side Anti-Cheat Protections")
 
 ## Challenge Description
 
 > The developers learned some important things about cheaters and now hope they've learnt their lesson. Rumour has it, if you score more than 100,000 points in this game (within the 2 min time limit), you'll get a flag. Watch out for that new anti-cheat system though!
+
+I'll improve the writeup! check the video walkthrough too 😊
 
 ## Solution
 
