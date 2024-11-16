@@ -60,7 +60,7 @@ def generate_variations(s):
 
 def start_game(session):
     """Start a new game session and return the user_id."""
-    response = session.post('{BASE_URL}/start_game')
+    response = session.post(f'{BASE_URL}/start_game')  # Use f-string for URL
     response_data = response.json()
     user_id = response_data['user_id']
     score = response_data['score']
@@ -73,7 +73,7 @@ def update_score(session, user_id, variations):
     json_data.update({variation: 1 for variation in variations})
 
     response = session.post(
-        '{BASE_URL}/update_score', json=json_data)
+        f'{BASE_URL}/update_score', json=json_data)  # Use f-string for URL
     response_data = response.json()
 
     if "error" in response_data:
@@ -100,6 +100,7 @@ def play_game(variations, target_score=100000):
 if __name__ == "__main__":
     variations = generate_variations("bugs_squashed")
     play_game(variations)
+
 ```
 
 Flag: `INTIGRITI{64m3_h4ck1n6_4n71ch347_15_4l50_fun!}`
