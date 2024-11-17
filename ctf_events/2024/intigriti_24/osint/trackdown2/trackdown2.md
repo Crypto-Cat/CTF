@@ -68,6 +68,10 @@ There's the bus station!! See that hotel on the map? [Click on it](https://maps.
 
 ![](./images/8.PNG)
 
-Flag: `INTIGRITI{Express_by_M_Village}` (we allowed many variations, non case-sensitive!)
+Flag: `INTIGRITI{Express_by_M_Village}`
+
+We allowed several variations of the location, not case-sensitive:
+
+![](./images/10.PNG)
 
 ![](./images/9.jpg)

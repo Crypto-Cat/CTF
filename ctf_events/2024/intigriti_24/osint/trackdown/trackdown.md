@@ -42,6 +42,10 @@ If you look closely, you can see the same seating/tables. Let's check the map..
 
 There we go! We find the [correct location](https://maps.app.goo.gl/nyvSVbDtRJYejKZh7). That was an easy one 😁 Terrible, rip-off bar BTW - do not recommend. There's an amazing place round the corner that does a _delicious_ pho cocktail 😋
 
-Flag: `INTIGRITI{Si_Lounge_Hanoi}` (we allowed several variations, not case-sensitive)
+Flag: `INTIGRITI{Si_Lounge_Hanoi}`
+
+We allowed several variations of the location, not case-sensitive:
+
+![](./images/4.PNG)
 
 Note, a lot of people confused `what the photo is of` and `where the photo was taken from`.
