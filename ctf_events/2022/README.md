@@ -1,56 +1,58 @@
----
-description: CryptoCat's CTF 2022 challenge writeups, solve scripts, and video walkthroughs
-    💜
----
+## Imaginary (iCTF)
+- [ASE](ictf_22/crypto/ase/ase.md)
+- [Links 1](ictf_22/pwn/links/links_1.md)
+- [Links 2](ictf_22/pwn/links/links_2.md)
+- [Links 3](ictf_22/pwn/links/links_3.md)
+- [Open Doors](ictf_22/pwn/open_doors/open_doors.md)
 
-# 2022
+## SEETF
+- [4mats](seetf_22/pwn/4mats/4mats.md)
+- [Easy Overflow](seetf_22/pwn/easy_overflow/easy_overflow.md)
+- [BabyReeee](seetf_22/rev/babyreeee/babyreeee.md)
+- [Super-Secure-Requests-Forwarder](seetf_22/web/super_secure_requests_forwarder/super_secure_requests_forwarder.md)
 
--   [Imaginary (iCTF)](imaginary-ictf/)
-    -   [ASE](ictf_22/crypto/ase/ase.md)
-    -   [Links 1](ictf_22/pwn/links/links_1.md)
-    -   [Links 2](ictf_22/pwn/links/links_2.md)
-    -   [Links 3](ictf_22/pwn/links/links_3.md)
-    -   [Open Doors](ictf_22/pwn/open_doors/open_doors.md)
--   [SEETF](seetf_22/)
-    -   [4mats](seetf_22/pwn/4mats/4mats.md)
-    -   [Easy Overflow](seetf_22/pwn/easy_overflow/easy_overflow.md)
-    -   [BabyReeee](seetf_22/rev/babyreeee/babyreeee.md)
-    -   [Super-Secure-Requests-Forwarder](seetf_22/web/super_secure_requests_forwarder/super_secure_requests_forwarder.md)
--   [HTB Cyber Apocalypse](cyber_apocalypse_22/)
-    -   [Hellbound](cyber_apocalypse_22/pwn/hellbound/hellbound.md)
--   [Angstrom](angstrom_22/)
-    -   [Really Obnoxious Problem](angstrom_22/pwn/really_obnoxious_problem/really_obnoxious_problem.md)
-    -   [Wah](angstrom_22/pwn/wah/wah.md)
-    -   [Whats My Name](angstrom_22/pwn/whatsmyname/whatsmyname.md)
-    -   [Where Am I](angstrom_22/pwn/whereami/whereami.md)
-    -   [Crumbs](angstrom_22/web/crumbs/crumbs.md)
-    -   [Xtra Salty Sardines](angstrom_22/web/xtra_salty_sardines/xtra_salty_sardines.md)
--   [NahamCon](nahamcon_22/)
-    -   [Baby Steps](nahamcon_22/pwn/babysteps/babysteps.md)
-    -   [Flaskmetal Alchemist](nahamcon_22/web/flaskmetal_alchemist/flaskmetal_alchemist.md)
-    -   [Hacker Ts](nahamcon_22/web/hacker_ts/hacker_ts.md)
-    -   [Two for One](nahamcon_22/web/two_for_one/two_for_one.md)
--   [Pico](pico_22/)
-    -   [Side Channel](pico_22/forensics/side_channel/side_channel.md)
-    -   [Buffer Overflow 1](pico_22/pwn/buffer_overflow_1/buffer_overflow_1.md)
-    -   [Buffer Overflow 2](pico_22/pwn/buffer_overflow_2/buffer_overflow_2.md)
-    -   [Buffer Overflow 3](pico_22/pwn/buffer_overflow_3/buffer_overflow_3.md)
-    -   [Flag Leak](pico_22/pwn/flag_leak/flag_leak.md)
-    -   [Function Overwrite](pico_22/pwn/function_overwrite/function_overwrite.md)
-    -   [ROPfu](pico_22/pwn/ropfu/ropfu.md)
-    -   [RPS](pico_22/pwn/rps.md)
-    -   [Stack Cache](pico_22/pwn/stack_cache/stack_cache.md)
-    -   [Wine](pico_22/pwn/wine/wine.md)
-    -   [X-Sixty-What](pico_22/pwn/x-sixty-what.md)
-    -   [Wizardlike](pico_22/rev/wizardlike/wizardlike.md)
-    -   [Noted](pico_22/web/noted/noted.md)
--   [Space Heroes](space_heroes_22/)
-    -   [Vader](space_heroes_22/pwn/vader/vader.md)
-    -   [Flag in Space](space_heroes_22/web/flag_in_space/flag_in_space.md)
--   [Intigriti](intigriti_22/)
-    -   [Bird](intigriti_22/pwn/bird/bird.md)
-    -   [Cake](intigriti_22/pwn/cake/cake.md)
-    -   [Easy Register](intigriti_22/pwn/easy_register/easy_register.md)
-    -   [Search Engine](intigriti_22/pwn/search_engine/search_engine.md)
--   [Dice](dice_22/)
-    -   [Interview Opportunity](dice_22/pwn/interview_opportunity/interview_opportunity.md)
+## HTB Cyber Apocalypse
+- [Hellbound](cyber_apocalypse_22/pwn/hellbound/hellbound.md)
+
+## Angstrom
+- [Really Obnoxious Problem](angstrom_22/pwn/really_obnoxious_problem/really_obnoxious_problem.md)
+- [Wah](angstrom_22/pwn/wah/wah.md)
+- [Whats My Name](angstrom_22/pwn/whatsmyname/whatsmyname.md)
+- [Where Am I](angstrom_22/pwn/whereami/whereami.md)
+- [Crumbs](angstrom_22/web/crumbs/crumbs.md)
+- [Xtra Salty Sardines](angstrom_22/web/xtra_salty_sardines/xtra_salty_sardines.md)
+
+## NahamCon
+- [Baby Steps](nahamcon_22/pwn/babysteps/babysteps.md)
+- [Flaskmetal Alchemist](nahamcon_22/web/flaskmetal_alchemist/flaskmetal_alchemist.md)
+- [Hacker Ts](nahamcon_22/web/hacker_ts/hacker_ts.md)
+- [Two for One](nahamcon_22/web/two_for_one/two_for_one.md)
+
+## Pico
+- [Side Channel](pico_22/forensics/side_channel/side_channel.md)
+- [Buffer Overflow 1](pico_22/pwn/buffer_overflow_1/buffer_overflow_1.md)
+- [Buffer Overflow 2](pico_22/pwn/buffer_overflow_2/buffer_overflow_2.md)
+- [Buffer Overflow 3](pico_22/pwn/buffer_overflow_3/buffer_overflow_3.md)
+- [Flag Leak](pico_22/pwn/flag_leak/flag_leak.md)
+- [Function Overwrite](pico_22/pwn/function_overwrite/function_overwrite.md)
+- [ROPfu](pico_22/pwn/ropfu/ropfu.md)
+- [RPS](pico_22/pwn/rps.md)
+- [Stack Cache](pico_22/pwn/stack_cache/stack_cache.md)
+- [Wine](pico_22/pwn/wine/wine.md)
+- [X-Sixty-What](pico_22/pwn/x-sixty-what.md)
+- [Wizardlike](pico_22/rev/wizardlike/wizardlike.md)
+- [Noted](pico_22/web/noted/noted.md)
+
+## Space Heroes
+- [Vader](space_heroes_22/pwn/vader/vader.md)
+- [Flag in Space](space_heroes_22/web/flag_in_space/flag_in_space.md)
+
+## Intigriti
+- [Bird](intigriti_22/pwn/bird/bird.md)
+- [Cake](intigriti_22/pwn/cake/cake.md)
+- [Easy Register](intigriti_22/pwn/easy_register/easy_register.md)
+- [Search Engine](intigriti_22/pwn/search_engine/search_engine.md)
+
+## Dice
+- [Interview Opportunity](dice_22/pwn/interview_opportunity/interview_opportunity.md)
+
