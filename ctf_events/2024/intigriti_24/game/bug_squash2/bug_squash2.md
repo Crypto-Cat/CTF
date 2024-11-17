@@ -47,6 +47,7 @@ I'll improve the writeup! check the video walkthrough too 😊
 
 ### solve.py
 
+{% code overflow="wrap" %}
 ```python
 import requests
 import itertools
@@ -102,6 +103,7 @@ if __name__ == "__main__":
     play_game(variations)
 
 ```
+{% endcode %}
 
 Flag: `INTIGRITI{64m3_h4ck1n6_4n71ch347_15_4l50_fun!}`
 
@@ -109,6 +111,7 @@ Sorry if this was guessy, didn't get a lot of solves >.< Here's the server-side 
 
 ### server.py
 
+{% code overflow="wrap" %}
 ```python
 from flask import Flask, request, jsonify
 import uuid
@@ -257,3 +260,4 @@ def update_score():
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8080, debug=False)
 ```
+{% endcode %}

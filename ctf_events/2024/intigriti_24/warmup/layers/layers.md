@@ -26,6 +26,7 @@ layout:
 
 Players receive a ZIP archive to download, perhaps noticing the unusual order of extraction.
 
+{% code overflow="wrap" %}
 ```bash
 unzip layers.zip
 Archive:  layers.zip
@@ -40,25 +41,31 @@ Archive:  layers.zip
  extracting: 24
  extracting: 12
 ```
+{% endcode %}
 
 Each file contains a single byte of data.
 
+{% code overflow="wrap" %}
 ```bash
 cat 0
 00110010
 ```
+{% endcode %}
 
 Maybe we can concatenate them and convert from binary?
 
+{% code overflow="wrap" %}
 ```bash
 cat *
 0011001001001101011101010100111001010110010011100100010001111010011110100110000101100011011100110011100101100111011100110101011001001000010100110101010101001110010011100011100101100100010011100101011001001010010100110100111001100010011110100011001101100110011010100101010101010010011010100100111001000010010010010110101001010101011001000110101101010011011001100111100001111010001110010110010101000100011011110101001100110101010011100101001001010110
 ```
+{% endcode %}
 
 It translates to `2MuNVNDzzacs9gsVHSUNN9dNVJSNbz3fjURjNBIjUdkSfxz9eDoS5NRV`, which although plaintext, doesn't have a recognisable encoding (and fails with [magic](<https://gchq.github.io/CyberChef/#recipe=From_Binary('Space',8)Magic(3,false,false,'')&input=MDAxMTAwMTAwMTAwMTEwMTAxMTEwMTAxMDEwMDExMTAwMTAxMDExMDAxMDAxMTEwMDEwMDAxMDAwMTExMTAxMDAxMTExMDEwMDExMDAwMDEwMTEwMDAxMTAxMTEwMDExMDAxMTEwMDEwMTEwMDExMTAxMTEwMDExMDEwMTAxMTAwMTAwMTAwMDAxMDEwMDExMDEwMTAxMDEwMTAwMTExMDAxMDAxMTEwMDAxMTEwMDEwMTEwMDEwMDAxMDAxMTEwMDEwMTAxMTAwMTAwMTAxMDAxMDEwMDExMDEwMDExMTAwMTEwMDAxMDAxMTExMDEwMDAxMTAwMTEwMTEwMDExMDAxMTAxMDEwMDEwMTAxMDEwMTAxMDAxMDAxMTAxMDEwMDEwMDExMTAwMTAwMDAxMDAxMDAxMDAxMDExMDEwMTAwMTAxMDEwMTAxMTAwMTAwMDExMDEwMTEwMTAxMDAxMTAxMTAwMTEwMDExMTEwMDAwMTExMTAxMDAwMTExMDAxMDExMDAxMDEwMTAwMDEwMDAxMTAxMTExMDEwMTAwMTEwMDExMDEwMTAxMDAxMTEwMDEwMTAwMTAwMTAxMDExMA&oeol=VT>)).
 
 Notice that if we check the timestamps of the files, they weren't created in the order you would expect (sequentially, according to their filenames).
 
+{% code overflow="wrap" %}
 ```bash
 ls -lart
 total 224
@@ -76,9 +83,11 @@ total 224
 -rw-r--r-- 1 crystal crystal   8 Aug 19 17:15 31
 -rw-r--r-- 1 crystal crystal   8 Aug 19 17:15 52
 ```
+{% endcode %}
 
 Let's try to concatenate in ascending order by timestamp, instead of filename. We can use a script to automate the whole process.
 
+{% code overflow="wrap" %}
 ```python
 import zipfile
 import os
@@ -116,12 +125,15 @@ for file_name in os.listdir(EXTRACT_DIR):
     os.remove(os.path.join(EXTRACT_DIR, file_name))
 os.rmdir(EXTRACT_DIR)
 ```
+{% endcode %}
 
+{% code overflow="wrap" %}
 ```bash
 python solve.py
 Reconstructed String:
 SU5USUdSSVRJezdoM3IzNV9sNHkzcjVfNzBfN2gxNV9jaDRsbDNuNjN9
 ```
+{% endcode %}
 
 What happens if we run [magic on this one?](<https://gchq.github.io/CyberChef/#recipe=Magic(3,false,false,'')&input=U1U1VVNVZFNTVlJKZXpkb00zSXpOVjlzTkhremNqVmZOekJmTjJneE5WOWphRFJzYkROdU5qTjk&oeol=VT>)
 

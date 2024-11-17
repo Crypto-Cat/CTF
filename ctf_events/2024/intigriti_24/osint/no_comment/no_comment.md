@@ -32,6 +32,7 @@ Could check for embedded files or stego, or perhaps do a reverse image lookup on
 
 In fact, the title and description is a hint! If we check the image metadata (EXIF), we'll see a comment.
 
+{% code overflow="wrap" %}
 ```bash
 exiftool ripple.jpg
 ExifTool Version Number         : 12.57
@@ -55,22 +56,27 @@ Y Cb Cr Sub Sampling            : YCbCr4:2:0 (2 2)
 Image Size                      : 4032x3024
 Megapixels                      : 12.2
 ```
+{% endcode %}
 
 Recognise the comment format? It's from Imgur, where [URLs are formatted](https://www.reddit.com/r/redditdev/comments/35bb7i/imgur_link_format) like `imgur.com/a/{alphanumeric}` (albums) and `imgur.com/g/{alphanumeric}` (galleries).
 
 Let's visit imgur.com/a/pq6TgwS and see the same image, along with a comment.
 
+{% code overflow="wrap" %}
 ```
 V2hhdCBhICJsb25nX3N0cmFuZ2VfdHJpcCIgaXQncyBiZWVuIQoKaHR0cHM6Ly9wYXN0ZWJpbi5jb20vRmRjTFRxWWc=
 ```
+{% endcode %}
 
 We [base64 decode it..](<https://gchq.github.io/CyberChef/#recipe=From_Base64('A-Za-z0-9%2B/%3D',true,false)&input=VjJoaGRDQmhJQ0pzYjI1blgzTjBjbUZ1WjJWZmRISnBjQ0lnYVhRbmN5QmlaV1Z1SVFvS2FIUjBjSE02THk5d1lYTjBaV0pwYmk1amIyMHZSbVJqVEZSeFdXYz0>)
 
+{% code overflow="wrap" %}
 ```
 What a "long_strange_trip" it's been!
 
 https://pastebin.com/FdcLTqYg
 ```
+{% endcode %}
 
 Visit pastebin.com/FdcLTqYg and find a password protected note. Enter `long_strange_trip` to uncover a hex string.
 

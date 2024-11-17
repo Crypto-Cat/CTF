@@ -30,6 +30,7 @@ Players receive a jumbled up QR code, and the script used to generate it.
 
 ### gen.py
 
+{% code overflow="wrap" %}
 ```python
 from PIL import Image, ImageDraw
 from itertools import permutations
@@ -91,11 +92,13 @@ for i in range(4):
 reconstructed_image.save("obscured.png")
 print("Reconstructed QR code saved as 'obscured.png'")
 ```
+{% endcode %}
 
 They simply need to make an opposing script to reconstruct it. Since they don't know the PIN, they can try all possible combinations (24) and see which produce valid QRs. The whole process can be automated to a single script.
 
 ### solve.py
 
+{% code overflow="wrap" %}
 ```python
 from PIL import Image, ImageDraw
 from itertools import permutations
@@ -185,13 +188,16 @@ for a_order in permutations(["1", "2", "3", "4"]):
 else:
     print("No readable QR code found in any permutation.")
 ```
+{% endcode %}
 
 Run it and get the flag!
 
+{% code overflow="wrap" %}
 ```bash
 python solve.py
 Decoded QR code with a_order ('2', '4', '1', '3') and b_order ('3', '1', '4', '2'):
 QR-Code:INTIGRITI{7h475_h0w_y0u_r3c0n57ruc7_qr_c0d3}
 ```
+{% endcode %}
 
 Flag: `INTIGRITI{7h475_h0w_y0u_r3c0n57ruc7_qr_c0d3}`

