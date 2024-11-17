@@ -4,7 +4,7 @@ description: CryptoCat's CTF 2024 challenge writeups, solve scripts, and video w
 
 # 2024
 
--   [Intigriti](intigriti_24/)
+-   [Intigriti 1337UPLIVE](intigriti_24/README.md)
     -   [BabyFlow](intigriti_24/warmup/babyflow/babyflow.md)
     -   [In Plain Sight](intigriti_24/warmup/in_plain_sight/in_plain_sight.md)
     -   [Irrorversible](intigriti_24/warmup/irrorversible/irrorversible.md)
