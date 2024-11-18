@@ -267,3 +267,5 @@ Enter your bet amount (up to $100 per spin): $ 1
 {% endcode %}
 
 Flag: `INTIGRITI{1_w15h_17_w45_7h15_345y_1n_v3645}`
+
+Note: [Someone](https://www.linkedin.com/in/gonçalo-melo-6485592a0) actually found a nice unintended that works on both Rigged slot 1 _and_ 2 (well, if the time limit was shorter). Check out the [writeup](https://xstf.pt/2024-11-16-RiggedSlotMachine1) 😎
