@@ -22,7 +22,7 @@ layout:
 
 > Check out our new and improved Triage Bot!
 
-The 2023 1337UP LIVE CTF featured a `TriageBot` challenge that used an LLM (ChatGPT) to triage reports. Players had to force the bot to leak it's initial prompt (against it's instructions). If you missed it, check out the [video walkthrough]().
+The 2023 1337UP LIVE CTF featured a `TriageBot` challenge that used an LLM (ChatGPT) to triage reports. Players had to force the bot to leak it's initial prompt (against it's instructions). If you missed it, check out the [video walkthrough](https://www.youtube.com/watch?v=5wcJjNgncOQ).
 
 ## Solution
 
