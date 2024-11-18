@@ -18,6 +18,10 @@ layout:
 
 # Rigged Slot Machine (part 1)
 
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/ZKtRuZMqo2o/0.jpg)](https://youtu.be/ZKtRuZMqo2o "Buffer Overflow: Overwriting Stack Variables and Basic Python Scripting")
+
 ## Challenge Description
 
 > The casino thinks they've rigged their slots so well, they can give every player $100 free play! Of course, there's always some small print: you can't cash out unless you hit the jackpot and each player only gets 3 minutes playtime
@@ -29,6 +33,7 @@ This wasn't a challenge I intended to make, it's the result of an unintended sol
 `checksec` indicates all binary protections are enabled so we can assume it's not a pwn challenge (warmup lol). Perhaps start by testing the basic functionality of the app.
 
 {% code overflow="wrap" %}
+
 ```bash
 ./rigged_slot1
 Welcome to the Rigged Slot Machine!
@@ -62,6 +67,7 @@ Enter your bet amount (up to $100 per spin): 100
 You lost $100.
 Current Balance: $420
 ```
+
 {% endcode %}
 
 Yes, I made this shortly after returning home from Vegas 😂
@@ -73,6 +79,7 @@ Since players only receive the binary (no sauce), let's check the winning condit
 I renamed variables already to make it clearer, here's the `main` function.
 
 {% code overflow="wrap" %}
+
 ```c
 setup_alarm(180);
 balance = 100;
@@ -102,11 +109,13 @@ do {
   printf("Invalid bet amount! Please bet an amount between $1 and $%d.\n",100);
 } while( true );
 ```
+
 {% endcode %}
 
 The `play` function will spin the slot.
 
 {% code overflow="wrap" %}
+
 ```c
 outcome = rand();
 outcome = outcome % 100;
@@ -130,11 +139,13 @@ else {
 }
 result = bet * multiplier - bet;
 ```
+
 {% endcode %}
 
 The `payout` function will print the flag.
 
 {% code overflow="wrap" %}
+
 ```c
 if (*balance < 133743) {
   puts("You can\'t withdraw money until you win the jackpot!");
@@ -151,6 +162,7 @@ fgets(flag,0x40,file);
 printf("Congratulations! You\'ve won the jackpot! Here is your flag: %s\n",flag);
 fclose(file);
 ```
+
 {% endcode %}
 
 So, what's the problem? Look at those odds! 1/100 spins will get a 100x multiplier 👀
@@ -162,6 +174,7 @@ If I run the program 100 times with a starting bet of $100, the chances are one 
 Here's my solve script. It starts with a $25 bet and then switches to $100 once the balance exceeds $10,000. You can play around with these values and see what works best, e.g. $10 starting bet, then switch to $100 when you reach $5000.
 
 {% code overflow="wrap" %}
+
 ```python
 import sys
 from pwn import *
@@ -227,6 +240,7 @@ while not got_flag:
     warn(f'Total bets placed: {count}')
     io.close()
 ```
+
 {% endcode %}
 
 Interestingly, solving the challenge locally is slightly different to remote. Notice that for the `remote` exploit, we get the flag by checking the winning balance whereas the `local` flag prints with an EOF error. I'm not sure if this is related to pwntools or something else, but maybe it will cause some confusion in the CTF (especially for a warmup challenge) 😬
@@ -236,6 +250,7 @@ Interestingly, solving the challenge locally is slightly different to remote. No
 Anyway, testing this locally is fast. Obviously it varies for each run due to the random element but with 3 attempts I got an average of 4 seconds\*, with the fastest being 1s.
 
 {% code overflow="wrap" %}
+
 ```bash
 [*] balance: 126825
 [!] Flag captured via EOF handling:
@@ -249,6 +264,7 @@ real	0m1.026s
 user	0m0.580s
 sys	0m0.472s
 ```
+
 {% endcode %}
 
 \*Note that this is the time for all runs, not the winning run. For example, when you run the script it might lose 100 games in a row before it wins. Some of those games may take a few seconds, but could be longer. In other words, if `time` shows over 180 seconds and you still won, it's because the final game didn't exceed the limit.
@@ -256,6 +272,7 @@ sys	0m0.472s
 Solving remotely certainly takes longer, but it's possible to solve well within the allocated 180 second time limit. In 3 attempts I got an average of 62 seconds, with the fastest being 34s.
 
 {% code overflow="wrap" %}
+
 ```bash
 [*] balance: 136800
 [!] Jackpot threshold reached. Attempting to retrieve flag.
@@ -266,6 +283,11 @@ real	0m33.884s
 user	0m0.866s
 sys	0m0.678s
 ```
+
 {% endcode %}
 
 Flag: `INTIGRITI{ju57_l1k3_7h47_y0u_4r3_4_m1ll10n41r3!}`
+
+Note: I have to apologise to some players here. After the event I helped debug a players script and it turns out I didn't leave enough time for those really far from the server (India, Australia etc) with poor connections. I _should_ of tested my solution with a VPN connected in various countries before the event, it didn't occur to me but I know for next time! 💜
+
+Someone actually found a nice unintended that works on both Rigged slot 1 _and_ 2. I'll not spoil it yet, so they have an opportunity to create a writeup!

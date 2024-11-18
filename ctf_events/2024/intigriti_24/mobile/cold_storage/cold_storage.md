@@ -33,6 +33,7 @@ Now is the time to decompile the APK with a tool like `jadx-gui` (maybe you did 
 You will find it is a [cordova app](https://cordova.apache.org) and in the `index.html` is the pin, simplez!
 
 {% code overflow="wrap" %}
+
 ```js
 function unlockVault() {
     var pin = document.getElementById("pin").value.trim();
@@ -48,11 +49,13 @@ function unlockVault() {
     }
 }
 ```
+
 {% endcode %}
 
 It retrieves the encrypted key.
 
 {% code overflow="wrap" %}
+
 ```js
 function retrieveencryptedKey() {
     var keyInput = document.getElementById("encryptedKey");
@@ -62,14 +65,17 @@ function retrieveencryptedKey() {
     document.getElementById("message").style.color = "blue";
 }
 ```
+
 {% endcode %}
 
 It looks something like this (the UI and encrypted format changed a bit but I cba booting `android-studio` in my VM lol).
+
 ![](./images/1.PNG)
 
 But that's no use, we want the decrypted key! Lets check the `keygen()` function.
 
 {% code overflow="wrap" %}
+
 ```js
 (function (_0x506dbf, _0x170411) {
     const _0x12e004 = a0_0x1707,
@@ -171,6 +177,7 @@ function keygen() {
     return _0x351569[_0x588caa(0x11a)]((_0x5ca89b) => ("0" + _0x5ca89b[_0x588caa(0x110)](0x10))[_0x588caa(0x115)](-0x2))[_0x588caa(0x116)]("");
 }
 ```
+
 {% endcode %}
 
 Ewww.. obfuscation 🤮 There's a lot of approaches here. You might try to manually reverse, or throw it into some de-obfuscation tool 🤔
@@ -182,6 +189,7 @@ Maybe you focus on values you can see in the original code, e.g. what is `942574
 Let's [deobfuscate](https://obf-io.deobfuscate.io).
 
 {% code overflow="wrap" %}
+
 ```js
 function affineEncrypt(_0x1930bc, _0x36e79b, _0x33477e) {
     return (_0x36e79b * _0x1930bc + _0x33477e) % 0x100;
@@ -215,11 +223,13 @@ function keygen() {
     return _0x351569.map((_0x5ca89b) => ("0" + _0x5ca89b.toString(0x10)).slice(-0x2)).join("");
 }
 ```
+
 {% endcode %}
 
 Much better! I'll also ask ChatGPT to further deobfuscate, including variable renaming, comments etc.
 
 {% code overflow="wrap" %}
+
 ```js
 // Function to perform Affine encryption on a single byte
 function affineEncrypt(inputByte, multiplier, increment) {
@@ -264,11 +274,13 @@ function keygen() {
     return transformedArray.map((byte) => ("0" + byte.toString(16)).slice(-2)).join("");
 }
 ```
+
 {% endcode %}
 
 We can paste that into the devtools console and print out each step.
 
 {% code overflow="wrap" %}
+
 ```js
 let reordered = [parts[3], parts[5], parts[1], parts[4], parts[2], parts[0]].join("");
 console.log(reordered);
@@ -279,6 +291,7 @@ console.log(transformedArray);
 
 return transformedArray.map((byte) => ("0" + byte.toString(16)).slice(-2)).join("");
 ```
+
 {% endcode %}
 
 This time, we get some new values.
@@ -290,6 +303,7 @@ Hex decoding `d733634327037353f546c60336f5332757363353f5270366f5863657d6f50353b7
 Alright, let's convert the other arrays to ASCII.
 
 {% code overflow="wrap" %}
+
 ```js
 function keygen() {
     // Split the long hex string into six parts
@@ -321,6 +335,7 @@ function keygen() {
 // Call the keygen function
 keygen();
 ```
+
 {% endcode %}
 
 We get our flag!

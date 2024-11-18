@@ -62,7 +62,7 @@ Megapixels                      : 12.2
 
 Recognise the comment format? It's from Imgur, where [URLs are formatted](https://www.reddit.com/r/redditdev/comments/35bb7i/imgur_link_format) like `imgur.com/a/{alphanumeric}` (albums) and `imgur.com/g/{alphanumeric}` (galleries).
 
-Let's visit imgur.com/a/pq6TgwS and see the same image, along with a comment.
+Let's visit the [imgur link](imgur.com/a/pq6TgwS) and see the same image, along with a comment.
 
 {% code overflow="wrap" %}
 
