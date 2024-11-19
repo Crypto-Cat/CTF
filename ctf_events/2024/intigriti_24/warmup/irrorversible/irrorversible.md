@@ -18,6 +18,10 @@ layout:
 
 # IrrORversible
 
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/9NrmlOBcF1c/0.jpg)](https://youtu.be/9NrmlOBcF1c "Basic XOR encryption")
+
 ## Challenge Description
 
 > So reversible it's practically irreversible

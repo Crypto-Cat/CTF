@@ -18,6 +18,10 @@ layout:
 
 # Schrödinger's Pad
 
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/9NrmlOBcF1c/0.jpg)](https://youtu.be/9NrmlOBcF1c "One Time Pad (OTP) with a Twist")
+
 ## Challenge Description
 
 > Everyone knows you can't reuse a OTP, but throw in a cat and a box.. Maybe it's secure?
@@ -29,6 +33,7 @@ If you know me, you know I hate crypto 😑 I wanted to make a challenge for eve
 The challenge includes source code, but let's test the basically functionality. Any challenges that include a docker-compose can be started with the `./start.sh` script.
 
 {% code overflow="wrap" %}
+
 ```bash
 nc localhost 1337
 Welcome to Schrödinger's Pad!
@@ -41,9 +46,11 @@ Anyway, why don't you try it for yourself?
 cryptocat is the best!
 Encrypted (cat state=dead): 474541c44a58c8cd55efc44469474f5dc357d8505a7d
 ```
+
 {% endcode %}
 
 {% code overflow="wrap" %}
+
 ```bash
 nc localhost 1337
 Welcome to Schrödinger's Pad!
@@ -56,6 +63,7 @@ Anyway, why don't you try it for yourself?
 cryptocat is the best!
 Encrypted (cat state=dead): d1d7da576ae5da50587346c3f2cddae27ed8cb496967
 ```
+
 {% endcode %}
 
 Some observations:
@@ -68,44 +76,53 @@ Some observations:
 Let's get a better understanding what happens when we connect to the server. First thing to note is the key is randomly generate each time we connect (explaining the above observations).
 
 {% code overflow="wrap" %}
+
 ```python
 KEY = ''.join(random.choices(string.ascii_letters + string.digits, k=160)).encode()
 ```
+
 {% endcode %}
 
 Next, the flag is encrypted using a `otp` function.
 
 {% code overflow="wrap" %}
+
 ```python
 client_socket.send(f"Encrypted(cat state=ERROR! 'cat not in box'):
 	                {otp(FLAG.encode(), KEY).hex()}\n".encode())
 ```
+
 {% endcode %}
 
 Finally, it takes a plaintext message (up to 160 bytes) from the user and encrypts it.
 
 {% code overflow="wrap" %}
+
 ```python
 cat_state = random.choice([0, 1])
 ciphertext = otp(plaintext, KEY)
 c_ciphertext = check_cat_box(ciphertext, cat_state)
 cat_state_str = "alive" if cat_state == 1 else "dead"
 ```
+
 {% endcode %}
 
 Let's have a look at the two functions. First is `otp`
 
 {% code overflow="wrap" %}
+
 ```python
 def otp(p, k):
     k_r = (k * ((len(p) // len(k)) + 1))[:len(p)]
     return bytes([p ^ k for p, k in zip(p, k_r)])
 ```
+
 {% endcode %}
 
 It might look fancy, but it's simply XORing the plaintext with the key. Next is `check_cat_box`\*
 
 {% code overflow="wrap" %}
+
 ```python
 def check_cat_box(ciphertext, cat_state):
     c = bytearray(ciphertext)
@@ -118,6 +135,7 @@ def check_cat_box(ciphertext, cat_state):
             c[i] ^= 0xCA
     return bytes(c)
 ```
+
 {% endcode %}
 
 It performs some bitwise operations (shift and XOR) depending on the `cat_state`, which is also randomly determined.
@@ -137,6 +155,7 @@ _Actually_, this wasn't my intention for the challenge - as you'll probably see 
 ### Solve.py
 
 {% code overflow="wrap" %}
+
 ```python
 import socket
 import binascii
@@ -234,11 +253,13 @@ def decrypt():
 if __name__ == "__main__":
     decrypt()
 ```
+
 {% endcode %}
 
 As mentioned in the last section, the solve script goes the long, but originally intended way. It's easiest just to do `c2 ^ p2 = k` and then `c1 ^ k = p1`.
 
 {% code overflow="wrap" %}
+
 ```bash
 python solve.py
 Welcome to Schrödinger's Pad!
@@ -253,6 +274,7 @@ Encrypted (cat state=dead): 4b4a516cc15c47f8cb62c6c5c1d0f64954e4df55e9dbda427365
 
 Recovered secret message (m1): Not the flag you're searching for, Keep looking close, there's plenty more. INTIGRITI{TODO} A clue I might be, but not the key, The flag is hidden, not in me!!
 ```
+
 {% endcode %}
 
 Repeat against remote for the real flag!
