@@ -2,7 +2,7 @@
 
 -   [Warmup: BabyFlow](intigriti_24/warmup/babyflow/babyflow.md)
 -   [Warmup: In Plain Sight](intigriti_24/warmup/in_plain_sight/in_plain_sight.md)
--   [Warmup: Irrorversible](intigriti_24/warmup/irrorversible/irrorversible.md)
+-   [Warmup: IrrORversible](intigriti_24/warmup/irrorversible/irrorversible.md)
 -   [Warmup: Layers](intigriti_24/warmup/layers/layers.md)
 -   [Warmup: Rigged Slot Machine 1](intigriti_24/warmup/rigged_slot_machine1/rigged_slot_machine1.md)
 -   [Pwn: Rigged Slot Machine 2](intigriti_24/pwn/rigged_slot_machine2/rigged_slot_machine2.md)
