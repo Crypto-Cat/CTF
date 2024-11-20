@@ -18,6 +18,10 @@ layout:
 
 # Pizza Paradise
 
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/qPxKyYrf9p4/0.jpg)](https://youtu.be/qPxKyYrf9p4 "Robots.txt, Hash Cracking and Path Traversal")
+
 ## Challenge Description
 
 > Something weird going on at this pizza store!!
