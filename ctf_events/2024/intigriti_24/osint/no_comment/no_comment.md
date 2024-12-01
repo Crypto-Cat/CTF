@@ -18,6 +18,10 @@ layout:
 
 # No Comment
 
+## Video walkthrough
+
+[![VIDEO](https://img.youtube.com/vi/uzwKwI72FDQ/0.jpg)](https://youtu.be/uzwKwI72FDQ "OSINT: Following the Breadcrumbs")
+
 ## Challenge Description
 
 > Or is there? 🤔
