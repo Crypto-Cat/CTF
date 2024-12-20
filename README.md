@@ -2,7 +2,7 @@
 
 CTF chall write-ups, files, scripts etc to go with my **[video walkthroughs](https://www.youtube.com/@_CryptoCat)**
 
-Check out my new [gitbook](https://crypto-cat.gitbook.io) 🥰
+Check out my new [gitbook](https://crypto-cat.gitbook.io) and [discord server](https://discord.gg/qHbAN3wfRK) 🥰
 
 A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 
