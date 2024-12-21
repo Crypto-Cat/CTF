@@ -42,7 +42,6 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[VulnHub](https://www.vulnhub.com)**<br>
 **[VulnMachines](https://www.vulnmachines.com)**<br>
 **[HackingLab](https://www.hacking-lab.com/index.html)**<br>
-**[CyberSecLabs](https://www.cyberseclabs.co.uk)**<br>
 **[UnderTheWire](https://underthewire.tech/wargames)**<br>
 **[HackXOR](https://hackxor.net)**<br>
 **[Hacktoria](https://hacktoria.com)**
