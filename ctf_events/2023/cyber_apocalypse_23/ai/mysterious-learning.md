@@ -1,2 +1,0 @@
-# Mysterious Learning
-
