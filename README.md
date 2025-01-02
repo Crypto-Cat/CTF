@@ -7,6 +7,7 @@ Check out my new [gitbook](https://crypto-cat.gitbook.io) and [discord server](h
 A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 
 # CTF
+
 **[CTFTime](https://ctftime.org)**<br>
 **[OverTheWire](https://overthewire.org/wargames)**<br>
 **[PicoCTF](https://play.picoctf.org)**<br>
@@ -27,6 +28,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[Mobile](https://github.com/xtiankisutsa/awesome-mobile-CTF)**
 
 # Pentesting
+
 **[HackTheBox](https://hacktheboxltd.sjv.io/xk75Yk)**<br>
 **[TryHackMe](https://tryhackme.com)**<br>
 **[OffSec Proving Grounds](https://www.offensive-security.com/labs)**<br>
@@ -47,6 +49,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[Hacktoria](https://hacktoria.com)**
 
 # Pwn / RE
+
 **[Pwn.College](https://pwn.college)**<br>
 **[ROP Emporium](https://ropemporium.com)**<br>
 **[Exploit Education](https://exploit.education)**<br>
@@ -56,18 +59,21 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[Deusx64](https://deusx64.ai)**<br>
 **[Roppers Academy](https://roppers.org/collections)**<br>
 **[Azeria Labs](https://azeria-labs.com/writing-arm-assembly-part-1)**<br>
+**[NightMare](https://guyinatuxedo.github.io)**<br>
+**[Ir0nstone](https://ir0nstone.gitbook.io)**<br>
 **[Reversing Challenges](https://challenges.re)**<br>
 **[Begin RE](https://www.begin.re)**<br>
 **[CrackMes](https://crackmes.one)**
 
 # Blue Team
+
 **[LetsDefend](https://letsdefend.io)**<br>
-**[Blue Team Labs Online](https://blueteamlabs.online)**<br>
 **[Cyber Defenders](https://cyberdefenders.org)**<br>
 **[Attack Defense](https://attackdefense.com)**<br>
 **[Immersive Labs](https://dca.immersivelabs.online)**
 
 # Videos
+
 **[LiveOverflow](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN)**<br>
 **[John Hammond](https://www.youtube.com/c/JohnHammond010)**<br>
 **[IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA)**<br>
@@ -116,6 +122,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[Even More..](https://www.youtube.com/c/CryptoCat23/channels?view=56&shelf_id=0)**
 
 # Tools
+
 **[Ghidra](https://ghidra-sre.org/CheatSheet.html)**<br>
 **[Volatility](https://github.com/volatilityfoundation/volatility/wiki/Linux)**<br>
 **[PwnTools](https://github.com/Gallopsled/pwntools-tutorial)**<br>
@@ -129,6 +136,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[RevShells](https://revshells.com)**
 
 # More Resources
+
 **[Bug Bounty Platforms](https://github.com/disclose/bug-bounty-platforms)**<br>
 **[HackTricks](https://book.hacktricks.xyz/pentesting-methodology)**<br>
 **[CTF Resources](https://github.com/apsdehal/awesome-ctf)**<br>
