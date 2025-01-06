@@ -62,12 +62,12 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[NightMare](https://guyinatuxedo.github.io)**<br>
 **[Ir0nstone](https://ir0nstone.gitbook.io)**<br>
 **[Reversing Challenges](https://challenges.re)**<br>
-**[Begin RE](https://www.begin.re)**<br>
 **[CrackMes](https://crackmes.one)**
 
 # Blue Team
 
 **[LetsDefend](https://letsdefend.io)**<br>
+**[Blue Team Labs Online](https://blueteamlabs.online)**<br>
 **[Cyber Defenders](https://cyberdefenders.org)**<br>
 **[Attack Defense](https://attackdefense.com)**<br>
 **[Immersive Labs](https://dca.immersivelabs.online)**
