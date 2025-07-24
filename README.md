@@ -26,6 +26,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 **[SecurityValley CTF](https://ctf.securityvalley.org)**<br>
 **[Game Hacking](https://github.com/mrT4ntr4/CTF-Game-Challenges)**<br>
 **[Mobile](https://github.com/xtiankisutsa/awesome-mobile-CTF)**
+**[8kSec Battlegrounds](https://8ksec.io/battle/)**
 
 # Pentesting
 
