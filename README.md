@@ -137,6 +137,7 @@ A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 
 # More Resources
 
+**[LabEx Cybersecurity Learning Lab](https://labex.io/learn/cybersecurity)** - Interactive hands-on cybersecurity labs covering penetration testing, web vulnerabilities, network security, and ethical hacking fundamentals essential for CTF challenges<br>
 **[Bug Bounty Platforms](https://github.com/disclose/bug-bounty-platforms)**<br>
 **[HackTricks](https://book.hacktricks.xyz/pentesting-methodology)**<br>
 **[CTF Resources](https://github.com/apsdehal/awesome-ctf)**<br>
