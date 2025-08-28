@@ -1,4 +1,4 @@
-```sh
+```bash
 alias ifconfig='sudo ifconfig'
 alias s='sudo'
 alias c='clear'
@@ -64,7 +64,7 @@ mount(){
   if [ $# -eq 0 ]; then command mount | column -t; else sudo mount "$@"; fi
 }
 
-wpscanz(){ wpscan -e ap,t,u --api-token REDACTED --random-user-agent --throttle 0.5 --url "$1"; }
+wpscanz(){ wpscan -e ap,t,u --api-token REDACTED --url "$1"; }
 wpbrute(){ wpscan --password-attack xmlrpc -U "$2" -P "$3" --api-token REDACTED --url "$1"; }
 
 mobsf_emulator(){ emulator -avd "$1" -writable-system -no-snapshot; }
