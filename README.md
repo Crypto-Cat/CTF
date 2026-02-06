@@ -1,149 +1,169 @@
 # Hacking Resources
 
-CTF chall write-ups, files, scripts etc to go with my **[video walkthroughs](https://yt.cryptocat.me)**
+CTF challenge write-ups, files, scripts etc to go with my **[video walkthroughs](https://yt.cryptocat.me)**
 
-Check out my new [blog](https://cryptocat.me/blog) and [discord server](https://cryptocat.me/discord) 🥰
+Check out my [blog](https://cryptocat.me/blog/) and [discord server](https://cryptocat.me/discord) 🥰
 
 A challenge that takes 10 hours to solve, takes 10 minutes to explain..
 
-# CTF
+## CTF
 
-**[CTFTime](https://ctftime.org)**<br>
-**[OverTheWire](https://overthewire.org/wargames)**<br>
-**[PicoCTF](https://play.picoctf.org)**<br>
-**[Intigriti Monthly Challenge](https://challenge.intigriti.io)**<br>
-**[ImaginaryCTF](https://imaginaryctf.org)**<br>
-**[247CTF](https://247ctf.com)**<br>
-**[CTF Challenge](https://ctfchallenge.com)**<br>
-**[CTF Learn](https://ctflearn.com)**<br>
-**[CryptoHack](https://cryptohack.org)**<br>
-**[Google CTF](https://capturetheflag.withgoogle.com)**<br>
-**[HackThisSite](https://www.hackthissite.org)**<br>
-**[SmashTheStack](http://www.smashthestack.org/main.html#wargames)**<br>
-**[W3Challs](https://w3challs.com/challenges)**<br>
-**[Ringzer0CTF](https://ringzer0ctf.com/challenges)**<br>
-**[Root Me](https://www.root-me.org)**<br>
-**[SecurityValley CTF](https://ctf.securityvalley.org)**<br>
-**[Game Hacking](https://github.com/mrT4ntr4/CTF-Game-Challenges)**<br>
+**[CTFTime](https://ctftime.org/)**  
+**[OverTheWire](https://overthewire.org/wargames/)**  
+**[PicoCTF](https://play.picoctf.org/)**  
+**[Intigriti Monthly Challenge](https://bugology.intigriti.io/intigriti-monthly-challenges)**  
+**[ImaginaryCTF](https://imaginaryctf.org/)**  
+**[247CTF](https://247ctf.com/)**  
+**[Hacker 101](https://ctf.hacker101.com/)**  
+**[CTF Learn](https://ctflearn.com/)**  
+**[CryptoHack](https://cryptohack.org/)**  
+**[Cryptopals](https://cryptopals.com/)**  
+**[Google CTF](https://capturetheflag.withgoogle.com/)**  
+**[HackThisSite](https://www.hackthissite.org/)**  
+**[SmashTheStack](http://www.smashthestack.org/main.html#wargames)**  
+**[W3Challs](https://w3challs.com/challenges/)**  
+**[Ringzer0CTF](https://ringzer0ctf.com/challenges)**  
+**[Root Me](https://www.root-me.org/)**  
+**[Game Hacking](https://github.com/mrT4ntr4/CTF-Game-Challenges)**  
 **[Mobile](https://github.com/xtiankisutsa/awesome-mobile-CTF)**
 
-# Pentesting
+## Pentesting
 
-**[HackTheBox](https://hacktheboxltd.sjv.io/xk75Yk)**<br>
-**[TryHackMe](https://tryhackme.com)**<br>
-**[OffSec Proving Grounds](https://www.offensive-security.com/labs)**<br>
-**[Web Security Academy](https://portswigger.net/web-security)**<br>
-**[OWASP Juice Shop](https://github.com/juice-shop/juice-shop-ctf)**<br>
-**[Damn Vulnerable Web Application (DVWA)](https://github.com/digininja/DVWA)**<br>
-**[AWSGoat: Damn Vulnerable AWS](https://github.com/ine-labs/AWSGoat)**<br>
-**[AzureGoat: Damn Vulnerable Azure](https://github.com/ine-labs/AzureGoat)**<br>
-**[Damn Vulnerable DeFi](https://www.damnvulnerabledefi.xyz)**<br>
-**[Ethernaut: Web3/Solidity Hacking](https://ethernaut.openzeppelin.com)**<br>
-**[Hacker 101](https://ctf.hacker101.com)**<br>
-**[PentesterLab](https://pentesterlab.com)**<br>
-**[VulnHub](https://www.vulnhub.com)**<br>
-**[VulnMachines](https://www.vulnmachines.com)**<br>
-**[HackingLab](https://www.hacking-lab.com/index.html)**<br>
-**[UnderTheWire](https://underthewire.tech/wargames)**<br>
-**[HackXOR](https://hackxor.net)**<br>
-**[Hacktoria](https://hacktoria.com)**
+**[HackTheBox](https://htb-signup.cryptocat.me)**  
+**[TryHackMe](https://tryhackme.com/)**  
+**[OffSec Proving Grounds](https://www.offsec.com/products/proving-grounds/)**  
+**[Web Security Academy](https://portswigger.net/web-security)**  
+**[PentesterLab](https://pentesterlab.com/)**  
+**[Juice Shop](https://github.com/juice-shop/juice-shop-ctf)**  
+**[DVWA](https://github.com/digininja/DVWA)**  
+**[OWASP WebGoat](https://owasp.org/www-project-webgoat/)**  
+**[Kubernetes Goat](https://github.com/madhuakula/kubernetes-goat)**  
+**[OWASP EKS Goat](https://github.com/OWASP/www-project-eks-goat)**  
+**[AWSGoat](https://github.com/ine-labs/AWSGoat)**  
+**[AzureGoat](https://github.com/ine-labs/AzureGoat)**  
+**[Damn Vulnerable DeFi](https://www.damnvulnerabledefi.xyz/)**  
+**[Ethernaut](https://ethernaut.openzeppelin.com/)**  
+**[VulnHub](https://www.vulnhub.com/)**  
+**[VulnMachines](https://www.vulnmachines.com/)**  
+**[HackingLab](https://hacking-lab.com/index.html)**  
+**[UnderTheWire](https://underthewire.tech/wargames)**  
+**[VulnLab](https://www.vulnlab.com/)**  
+**[HackingHub](https://www.hackinghub.io/)**  
+**[HexTree](https://www.hextree.io/)**
 
-# Pwn / RE
+## Pwn / Rev
 
-**[Pwn.College](https://pwn.college)**<br>
-**[ROP Emporium](https://ropemporium.com)**<br>
-**[Exploit Education](https://exploit.education)**<br>
-**[How2Heap](https://github.com/shellphish/how2heap)**<br>
-**[GuidedHacking](https://guidedhacking.com)**<br>
-**[Pwnables](https://pwnable.tw/challenge)**<br>
-**[Deusx64](https://deusx64.ai)**<br>
-**[Roppers Academy](https://roppers.org/collections)**<br>
-**[Azeria Labs](https://azeria-labs.com/writing-arm-assembly-part-1)**<br>
-**[NightMare](https://guyinatuxedo.github.io)**<br>
-**[Ir0nstone](https://ir0nstone.gitbook.io)**<br>
-**[Reversing Challenges](https://challenges.re)**<br>
-**[CrackMes](https://crackmes.one)**
+**[Pwn.College](https://pwn.college/)**  
+**[ROP Emporium](https://ropemporium.com/)**  
+**[Exploit Education](https://exploit.education/)**  
+**[How2Heap](https://github.com/shellphish/how2heap)**  
+**[Pwnable.kr](https://pwnable.kr/)**  
+**[OpenSecurityTraining2](https://p.ost2.fyi/courses)**  
+**[Microcorruption](https://microcorruption.com/)**  
+**[Azeria Labs](https://azeria-labs.com/writing-arm-assembly-part-1/)**  
+**[Nightmare](https://guyinatuxedo.github.io/)**  
+**[Ir0nstone](https://ir0nstone.gitbook.io/notes)**  
+**[Challenges.re](https://challenges.re/)**  
+**[CrackMes](https://crackmes.one/)**  
+**[GuidedHacking](https://guidedhacking.com/)**
 
-# Blue Team
+## Blue Team
 
-**[LetsDefend](https://letsdefend.io)**<br>
-**[Blue Team Labs Online](https://blueteamlabs.online)**<br>
-**[Cyber Defenders](https://cyberdefenders.org)**<br>
-**[Attack Defense](https://attackdefense.com)**<br>
-**[Immersive Labs](https://dca.immersivelabs.online)**
+**[DFIR Labs](https://dfirlabs.thedfirreport.com/)**  
+**[XINTRA](https://www.xintra.org/)**  
+**[LetsDefend](https://letsdefend.io/)**  
+**[Blue Team Labs Online](https://blueteamlabs.online/)**  
+**[Cyber Defenders](https://cyberdefenders.org/)**  
+**[Immersive Labs](https://www.immersivelabs.com/)**
 
-# Videos
+## Videos
 
-**[LiveOverflow](https://www.youtube.com/playlist?list=PLhixgUqwRTjxglIswKp9mpkfPNfHkzyeN)**<br>
-**[John Hammond](https://www.youtube.com/c/JohnHammond010)**<br>
-**[IppSec](https://www.youtube.com/channel/UCa6eh7gCkpPo5XXUDfygQQA)**<br>
-**[XCT](https://www.youtube.com/channel/UClGm2C8Qi0_Wv68zfjCz2YA)**<br>
-**[Gynvael](https://www.youtube.com/user/GynvaelEN)**<br>
-**[ZetaTwo](https://www.youtube.com/c/ZetaTwo)**<br>
-**[PwnFunction](https://www.youtube.com/channel/UCW6MNdOsqv2E9AjQkv9we7A)**<br>
-**[0xdf](https://www.youtube.com/channel/UChO9OAH57Flz35RRX__E25A)**<br>
-**[BBRE](https://www.youtube.com/@BugBountyReportsExplained)**<br>
-**[CTBB podcast](https://www.youtube.com/@criticalthinkingpodcast)**<br>
-**[rs0n](https://www.youtube.com/@rs0n_live)**<br>
-**[GuidedHacking](https://www.youtube.com/channel/UCCMi6F5Ac3kQDfffWXQGZDw)**<br>
-**[Stephen Chapman](https://www.youtube.com/channel/UCqfqH-wq12WOm4QG4KiRisw)**<br>
-**[StackSmashing](https://www.youtube.com/c/stacksmashing)**<br>
-**[247CTF](https://www.youtube.com/channel/UCtGLeKomT06x3xZ2SZp2l9Q)**<br>
-**[DayZeroSec](https://www.youtube.com/c/dayzerosec)**<br>
-**[Rana Khalil](https://www.youtube.com/c/RanaKhalil101)**<br>
-**[Conda](https://www.youtube.com/c/c0nd4)**<br>
-**[HackerSploit](https://www.youtube.com/c/HackerSploit)**<br>
-**[Condingo](https://www.youtube.com/c/codingo)**<br>
-**[InsiderPhd](https://www.youtube.com/c/InsiderPhD)**<br>
-**[HackSplained](https://www.youtube.com/c/Hacksplained)**<br>
-**[TheCyberMentor](https://www.youtube.com/c/TheCyberMentor)**<br>
-**[PinkDraconian](https://www.youtube.com/channel/UCmXwpkCXmIKjoRLMsq9I3RA)**<br>
-**[Superhero1](https://www.youtube.com/channel/UCm2SwKmx3Ya1HG5RmHR7SCA)**<br>
-**[S1lk](https://www.youtube.com/c/AlexChaveriat)**<br>
-**[Alh4zr3d](https://www.youtube.com/channel/UCz-Z-d2VPQXHGkch0-_KovA)**<br>
-**[Paweł Łukasik](https://www.youtube.com/c/PawelLukasik)**<br>
-**[Ephemeral](https://www.youtube.com/c/BasteG0d69)**<br>
-**[Hak5](https://www.youtube.com/c/hak5)**<br>
-**[Cybersecurity Meg](https://www.youtube.com/c/CybersecurityMeg)**<br>
-**[Tib3rius](https://www.youtube.com/c/Tib3rius)**<br>
-**[SecAura](https://www.youtube.com/channel/UCx89Lz24SEPZpExl6OfQ0Gg)**<br>
-**[DarkSec](https://www.youtube.com/c/DarkSec)**<br>
-**[Hexorcist](https://www.youtube.com/c/HEXORCIST)**<br>
-**[PwnCollege](https://www.youtube.com/c/pwncollege)**<br>
-**[NahamSec](https://www.youtube.com/c/Nahamsec)**<br>
-**[LaurieWired](https://www.youtube.com/@lauriewired)**<br>
-**[Optional](https://www.youtube.com/c/optionalctf)**<br>
-**[TheHackerish](https://www.youtube.com/c/thehackerish)**<br>
-**[MalFind](https://www.youtube.com/channel/UCJf4-reOhoiAlScWC1WzLgQ)**<br>
-**[SloppyJoePirates](https://www.youtube.com/@SloppyJoePirates)**<br>
-**[AlmondForce](https://www.youtube.com/c/AlmondForce)**<br>
-**[VulnMachines](https://www.youtube.com/c/vulnmachines)**<br>
-**[More](https://securitycreators.video)**<br>
-**[Even More..](https://www.youtube.com/c/CryptoCat23/channels?view=56&shelf_id=0)**
+Sorted by subs > videos > latest (metrics pulled 2026-02-06)
 
-# Tools
+**[John Hammond](https://www.youtube.com/@_JohnHammond)**  
+**[Low Level](https://www.youtube.com/@LowLevelTV)**  
+**[HackerSploit](https://www.youtube.com/@HackerSploit)**  
+**[Hak5](https://www.youtube.com/@hak5)**  
+**[TheCyberMentor](https://www.youtube.com/@TCMSecurityAcademy)**  
+**[LiveOverflow](https://www.youtube.com/@LiveOverflow)**  
+**[Joe Grand](https://www.youtube.com/@JoeGrand)**  
+**[LaurieWired](https://www.youtube.com/@lauriewired)**  
+**[IppSec](https://www.youtube.com/@ippsec)**  
+**[PwnFunction](https://www.youtube.com/@PwnFunction)**  
+**[StackSmashing](https://www.youtube.com/@stacksmashing)**  
+**[Matt Brown](https://www.youtube.com/@mattbrwn)**  
+**[NahamSec](https://www.youtube.com/@NahamSec)**  
+**[GuidedHacking](https://www.youtube.com/@GuidedHacking)**  
+**[HackerOne](https://www.youtube.com/@HackerOneTV)**  
+**[STÖK](https://www.youtube.com/@STOKfredrik)**  
+**[MalwareTechBlog](https://www.youtube.com/@MalwareTechBlog)**  
+**[Rana Khalil](https://www.youtube.com/@RanaKhalil101)**  
+**[InsiderPhD](https://www.youtube.com/@InsiderPhD)**  
+**[BBRE](https://www.youtube.com/@BugBountyReportsExplained)**  
+**[Bugcrowd](https://www.youtube.com/@Bugcrowd)**  
+**[DeadOverflow](https://www.youtube.com/@deadoverflow)**  
+**[Stephen Chapman](https://www.youtube.com/@StephenChapman)**  
+**[TheHackerish](https://www.youtube.com/@thehackerish)**  
+**[Gynvael](https://www.youtube.com/@GynvaelEN)**  
+**[BePractical](https://www.youtube.com/@BePracticalTech)**  
+**[Intigriti](https://www.youtube.com/@intigriti)**  
+**[rs0n](https://www.youtube.com/@rs0n_live)**  
+**[DarkSec](https://www.youtube.com/@DarkSec)**  
+**[Conda](https://www.youtube.com/@c0nd4)**  
+**[Tib3rius](https://www.youtube.com/@Tib3rius)**  
+**[CTBB podcast](https://www.youtube.com/@criticalthinkingpodcast)**  
+**[Cybersecurity Meg](https://www.youtube.com/@CybersecurityMeg)**  
+**[PwnCollege](https://www.youtube.com/@pwncollege)**  
+**[PinkDraconian](https://www.youtube.com/@PinkDraconian)**  
+**[HackSplained](https://www.youtube.com/@Hacksplained)**  
+**[0xdf](https://www.youtube.com/@0xdf)**  
+**[247CTF](https://www.youtube.com/@247CTF)**  
+**[Codingo](https://www.youtube.com/@codingo)**  
+**[AmrSec](https://www.youtube.com/@AmrSecOfficial)**  
+**[DayZeroSec](https://www.youtube.com/@dayzerosec)**  
+**[Alh4zr3d](https://www.youtube.com/@alh4zr3d3)**  
+**[XCT](https://www.youtube.com/@xct_de)**  
+**[cts](https://www.youtube.com/@gf_256)**  
+**[ZetaTwo](https://www.youtube.com/@ZetaTwo)**  
+**[Binary Adventure](https://www.youtube.com/@BinaryAdventure)**  
+**[RussianPanda](https://www.youtube.com/@RussianPanda9xx)**  
+**[AlmondForce](https://www.youtube.com/@AlmondForce)**  
+**[Optional](https://www.youtube.com/@optionalctf)**  
+**[YesWeHack](https://www.youtube.com/@yeswehack1337)**  
+**[S1lk](https://www.youtube.com/@AlexChaveriat)**  
+**[SloppyJoePirates](https://www.youtube.com/@SloppyJoePirates)**  
+**[Superhero1](https://www.youtube.com/@superhero1)**  
+**[Hexorcist](https://www.youtube.com/@HEXORCIST)**  
+**[MalFind](https://www.youtube.com/@MalfindLabs)**  
+**[SecAura](https://www.youtube.com/@SecAura)**  
+**[Paweł Łukasik](https://www.youtube.com/@allthingsreversed)**  
+**[SecOps Group](https://www.youtube.com/@thesecopsgroup)**  
+**[More...](https://securitycreators.video)**
 
-**[Ghidra](https://ghidra-sre.org/CheatSheet.html)**<br>
-**[Volatility](https://github.com/volatilityfoundation/volatility/wiki/Linux)**<br>
-**[PwnTools](https://github.com/Gallopsled/pwntools-tutorial)**<br>
-**[CyberChef](https://gchq.github.io/CyberChef)**<br>
-**[DCode](https://www.dcode.fr/en)**<br>
-**[Decompile Code](https://www.decompiler.com)**<br>
-**[Run Code](https://tio.run)**<br>
-**[GTFOBins](https://gtfobins.github.io)**<br>
-**[ExploitDB](https://www.exploit-db.com)**<br>
-**[OffsecTools](https://offsec.tools)**<br>
-**[RevShells](https://revshells.com)**
+## Tools
 
-# More Resources
+**[Ghidra](https://github.com/NationalSecurityAgency/ghidra)**  
+**[Volatility](https://github.com/volatilityfoundation/volatility/wiki/Linux)**  
+**[PwnTools](https://github.com/Gallopsled/pwntools-tutorial)**  
+**[CyberChef](https://gchq.github.io/CyberChef/)**  
+**[DCode](https://www.dcode.fr/en)**  
+**[Decompile Code](https://www.decompiler.com/)**  
+**[Run Code](https://tio.run/)**  
+**[GTFOBins](https://gtfobins.org/)**  
+**[ExploitDB](https://www.exploit-db.com/)**  
+**[OffsecTools](https://offsec.tools/)**  
+**[RevShells](https://www.revshells.com/)**  
+**[Nuclei](https://github.com/projectdiscovery/nuclei)**
 
-**[Bug Bounty Platforms](https://github.com/disclose/bug-bounty-platforms)**<br>
-**[HackTricks](https://book.hacktricks.xyz/pentesting-methodology)**<br>
-**[CTF Resources](https://github.com/apsdehal/awesome-ctf)**<br>
-**[Security Resources](https://github.com/CompassSecurity/security_resources)**<br>
-**[Bug Bounty Resources](https://www.hacker101.com/resources)**<br>
-**[Seal9055 Resources](https://github.com/seal9055/resources)**<br>
-**[Forensics](https://cugu.github.io/awesome-forensics)**<br>
-**[Learn RE](https://hshrzd.wordpress.com/how-to-start)**<br>
-**[Learn BinExp](https://guyinatuxedo.github.io)**<br>
-**[HTB Writeups](https://0xdf.gitlab.io)**
+## More Resources
+
+**[HackTricks](https://book.hacktricks.wiki/en/index.html)**  
+**[CTF Resources](https://github.com/apsdehal/awesome-ctf)**  
+**[Bug Bounty Resources](https://www.hacker101.com/resources.html)**  
+**[Bug Bounty Platforms](https://github.com/disclose/bug-bounty-platforms)**  
+**[Forensics](https://cugu.github.io/awesome-forensics/)**  
+**[Learn RE](https://hshrzd.wordpress.com/how-to-start/)**  
+**[Learn BinExp](https://guyinatuxedo.github.io/)**  
+**[HTB Writeups](https://0xdf.gitlab.io/)**  
+**[OWASP VWAD](https://owasp.org/www-project-vulnerable-web-applications-directory/)**  
+**[OWASP MASTG](https://mas.owasp.org/MASTG/)**
